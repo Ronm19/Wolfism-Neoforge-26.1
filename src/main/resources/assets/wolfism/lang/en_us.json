@@ -1,0 +1,14 @@
+{
+  "entity.wolfism.timber_wolf": "Timber Wolf",
+  "entity.wolfism.arctic_wolf": "Arctic Wolf",
+
+  "item.wolfism.timber_wolf_spawn_egg": "Timber Wolf Spawn Egg",
+  "item.wolfism.arctic_wolf_spawn_egg": "Arctic Wolf Spawn Egg",
+
+  "entity.wolfism.black_wolf": "Black Wolf",
+  "item.wolfism.black_wolf_spawn_egg": "Black Wolf Spawn Egg",
+
+  "itemGroup.wolfism.main": "Wolfism",
+  "itemGroup.wolfism.items": "Wolfism Items",
+  "itemGroup.wolfism.blocks": "Wolfism Blocks"
+}
