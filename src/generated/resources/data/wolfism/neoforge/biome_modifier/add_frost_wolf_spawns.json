@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/frost_wolf",
+  "spawners": {
+    "type": "wolfism:frost_wolf",
+    "maxCount": 3,
+    "minCount": 1,
+    "weight": 5
+  }
+}

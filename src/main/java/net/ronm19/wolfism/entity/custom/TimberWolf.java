@@ -13,7 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.ronm19.wolfism.entity.base.AbstractWolfismWolf;
+import net.ronm19.wolfism.entity.AbstractWolfismWolf;
 import net.ronm19.wolfism.entity.ai.goal.TimberHuntGoal;
 import net.ronm19.wolfism.entity.ai.goal.TimberPackAssistGoal;
 import net.ronm19.wolfism.entity.ai.goal.TimberPackCohesionGoal;

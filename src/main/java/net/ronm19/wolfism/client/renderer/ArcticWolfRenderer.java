@@ -11,9 +11,9 @@ import net.ronm19.wolfism.Wolfism;
  */
 public final class ArcticWolfRenderer extends WolfRenderer {
     private static final Identifier ADULT_TEXTURE = Identifier.fromNamespaceAndPath(
-            Wolfism.MOD_ID, "textures/entity/arctic_wolf/arctic_wolf.png");
+            Wolfism.MOD_ID, "textures/entity/wolf/arctic_wolf.png");
     private static final Identifier BABY_TEXTURE = Identifier.fromNamespaceAndPath(
-            Wolfism.MOD_ID, "textures/entity/arctic_wolf/arctic_wolf_baby.png");
+            Wolfism.MOD_ID, "textures/entity/wolf/arctic_wolf_baby.png");
 
     public ArcticWolfRenderer(EntityRendererProvider.Context context) {
         super(context);

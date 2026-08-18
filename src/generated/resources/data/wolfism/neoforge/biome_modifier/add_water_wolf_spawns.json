@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/water_wolf",
+  "spawners": {
+    "type": "wolfism:water_wolf",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 4
+  }
+}

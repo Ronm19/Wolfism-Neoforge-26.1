@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/storm_wolf",
+  "spawners": {
+    "type": "wolfism:storm_wolf",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 6
+  }
+}

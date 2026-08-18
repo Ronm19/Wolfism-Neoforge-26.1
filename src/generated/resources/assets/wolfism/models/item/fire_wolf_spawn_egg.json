@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "wolfism:item/fire_wolf_spawn_egg"
+  }
+}

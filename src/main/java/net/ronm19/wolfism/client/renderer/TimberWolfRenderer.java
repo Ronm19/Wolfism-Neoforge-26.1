@@ -15,9 +15,9 @@ import net.ronm19.wolfism.Wolfism;
  */
 public final class TimberWolfRenderer extends WolfRenderer {
     private static final Identifier ADULT_TEXTURE = Identifier.fromNamespaceAndPath(
-            Wolfism.MOD_ID, "textures/entity/timber_wolf/timber_wolf.png");
+            Wolfism.MOD_ID, "textures/entity/wolf/timber_wolf.png");
     private static final Identifier BABY_TEXTURE = Identifier.fromNamespaceAndPath(
-            Wolfism.MOD_ID, "textures/entity/timber_wolf/timber_wolf_baby.png");
+            Wolfism.MOD_ID, "textures/entity/wolf/timber_wolf_baby.png");
 
     public TimberWolfRenderer(EntityRendererProvider.Context context) {
         super(context);

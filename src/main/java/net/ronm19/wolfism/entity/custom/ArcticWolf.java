@@ -14,7 +14,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.pathfinder.PathType;
-import net.ronm19.wolfism.entity.base.AbstractWolfismWolf;
+import net.ronm19.wolfism.entity.AbstractWolfismWolf;
 import net.ronm19.wolfism.entity.ai.goal.ArcticHuntGoal;
 import net.ronm19.wolfism.entity.ai.goal.ArcticPackAssistGoal;
 import net.ronm19.wolfism.entity.ai.goal.ArcticPackCohesionGoal;

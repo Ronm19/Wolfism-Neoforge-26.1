@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/lunar_wolf",
+  "spawners": {
+    "type": "wolfism:lunar_wolf",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 4
+  }
+}

@@ -54,6 +54,16 @@ public final class ModCreativeModeTabs {
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.TIMBER_WOLF_SPAWN_EGG.get());
                         output.accept(ModItems.ARCTIC_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.BLACK_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.SAND_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.DIRE_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.FIRE_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.FROST_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.STORM_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.WATER_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.EARTH_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.SOLAR_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.LUNAR_WOLF_SPAWN_EGG.get());
                     })
                     .build());
 

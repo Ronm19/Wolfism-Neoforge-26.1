@@ -8,6 +8,7 @@ public final class ModDataGenerators {
         event.createDatapackRegistryObjects(ModBiomeModifierProvider.BUILDER);
 
         event.createProvider(ModBiomeTagProvider::new);
+        event.createProvider(ModBlockTagProvider::new);
         event.createProvider(ModModelProvider::new);
     }
 
