@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/zombie_wolf",
+  "spawners": {
+    "type": "wolfism:zombie_wolf",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 4
+  }
+}

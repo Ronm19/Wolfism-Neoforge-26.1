@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/angel_wolf_highlands",
+  "spawners": {
+    "type": "wolfism:angel_wolf",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 3
+  }
+}

@@ -64,6 +64,32 @@ public final class ModCreativeModeTabs {
                         output.accept(ModItems.EARTH_WOLF_SPAWN_EGG.get());
                         output.accept(ModItems.SOLAR_WOLF_SPAWN_EGG.get());
                         output.accept(ModItems.LUNAR_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.SPIRIT_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.SHADOW_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.GOLDEN_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.CHERRY_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.VIOLET_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.GEM_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.MUSHROOM_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.BEE_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.ZOMBIE_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.SKELETON_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.HUSK_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.DROWNED_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.PHANTOM_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.BLOOD_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.END_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.SCULK_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.INFERNAL_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.OMEN_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.ASTRAL_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.ANGEL_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.DEMON_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.GRAVE_WOLF_SPAWN_EGG.get());
+
+
+
+
                     })
                     .build());
 

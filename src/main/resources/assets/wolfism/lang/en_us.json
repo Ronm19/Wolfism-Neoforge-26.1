@@ -1,45 +1,78 @@
 {
   "entity.wolfism.timber_wolf": "Timber Wolf",
   "item.wolfism.timber_wolf_spawn_egg": "Timber Wolf Spawn Egg",
-
   "entity.wolfism.arctic_wolf": "Arctic Wolf",
   "item.wolfism.arctic_wolf_spawn_egg": "Arctic Wolf Spawn Egg",
-
   "entity.wolfism.black_wolf": "Black Wolf",
   "item.wolfism.black_wolf_spawn_egg": "Black Wolf Spawn Egg",
-
   "entity.wolfism.sand_wolf": "Sand Wolf",
   "item.wolfism.sand_wolf_spawn_egg": "Sand Wolf Spawn Egg",
-
   "entity.wolfism.dire_wolf": "Dire Wolf",
   "item.wolfism.dire_wolf_spawn_egg": "Dire Wolf Spawn Egg",
-
   "entity.wolfism.fire_wolf": "Fire Wolf",
   "item.wolfism.fire_wolf_spawn_egg": "Fire Wolf Spawn Egg",
-
   "entity.wolfism.frost_wolf": "Frost Wolf",
   "item.wolfism.frost_wolf_spawn_egg": "Frost Wolf Spawn Egg",
-
   "entity.wolfism.storm_wolf": "Storm Wolf",
   "item.wolfism.storm_wolf_spawn_egg": "Storm Wolf Spawn Egg",
-
   "entity.wolfism.water_wolf": "Water Wolf",
   "item.wolfism.water_wolf_spawn_egg": "Water Wolf Spawn Egg",
-
-  "item.wolfism.earth_wolf_spawn_egg": "Earth Wolf Spawn Egg",
   "entity.wolfism.earth_wolf": "Earth Wolf",
-
-  "item.wolfism.solar_wolf_spawn_egg": "Solar Wolf Spawn Egg",
+  "item.wolfism.earth_wolf_spawn_egg": "Earth Wolf Spawn Egg",
   "entity.wolfism.solar_wolf": "Solar Wolf",
-
+  "item.wolfism.solar_wolf_spawn_egg": "Solar Wolf Spawn Egg",
   "entity.wolfism.lunar_wolf": "Lunar Wolf",
   "item.wolfism.lunar_wolf_spawn_egg": "Lunar Wolf Spawn Egg",
-
   "entity.wolfism.spirit_wolf": "Spirit Wolf",
   "item.wolfism.spirit_wolf_spawn_egg": "Spirit Wolf Spawn Egg",
+  "entity.wolfism.shadow_wolf": "Shadow Wolf",
+  "item.wolfism.shadow_wolf_spawn_egg": "Shadow Wolf Spawn Egg",
+  "entity.wolfism.golden_wolf": "Golden Wolf",
+  "item.wolfism.golden_wolf_spawn_egg": "Golden Wolf Spawn Egg",
+  "entity.wolfism.cherry_wolf": "Cherry Wolf",
+  "item.wolfism.cherry_wolf_spawn_egg": "Cherry Wolf Spawn Egg",
+  "entity.wolfism.violet_wolf": "Violet Wolf",
+  "item.wolfism.violet_wolf_spawn_egg": "Violet Wolf Spawn Egg",
+  "entity.wolfism.gem_wolf": "Gem Wolf",
+  "item.wolfism.gem_wolf_spawn_egg": "Gem Wolf Spawn Egg",
+  "entity.wolfism.mushroom_wolf": "Mushroom Wolf",
+  "item.wolfism.mushroom_wolf_spawn_egg": "Mushroom Wolf Spawn Egg",
+  "entity.wolfism.bee_wolf": "Bee Wolf",
+  "item.wolfism.bee_wolf_spawn_egg": "Bee Wolf Spawn Egg",
+  "entity.wolfism.zombie_wolf": "Zombie Wolf",
+  "item.wolfism.zombie_wolf_spawn_egg": "Zombie Wolf Spawn Egg",
+  "entity.wolfism.skeleton_wolf": "Skeleton Wolf",
+  "item.wolfism.skeleton_wolf_spawn_egg": "Skeleton Wolf Spawn Egg",
+  "entity.wolfism.husk_wolf": "Husk Wolf",
+  "item.wolfism.husk_wolf_spawn_egg": "Husk Wolf Spawn Egg",
+  "entity.wolfism.drowned_wolf": "Drowned Wolf",
+  "item.wolfism.drowned_wolf_spawn_egg": "Drowned Wolf Spawn Egg",
+  "entity.wolfism.phantom_wolf": "Phantom Wolf",
+  "item.wolfism.phantom_wolf_spawn_egg": "Phantom Wolf Spawn Egg",
+  "entity.wolfism.blood_wolf": "Blood Wolf",
+  "item.wolfism.blood_wolf_spawn_egg": "Blood Wolf Spawn Egg",
+  "entity.wolfism.end_wolf": "End Wolf",
+  "item.wolfism.end_wolf_spawn_egg": "End Wolf Spawn Egg",
+  "entity.wolfism.sculk_wolf": "Sculk Wolf",
+  "item.wolfism.sculk_wolf_spawn_egg": "Sculk Wolf Spawn Egg",
+  "entity.wolfism.infernal_wolf": "Infernal Wolf",
+  "item.wolfism.infernal_wolf_spawn_egg": "Infernal Wolf Spawn Egg",
+  "entity.wolfism.omen_wolf": "Omen Wolf",
+  "item.wolfism.omen_wolf_spawn_egg": "Omen Wolf Spawn Egg",
+  "entity.wolfism.astral_wolf": "Astral Wolf",
+  "item.wolfism.astral_wolf_spawn_egg": "Astral Wolf Spawn Egg",
+  "entity.wolfism.angel_wolf": "Angel Wolf",
+  "item.wolfism.angel_wolf_spawn_egg": "Angel Wolf Spawn Egg",
+  "entity.wolfism.demon_wolf": "Demon Wolf",
+  "item.wolfism.demon_wolf_spawn_egg": "Demon Wolf Spawn Egg",
+  "entity.wolfism.grave_wolf": "Grave Wolf",
+  "item.wolfism.grave_wolf_spawn_egg": "Grave Wolf Spawn Egg",
+  "entity.wolfism.rift_wolf": "Rift Wolf",
+  "item.wolfism.rift_wolf_spawn_egg": "RiftWolf Spawn Egg",
+
+
 
   "itemGroup.wolfism.main": "Wolfism",
   "itemGroup.wolfism.items": "Wolfism Items",
   "itemGroup.wolfism.blocks": "Wolfism Blocks"
-
 }

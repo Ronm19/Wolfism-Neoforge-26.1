@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/drowned_wolf",
+  "spawners": {
+    "type": "wolfism:drowned_wolf",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 3
+  }
+}

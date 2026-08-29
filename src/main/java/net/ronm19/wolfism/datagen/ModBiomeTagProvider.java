@@ -7,6 +7,7 @@ import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.world.level.biome.Biomes;
 import net.ronm19.wolfism.Wolfism;
 import net.ronm19.wolfism.tag.ModBiomeTags;
+import net.ronm19.wolfism.worldgen.biome.ModBiomes;
 
 public final class ModBiomeTagProvider extends BiomeTagsProvider {
     public ModBiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -177,6 +178,159 @@ public final class ModBiomeTagProvider extends BiomeTagsProvider {
                 Biomes.STONY_PEAKS,
                 Biomes.JAGGED_PEAKS
         );
+
+        tag(ModBiomeTags.SPIRIT_WOLF_SPAWNS).add(
+                Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.DARK_FOREST, Biomes.TAIGA,
+                Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.GROVE);
+
+        tag(ModBiomeTags.SHADOW_WOLF_SPAWNS).add(
+                Biomes.DARK_FOREST,
+                Biomes.OLD_GROWTH_PINE_TAIGA,
+                Biomes.OLD_GROWTH_SPRUCE_TAIGA,
+                Biomes.SWAMP,
+                Biomes.MANGROVE_SWAMP);
+
+        tag(ModBiomeTags.GOLDEN_WOLF_SPAWNS).add(
+                Biomes.DESERT,
+                Biomes.BADLANDS,
+                Biomes.WOODED_BADLANDS,
+                Biomes.ERODED_BADLANDS);
+
+        tag(ModBiomeTags.CHERRY_WOLF_SPAWNS).add(
+                Biomes.CHERRY_GROVE,
+                Biomes.FLOWER_FOREST);
+
+        tag(ModBiomeTags.VIOLET_WOLF_SPAWNS).add(
+                Biomes.MEADOW,
+                Biomes.GROVE,
+                Biomes.FLOWER_FOREST);
+
+        tag(ModBiomeTags.GEM_WOLF_SPAWNS).add(
+                Biomes.STONY_PEAKS,
+                Biomes.WINDSWEPT_HILLS,
+                Biomes.WINDSWEPT_GRAVELLY_HILLS);
+
+        tag(ModBiomeTags.MUSHROOM_WOLF_SPAWNS).add(
+                Biomes.MUSHROOM_FIELDS,
+                Biomes.SWAMP,
+                Biomes.MANGROVE_SWAMP
+        );
+
+        tag(ModBiomeTags.BEE_WOLF_SPAWNS).add(
+                Biomes.FLOWER_FOREST,
+                Biomes.MEADOW,
+                Biomes.SUNFLOWER_PLAINS,
+                Biomes.CHERRY_GROVE
+        );
+
+        tag(ModBiomeTags.ZOMBIE_WOLF_SPAWNS).add(
+                Biomes.DARK_FOREST,
+                Biomes.TAIGA,
+                Biomes.OLD_GROWTH_PINE_TAIGA,
+                Biomes.OLD_GROWTH_SPRUCE_TAIGA,
+                Biomes.SWAMP,
+                Biomes.MANGROVE_SWAMP
+        );
+
+
+        tag(ModBiomeTags.SKELETON_WOLF_SPAWNS).add(
+                Biomes.DARK_FOREST,
+                Biomes.TAIGA,
+                Biomes.SNOWY_TAIGA,
+                Biomes.OLD_GROWTH_PINE_TAIGA,
+                Biomes.OLD_GROWTH_SPRUCE_TAIGA,
+                Biomes.STONY_SHORE
+        );
+
+
+        tag(ModBiomeTags.HUSK_WOLF_SPAWNS).add(
+                Biomes.DESERT,
+                Biomes.BADLANDS,
+                Biomes.WOODED_BADLANDS,
+                Biomes.ERODED_BADLANDS
+        );
+
+
+        tag(ModBiomeTags.DROWNED_WOLF_SPAWNS).add(
+                Biomes.OCEAN,
+                Biomes.DEEP_OCEAN,
+                Biomes.COLD_OCEAN,
+                Biomes.DEEP_COLD_OCEAN,
+                Biomes.FROZEN_OCEAN,
+                Biomes.DEEP_FROZEN_OCEAN,
+                Biomes.LUKEWARM_OCEAN,
+                Biomes.DEEP_LUKEWARM_OCEAN,
+                Biomes.WARM_OCEAN,
+                Biomes.RIVER,
+                Biomes.FROZEN_RIVER,
+                Biomes.SWAMP,
+                Biomes.MANGROVE_SWAMP
+        );
+
+        tag(ModBiomeTags.PHANTOM_WOLF_SPAWNS).add(
+                Biomes.DARK_FOREST,
+                Biomes.WINDSWEPT_HILLS,
+                Biomes.WINDSWEPT_FOREST,
+                Biomes.WINDSWEPT_GRAVELLY_HILLS,
+                Biomes.STONY_PEAKS,
+                Biomes.JAGGED_PEAKS
+        );
+
+        tag(ModBiomeTags.BLOOD_WOLF_SPAWNS).add(
+                Biomes.DARK_FOREST,
+                Biomes.WOODED_BADLANDS,
+                Biomes.OLD_GROWTH_SPRUCE_TAIGA,
+                Biomes.BADLANDS,
+                Biomes.MANGROVE_SWAMP,
+                Biomes.ERODED_BADLANDS
+        );
+
+        tag(ModBiomeTags.END_WOLF_SPAWNS).add(
+                Biomes.THE_END,
+                Biomes.END_HIGHLANDS,
+                Biomes.END_MIDLANDS,
+                Biomes.END_BARRENS,
+                Biomes.SMALL_END_ISLANDS
+        );
+
+        tag(ModBiomeTags.INFERNAL_WOLF_SPAWNS).add(
+                Biomes.NETHER_WASTES,
+                Biomes.BASALT_DELTAS
+        );
+
+        tag(ModBiomeTags.OMEN_WOLF_SPAWNS).add(
+                Biomes.DARK_FOREST,
+                Biomes.OLD_GROWTH_SPRUCE_TAIGA
+        );
+
+        tag(ModBiomeTags.ASTRAL_WOLF_SPAWNS).add(
+                Biomes.MEADOW,
+                Biomes.GROVE
+        );
+
+        tag(ModBiomeTags.ANGEL_WOLF_SPAWNS).add(
+                Biomes.MEADOW,
+                Biomes.CHERRY_GROVE
+        );
+
+        tag(ModBiomeTags.ANGEL_WOLF_HIGHLAND_SPAWNS).add(
+                Biomes.GROVE,
+                Biomes.SNOWY_SLOPES
+        );
+
+        tag(ModBiomeTags.DEMON_WOLF_SPAWNS).add(
+                Biomes.NETHER_WASTES,
+                Biomes.CRIMSON_FOREST,
+                Biomes.BASALT_DELTAS
+        );
+
+        tag(ModBiomeTags.GRAVE_WOLF_SPAWNS).add(
+                Biomes.DARK_FOREST,
+                Biomes.PALE_GARDEN
+        );
+
+
+
 
     }
 }

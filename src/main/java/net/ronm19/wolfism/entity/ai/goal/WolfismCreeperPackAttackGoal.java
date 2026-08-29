@@ -110,7 +110,7 @@ public final class WolfismCreeperPackAttackGoal extends Goal {
                     && this.attackCooldown <= 0
                     && WolfismCreeperCombatCoordinator.canStrikeNow(this.wolf, this.creeper)
                     && this.wolf.level() instanceof ServerLevel serverLevel) {
-                boolean hit = this.wolf.doHurtTarget(serverLevel, this.creeper);
+                boolean hit = this.wolf.doHurtTarget(this.creeper);
                 this.attackCooldown = hit ? ATTACK_COOLDOWN_TICKS : FAILED_ATTACK_RETRY_TICKS;
                 if (hit) {
                     WolfismCreeperCombatCoordinator.onSuccessfulStrike(

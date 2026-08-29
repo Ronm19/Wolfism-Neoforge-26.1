@@ -5,18 +5,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.ronm19.wolfism.Wolfism;
-import net.ronm19.wolfism.entity.custom.ArcticWolf;
-import net.ronm19.wolfism.entity.custom.BlackWolf;
-import net.ronm19.wolfism.entity.custom.SandWolf;
-import net.ronm19.wolfism.entity.custom.DireWolf;
-import net.ronm19.wolfism.entity.custom.FireWolf;
-import net.ronm19.wolfism.entity.custom.FrostWolf;
-import net.ronm19.wolfism.entity.custom.StormWolf;
-import net.ronm19.wolfism.entity.custom.TimberWolf;
-import net.ronm19.wolfism.entity.custom.WaterWolf;
-import net.ronm19.wolfism.entity.custom.EarthWolf;
-import net.ronm19.wolfism.entity.custom.SolarWolf;
-import net.ronm19.wolfism.entity.custom.LunarWolf;
+import net.ronm19.wolfism.entity.custom.*;
 
 public final class ModEntities {
     public static final DeferredRegister.Entities ENTITY_TYPES = DeferredRegister.createEntities(Wolfism.MOD_ID);
@@ -127,11 +116,247 @@ public final class ModEntities {
     public static final Supplier<EntityType<LunarWolf>> LUNAR_WOLF = ENTITY_TYPES.registerEntityType(
             "lunar_wolf",
             LunarWolf::new,
+            // Lunar is a night-only celestial spawn. Using the ambient spawn channel keeps
+            // her independent from the very small CREATURE cap filled by farm animals,
+            // while the LunarWolf spawn predicate still enforces ground/night/sky rules.
             MobCategory.AMBIENT,
             builder -> builder
                     .sized(0.64F, 0.90F)
                     .eyeHeight(0.72F)
                     .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<SpiritWolf>> SPIRIT_WOLF = ENTITY_TYPES.registerEntityType(
+            "spirit_wolf", SpiritWolf::new, MobCategory.CREATURE,
+            builder -> builder.sized(0.62F, 0.88F).eyeHeight(0.70F).clientTrackingRange(12));
+
+    public static final Supplier<EntityType<ShadowWolf>> SHADOW_WOLF = ENTITY_TYPES.registerEntityType(
+            "shadow_wolf",
+            ShadowWolf::new,
+            // Shadow is a night-only supernatural spawn. AMBIENT prevents daylight
+            // CREATURE-cap saturation from starving the entity before night arrives.
+            MobCategory.AMBIENT,
+            builder -> builder
+                    .sized(0.62F, 0.88F)
+                    .eyeHeight(0.70F)
+                    .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<GoldenWolf>> GOLDEN_WOLF = ENTITY_TYPES.registerEntityType(
+            "golden_wolf",
+            GoldenWolf::new,
+            MobCategory.CREATURE,
+            builder -> builder
+                    .sized(0.62F, 0.88F)
+                    .eyeHeight(0.70F)
+                    .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<CherryWolf>> CHERRY_WOLF = ENTITY_TYPES.registerEntityType(
+            "cherry_wolf",
+            CherryWolf::new,
+            MobCategory.CREATURE,
+            builder -> builder
+                    .sized(0.62F, 0.88F)
+                    .eyeHeight(0.70F)
+                    .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<VioletWolf>> VIOLET_WOLF = ENTITY_TYPES.registerEntityType(
+            "violet_wolf",
+            VioletWolf::new,
+            MobCategory.CREATURE,
+            builder -> builder
+                    .sized(0.62F, 0.88F)
+                    .eyeHeight(0.70F)
+                    .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<GemWolf>> GEM_WOLF = ENTITY_TYPES.registerEntityType(
+            "gem_wolf",
+            GemWolf::new,
+            MobCategory.CREATURE,
+            builder -> builder
+                    .sized(0.62F, 0.88F)
+                    .eyeHeight(0.70F)
+                    .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<MushroomWolf>> MUSHROOM_WOLF = ENTITY_TYPES.registerEntityType(
+            "mushroom_wolf",
+            MushroomWolf::new,
+            MobCategory.CREATURE,
+            builder -> builder
+                    .sized(0.62F, 0.88F)
+                    .eyeHeight(0.70F)
+                    .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<BeeWolf>> BEE_WOLF = ENTITY_TYPES.registerEntityType(
+            "bee_wolf",
+            BeeWolf::new,
+            MobCategory.CREATURE,
+            builder -> builder
+                    .sized(0.62F, 0.88F)
+                    .eyeHeight(0.70F)
+                    .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<ZombieWolf>> ZOMBIE_WOLF = ENTITY_TYPES.registerEntityType(
+            "zombie_wolf",
+            ZombieWolf::new,
+            // Zombie Wolf is nocturnal, but MONSTER makes him compete with the
+            // entire hostile-mob cap (including cave mobs). AMBIENT gives him a
+            // separate spawn pool; the spawn predicate below still makes him
+            // night/dark-outside only.
+            MobCategory.AMBIENT,
+            builder -> builder
+                    .sized(0.62F, 0.88F)
+                    .eyeHeight(0.70F)
+                    .clientTrackingRange(12));
+
+
+    public static final Supplier<EntityType<SkeletonWolf>> SKELETON_WOLF = ENTITY_TYPES.registerEntityType(
+            "skeleton_wolf",
+            SkeletonWolf::new,
+            MobCategory.AMBIENT,
+            builder -> builder
+                    .sized(0.62F, 0.88F)
+                    .eyeHeight(0.70F)
+                    .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<BoneShardProjectile>> BONE_SHARD = ENTITY_TYPES.registerEntityType(
+            "bone_shard",
+            BoneShardProjectile::new,
+            MobCategory.MISC,
+            builder -> builder
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(6)
+                    .updateInterval(10));
+
+
+    public static final Supplier<EntityType<HuskWolf>> HUSK_WOLF = ENTITY_TYPES.registerEntityType(
+            "husk_wolf",
+            HuskWolf::new,
+            // Husk Wolf is sun-resistant and may roam desert habitats during
+            // both day and night. AMBIENT keeps this rare spawn independent
+            // from the saturated MONSTER and CREATURE caps.
+            MobCategory.AMBIENT,
+            builder -> builder
+                    .sized(0.62F, 0.88F)
+                    .eyeHeight(0.70F)
+                    .clientTrackingRange(12));
+
+
+    public static final Supplier<EntityType<DrownedWolf>> DROWNED_WOLF = ENTITY_TYPES.registerEntityType(
+            "drowned_wolf",
+            DrownedWolf::new,
+            MobCategory.AMBIENT,
+            builder -> builder
+                    .sized(0.62F, 0.88F)
+                    .eyeHeight(0.70F)
+                    .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<PhantomWolf>> PHANTOM_WOLF = ENTITY_TYPES.registerEntityType(
+            "phantom_wolf",
+            PhantomWolf::new,
+            // Phantom Wolf is nocturnal and VERY RARE. AMBIENT avoids the
+            // daylight CREATURE-cap starvation already seen with Lunar/Shadow,
+            // while the placement predicate still enforces dark wolf-ground spawns.
+            MobCategory.AMBIENT,
+            builder -> builder
+                    .sized(0.60F, 0.85F)
+                    .eyeHeight(0.68F)
+                    .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<BloodWolf>> BLOOD_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "blood_wolf",
+                    BloodWolf ::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.6F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(10));
+
+    public static final Supplier<EntityType<EndWolf>> END_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "end_wolf",
+                    EndWolf::new,
+                    MobCategory.MONSTER,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<SculkWolf>> SCULK_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "sculk_wolf",
+                    SculkWolf::new,
+                    MobCategory.MONSTER,
+                    builder -> builder
+                            .sized(0.68F, 0.94F)
+                            .eyeHeight(0.75F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<InfernalWolf>> INFERNAL_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "infernal_wolf",
+                    InfernalWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.68F, 0.94F)
+                            .eyeHeight(0.75F)
+                            .fireImmune()
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<OmenWolf>> OMEN_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "omen_wolf",
+                    OmenWolf::new,
+                    MobCategory.CREATURE,
+                    builder -> builder
+                            .sized(0.62F, 0.88F)
+                            .eyeHeight(0.70F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<AstralWolf>> ASTRAL_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "astral_wolf",
+                    AstralWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.62F, 0.88F)
+                            .eyeHeight(0.70F)
+                            .clientTrackingRange(12));
+
+
+    public static final Supplier<EntityType<AngelWolf>> ANGEL_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "angel_wolf",
+                    AngelWolf::new,
+                    MobCategory.CREATURE,
+                    builder -> builder
+                            .sized(0.62F, 0.88F)
+                            .eyeHeight(0.70F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<DemonWolf>> DEMON_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "demon_wolf",
+                    DemonWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.62F, 0.88F)
+                            .eyeHeight(0.70F)
+                            .fireImmune()
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<GraveWolf>> GRAVE_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "grave_wolf",
+                    GraveWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+
+
+
 
     private ModEntities() {
     }

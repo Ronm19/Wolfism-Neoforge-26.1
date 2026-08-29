@@ -246,7 +246,7 @@ public final class FireWolf extends AbstractWolfismWolf {
                     0.01D);
 
             if (this.distanceToSqr(target) <= FLAME_RUSH_IMPACT_DISTANCE_SQR) {
-                if (this.doHurtTarget(serverLevel, target)) {
+                if (this.doHurtTarget(target)) {
                     double dx = this.getX() - target.getX();
                     double dz = this.getZ() - target.getZ();
                     target.knockback(1.0D, dx, dz);

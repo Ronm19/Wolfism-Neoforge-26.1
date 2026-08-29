@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/blood_wolf",
+  "spawners": {
+    "type": "wolfism:blood_wolf",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 5
+  }
+}

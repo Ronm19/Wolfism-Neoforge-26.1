@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/grave_wolf",
+  "spawners": {
+    "type": "wolfism:grave_wolf",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 3
+  }
+}

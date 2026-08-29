@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/omen_wolf",
+  "spawners": {
+    "type": "wolfism:omen_wolf",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 2
+  }
+}

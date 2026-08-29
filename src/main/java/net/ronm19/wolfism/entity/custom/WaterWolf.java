@@ -15,19 +15,15 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.ronm19.wolfism.entity.AbstractWolfismWaterAnimal;
 import net.ronm19.wolfism.entity.AbstractWolfismWolf;
-import net.ronm19.wolfism.entity.ai.control.WaterWolfMoveControl;
 import net.ronm19.wolfism.entity.ai.goal.WaterAquaticThreatGoal;
 import net.ronm19.wolfism.entity.ai.goal.WaterCurrentDashGoal;
 import net.ronm19.wolfism.entity.ai.goal.WaterPackAssistGoal;
@@ -51,7 +47,7 @@ import net.ronm19.wolfism.registry.ModSensorTypes;
  * actively rescue low-air allies, burst through water with Current Dash, and
  * deploy a temporary Bubble Shelter around itself in emergencies.</p>
  */
-public final class WaterWolf extends AbstractWolfismWolf {
+public final class WaterWolf extends AbstractWolfismWaterAnimal {
     public static final double WATER_BREATHING_AURA_RADIUS = 7.0D;
     public static final double RESCUE_SCAN_RADIUS = 24.0D;
     public static final double BUBBLE_SHELTER_RADIUS = 6.0D;
@@ -83,12 +79,6 @@ public final class WaterWolf extends AbstractWolfismWolf {
 
     public WaterWolf(EntityType<? extends WaterWolf> type, Level level) {
         super(type, level);
-
-        // A normal wolf treats water as undesirable terrain. Water Wolf does the
-        // opposite: water is valid habitat, and its MoveControl becomes fully
-        // three-dimensional only after the entity actually enters water.
-        this.setPathfindingMalus(PathType.WATER, 0.0F);
-        this.moveControl = new WaterWolfMoveControl(this);
     }
 
     @Override
@@ -152,11 +142,6 @@ public final class WaterWolf extends AbstractWolfismWolf {
     public void tick() {
         super.tick();
 
-        // Water Wolf never drowns. Keeping the vanilla air meter full also makes
-        // transitions between swimming and land completely predictable.
-        if (this.isInWater()) {
-            this.setAirSupply(this.getMaxAirSupply());
-        }
 
         if (this.level() instanceof ServerLevel level && this.isInWater()) {
             if (this.tickCount % 8 == 0) {
@@ -171,70 +156,6 @@ public final class WaterWolf extends AbstractWolfismWolf {
                         0.22D,
                         0.01D);
             }
-        }
-    }
-
-    /**
-     * Guardian-style water travel. Land movement still comes entirely from the
-     * vanilla wolf path, but in water the custom MoveControl can steer the wolf
-     * through the full 3D volume instead of merely paddling toward dry ground.
-     */
-    @Override
-    protected void travelInWater(Vec3 input, double baseGravity, boolean isFalling, double oldY) {
-        if (this.isOrderedToSit()) {
-            super.travelInWater(input, baseGravity, isFalling, oldY);
-            return;
-        }
-
-        this.moveRelative(0.10F, input);
-        this.move(MoverType.SELF, this.getDeltaMovement());
-        this.setDeltaMovement(this.getDeltaMovement().scale(0.90D));
-
-        if (this.horizontalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.10D, 0.0D));
-        }
-    }
-
-    /** Water is desirable habitat, not a pathfinding penalty. */
-    @Override
-    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
-        if (level.getFluidState(pos).is(FluidTags.WATER)) {
-            return 10.0F + level.getPathfindingCostFromLightLevels(pos);
-        }
-        return super.getWalkTargetValue(pos, level);
-    }
-
-    /**
-     * Sends movement through WaterWolfMoveControl while submerged and through
-     * ordinary wolf navigation on land. Goals use this instead of hard-coding
-     * one navigation system for both environments.
-     */
-    public void moveToWaterAware(double x, double y, double z, double speed) {
-        if (this.isInWater()) {
-            this.getNavigation().stop();
-            this.getMoveControl().setWantedPosition(x, y, z, speed);
-            return;
-        }
-        this.getNavigation().moveTo(x, y, z, speed);
-    }
-
-    public void moveToWaterAware(LivingEntity target, double speed) {
-        if (target == null) {
-            return;
-        }
-
-        double y = target.getY();
-        if (this.isInWater() && target.isInWater()) {
-            y += target.getBbHeight() * 0.35D;
-        }
-        this.moveToWaterAware(target.getX(), y, target.getZ(), speed);
-    }
-
-    public void stopWaterAwareMovement() {
-        this.getNavigation().stop();
-        MoveControl control = this.getMoveControl();
-        if (control instanceof WaterWolfMoveControl waterControl) {
-            waterControl.stopAquaticMove();
         }
     }
 
@@ -427,12 +348,12 @@ public final class WaterWolf extends AbstractWolfismWolf {
         }
 
         return !level.getEntitiesOfClass(
-                WaterWolf.class,
-                this.getBoundingBox().inflate(PRESSURE_WAVE_RADIUS * 1.5D),
-                candidate -> candidate != this
-                        && candidate.isAlive()
-                        && this.isWaterPackmate(candidate)
-                        && candidate.isPressureWavePulseActive())
+                        WaterWolf.class,
+                        this.getBoundingBox().inflate(PRESSURE_WAVE_RADIUS * 1.5D),
+                        candidate -> candidate != this
+                                && candidate.isAlive()
+                                && this.isWaterPackmate(candidate)
+                                && candidate.isPressureWavePulseActive())
                 .isEmpty();
     }
 
@@ -611,8 +532,7 @@ public final class WaterWolf extends AbstractWolfismWolf {
         }
 
         Vec3 targetPoint = to;
-        this.getNavigation().stop();
-        this.getMoveControl().setWantedPosition(targetPoint.x, targetPoint.y, targetPoint.z, 1.35D);
+        this.moveToWaterAware(targetPoint.x, targetPoint.y, targetPoint.z, 1.35D);
         return true;
     }
 

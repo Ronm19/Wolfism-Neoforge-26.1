@@ -428,7 +428,7 @@ public final class DireWolf extends AbstractWolfismWolf {
                 continue;
             }
 
-            if (this.doHurtTarget(level, target)) {
+            if (this.doHurtTarget(target)) {
                 double dx = this.getX() - target.getX();
                 double dz = this.getZ() - target.getZ();
                 target.knockback(1.65D, dx, dz);

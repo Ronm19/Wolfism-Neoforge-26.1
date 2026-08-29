@@ -5,29 +5,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.ronm19.wolfism.Wolfism;
-import net.ronm19.wolfism.entity.ai.sensor.ArcticWolfPackSensor;
-import net.ronm19.wolfism.entity.ai.sensor.ArcticWolfPreySensor;
-import net.ronm19.wolfism.entity.ai.sensor.BlackWolfNightPreySensor;
-import net.ronm19.wolfism.entity.ai.sensor.BlackWolfPackSensor;
-import net.ronm19.wolfism.entity.ai.sensor.SandWolfDesertSensor;
-import net.ronm19.wolfism.entity.ai.sensor.SandWolfPackSensor;
-import net.ronm19.wolfism.entity.ai.sensor.DireWolfPackSensor;
-import net.ronm19.wolfism.entity.ai.sensor.DireWolfPreySensor;
-import net.ronm19.wolfism.entity.ai.sensor.FireWolfCombatSensor;
-import net.ronm19.wolfism.entity.ai.sensor.FireWolfPackSensor;
-import net.ronm19.wolfism.entity.ai.sensor.FrostWolfCombatSensor;
-import net.ronm19.wolfism.entity.ai.sensor.FrostWolfPackSensor;
-import net.ronm19.wolfism.entity.ai.sensor.StormWolfCombatSensor;
-import net.ronm19.wolfism.entity.ai.sensor.StormWolfPackSensor;
-import net.ronm19.wolfism.entity.ai.sensor.TimberWolfPackSensor;
-import net.ronm19.wolfism.entity.ai.sensor.TimberWolfPreySensor;
-import net.ronm19.wolfism.entity.ai.sensor.WaterWolfAquaticSensor;
-import net.ronm19.wolfism.entity.ai.sensor.WaterWolfPackSensor;
-import net.ronm19.wolfism.entity.ai.sensor.EarthWolfPackSensor;
-import net.ronm19.wolfism.entity.ai.sensor.EarthWolfTerrainSensor;
-import net.ronm19.wolfism.entity.ai.sensor.SolarWolfPackSensor;
-import net.ronm19.wolfism.entity.ai.sensor.LunarWolfPackSensor;
-import net.ronm19.wolfism.entity.ai.sensor.LunarWolfNightWatchSensor;
+import net.ronm19.wolfism.entity.ai.sensor.*;
 
 public final class ModSensorTypes {
     public static final DeferredRegister<SensorType<?>> SENSOR_TYPES =
@@ -104,6 +82,98 @@ public final class ModSensorTypes {
 
     public static final Supplier<SensorType<LunarWolfNightWatchSensor>> LUNAR_NIGHT_WATCH =
             SENSOR_TYPES.register("lunar_night_watch", () -> new SensorType<>(LunarWolfNightWatchSensor::new));
+
+    public static final Supplier<SensorType<SpiritWolfPackSensor>> SPIRIT_PACK =
+            SENSOR_TYPES.register("spirit_pack", () -> new SensorType<>(SpiritWolfPackSensor::new));
+
+    public static final Supplier<SensorType<AngelWolfFamilySensor>> ANGEL_FAMILY =
+            SENSOR_TYPES.register("angel_family", () -> new SensorType<>(AngelWolfFamilySensor::new));
+
+    public static final Supplier<SensorType<AngelWolfThreatSensor>> ANGEL_THREAT =
+            SENSOR_TYPES.register("angel_threat", () -> new SensorType<>(AngelWolfThreatSensor::new));
+
+    public static final Supplier<SensorType<ShadowWolfPackSensor>> SHADOW_PACK =
+            SENSOR_TYPES.register("shadow_pack", () -> new SensorType<>(ShadowWolfPackSensor::new));
+
+    public static final Supplier<SensorType<GoldenWolfPackSensor>> GOLDEN_PACK =
+            SENSOR_TYPES.register("golden_pack", () -> new SensorType<>(GoldenWolfPackSensor::new));
+
+    public static final Supplier<SensorType<CherryWolfPackSensor>> CHERRY_PACK =
+            SENSOR_TYPES.register("cherry_pack", () -> new SensorType<>(CherryWolfPackSensor::new));
+
+    public static final Supplier<SensorType<VioletWolfPackSensor>> VIOLET_PACK =
+            SENSOR_TYPES.register("violet_pack", () -> new SensorType<>(VioletWolfPackSensor::new));
+
+    public static final Supplier<SensorType<GemWolfPackSensor>> GEM_PACK =
+            SENSOR_TYPES.register("gem_pack", () -> new SensorType<>(GemWolfPackSensor::new));
+
+    public static final Supplier<SensorType<MushroomWolfPackSensor>> MUSHROOM_PACK =
+            SENSOR_TYPES.register("mushroom_pack", () -> new SensorType<>(MushroomWolfPackSensor::new));
+
+    public static final Supplier<SensorType<BeeWolfPackSensor>> BEE_PACK =
+            SENSOR_TYPES.register("bee_pack", () -> new SensorType<>(BeeWolfPackSensor::new));
+
+    public static final Supplier<SensorType<ZombieWolfPackSensor>> ZOMBIE_PACK =
+            SENSOR_TYPES.register("zombie_pack", () -> new SensorType<>(ZombieWolfPackSensor::new));
+
+
+    public static final Supplier<SensorType<SkeletonWolfPackSensor>> SKELETON_PACK =
+            SENSOR_TYPES.register("skeleton_pack", () -> new SensorType<>(SkeletonWolfPackSensor::new));
+
+
+    public static final Supplier<SensorType<HuskWolfPackSensor>> HUSK_PACK =
+            SENSOR_TYPES.register("husk_pack", () -> new SensorType<>(HuskWolfPackSensor::new));
+
+
+    public static final Supplier<SensorType<DrownedWolfPackSensor>> DROWNED_PACK =
+            SENSOR_TYPES.register("drowned_pack", () -> new SensorType<>(DrownedWolfPackSensor::new));
+
+
+    public static final Supplier<SensorType<PhantomWolfPackSensor>> PHANTOM_PACK =
+            SENSOR_TYPES.register("phantom_pack", () -> new SensorType<>(PhantomWolfPackSensor::new));
+
+    public static final Supplier<SensorType<BloodWolfPackSensor>> BLOOD_PACK =
+            SENSOR_TYPES.register("blood_pack", () -> new SensorType<>(BloodWolfPackSensor::new));
+
+    public static final Supplier<SensorType<EndWolfPackSensor>> END_PACK =
+            SENSOR_TYPES.register("end_pack", () -> new SensorType<>(EndWolfPackSensor::new));
+
+    public static final Supplier<SensorType<SculkWolfPackSensor>> SCULK_PACK =
+            SENSOR_TYPES.register("sculk_pack", () -> new SensorType<>(SculkWolfPackSensor::new));
+
+    public static final Supplier<SensorType<InfernalWolfPackSensor>> INFERNAL_PACK =
+            SENSOR_TYPES.register("infernal_pack", () -> new SensorType<>(InfernalWolfPackSensor::new));
+
+    public static final Supplier<SensorType<InfernalWolfAwarenessSensor>> INFERNAL_AWARENESS =
+            SENSOR_TYPES.register("infernal_awareness", () -> new SensorType<>(InfernalWolfAwarenessSensor::new));
+
+    public static final Supplier<SensorType<OmenWolfPackSensor>> OMEN_PACK =
+            SENSOR_TYPES.register(
+                    "omen_pack",
+                    () -> new SensorType<>(OmenWolfPackSensor::new));
+
+    public static final Supplier<SensorType<OmenWolfThreatSensor>> OMEN_THREAT =
+            SENSOR_TYPES.register(
+                    "omen_threat",
+                    () -> new SensorType<>(OmenWolfThreatSensor::new));
+
+    public static final Supplier<SensorType<AstralWolfPackSensor>> ASTRAL_PACK =
+            SENSOR_TYPES.register(
+                    "astral_pack",
+                    () -> new SensorType<>(AstralWolfPackSensor::new));
+
+    public static final Supplier<SensorType<AstralWolfNightSensor>> ASTRAL_NIGHT =
+            SENSOR_TYPES.register(
+                    "astral_night",
+                    () -> new SensorType<>(AstralWolfNightSensor::new));
+
+    public static final Supplier<SensorType<DemonWolfBattlefieldSensor>> DEMON_BATTLEFIELD =
+            SENSOR_TYPES.register("demon_battlefield", () -> new SensorType<>(DemonWolfBattlefieldSensor::new));
+
+    public static final Supplier<SensorType<DemonWolfCharmSensor>> DEMON_CHARM =
+            SENSOR_TYPES.register("demon_charm", () -> new SensorType<>(DemonWolfCharmSensor::new));
+
+
 
     private ModSensorTypes() {
     }

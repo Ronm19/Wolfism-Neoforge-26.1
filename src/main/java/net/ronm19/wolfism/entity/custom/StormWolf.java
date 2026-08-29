@@ -19,6 +19,7 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.ronm19.wolfism.entity.AbstractWolfismWolf;
 import net.ronm19.wolfism.entity.ai.goal.StormPackAssistGoal;
 import net.ronm19.wolfism.entity.ai.goal.StormPackCohesionGoal;
@@ -672,7 +673,7 @@ public final class StormWolf extends AbstractWolfismWolf {
 
     public static boolean checkStormWolfSpawnRules(
             EntityType<StormWolf> type,
-            LevelAccessor level,
+            ServerLevelAccessor level,
             EntitySpawnReason spawnReason,
             BlockPos pos,
             RandomSource random) {

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "wolfism:zombie_wolf",
+    "wolfism:skeleton_wolf",
+    "wolfism:husk_wolf",
+    "wolfism:drowned_wolf",
+    "wolfism:phantom_wolf"
+  ]
+}

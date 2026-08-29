@@ -8,18 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.ronm19.wolfism.Wolfism;
-import net.ronm19.wolfism.entity.custom.ArcticWolf;
-import net.ronm19.wolfism.entity.custom.BlackWolf;
-import net.ronm19.wolfism.entity.custom.SandWolf;
-import net.ronm19.wolfism.entity.custom.DireWolf;
-import net.ronm19.wolfism.entity.custom.FireWolf;
-import net.ronm19.wolfism.entity.custom.FrostWolf;
-import net.ronm19.wolfism.entity.custom.StormWolf;
-import net.ronm19.wolfism.entity.custom.TimberWolf;
-import net.ronm19.wolfism.entity.custom.WaterWolf;
-import net.ronm19.wolfism.entity.custom.EarthWolf;
-import net.ronm19.wolfism.entity.custom.SolarWolf;
-import net.ronm19.wolfism.entity.custom.LunarWolf;
+import net.ronm19.wolfism.entity.custom.*;
 
 /**
  * Runtime memories used by Wolfism brains.
@@ -443,6 +432,529 @@ public final class ModMemoryModuleTypes {
             MEMORY_MODULE_TYPES.register("lunar_dreamstep_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Integer>> LUNAR_HOWL_COOLDOWN =
             MEMORY_MODULE_TYPES.register("lunar_howl_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<SpiritWolf>> NEAREST_SPIRIT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_spirit_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<SpiritWolf>> NEAREST_SPIRIT_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_spirit_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> SPIRIT_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("spirit_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> SPIRIT_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("spirit_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> SPIRIT_INJURED_FAMILY =
+            MEMORY_MODULE_TYPES.register("spirit_injured_family", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> SPIRIT_CRITICAL_FAMILY =
+            MEMORY_MODULE_TYPES.register("spirit_critical_family", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> SPIRIT_SUPERNATURAL_THREAT =
+            MEMORY_MODULE_TYPES.register("spirit_supernatural_threat", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> SPIRIT_MEND_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("spirit_mend_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> SPIRIT_SOUL_GUARD_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("spirit_soul_guard_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> SPIRIT_GUARDIAN_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("spirit_guardian_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    // Angel Wolf: family-health + threat memories for her Brain-driven support AI.
+    public static final Supplier<MemoryModuleType<Integer>> ANGEL_FAMILY_SIZE =
+            MEMORY_MODULE_TYPES.register("angel_family_size", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> ANGEL_INJURED_COUNT =
+            MEMORY_MODULE_TYPES.register("angel_injured_count", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> ANGEL_INJURED_FAMILY =
+            MEMORY_MODULE_TYPES.register("angel_injured_family", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> ANGEL_CRITICAL_FAMILY =
+            MEMORY_MODULE_TYPES.register("angel_critical_family", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> ANGEL_FAMILY_THREAT =
+            MEMORY_MODULE_TYPES.register("angel_family_threat", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> ANGEL_UNDEAD_THREAT =
+            MEMORY_MODULE_TYPES.register("angel_undead_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<ShadowWolf>> NEAREST_SHADOW_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_shadow_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<ShadowWolf>> NEAREST_SHADOW_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_shadow_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SHADOW_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("shadow_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> SHADOW_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("shadow_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Boolean>> SHADOW_DARKNESS_ACTIVE =
+            MEMORY_MODULE_TYPES.register("shadow_darkness_active", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> SHADOW_VOID_DASH_TARGET =
+            MEMORY_MODULE_TYPES.register("shadow_void_dash_target", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SHADOW_VOID_DASH_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("shadow_void_dash_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SHADOW_BLADES_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("shadow_blades_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SHADOW_DUSK_VEIL_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("shadow_dusk_veil_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SHADOW_ASSASSIN_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("shadow_assassin_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<GoldenWolf>> NEAREST_GOLDEN_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_golden_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<GoldenWolf>> NEAREST_GOLDEN_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_golden_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> GOLDEN_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("golden_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> GOLDEN_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("golden_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> GOLDEN_RESOURCE_POS =
+            MEMORY_MODULE_TYPES.register("golden_resource_pos", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> GOLDEN_FORTUNE_DIG_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("golden_fortune_dig_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> GOLDEN_RADIANT_SHARE_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("golden_radiant_share_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> GOLDEN_BARRIER_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("golden_barrier_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> GOLDEN_BLESSING_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("golden_blessing_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<CherryWolf>> NEAREST_CHERRY_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_cherry_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<CherryWolf>> NEAREST_CHERRY_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_cherry_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> CHERRY_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("cherry_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> CHERRY_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("cherry_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> CHERRY_INJURED_FAMILY =
+            MEMORY_MODULE_TYPES.register("cherry_injured_family", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> CHERRY_BLOSSOM_POS =
+            MEMORY_MODULE_TYPES.register("cherry_blossom_pos", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> CHERRY_PETAL_AID_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("cherry_petal_aid_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> CHERRY_BURST_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("cherry_burst_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> CHERRY_BLOOMING_PATH_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("cherry_blooming_path_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> CHERRY_SANCTUARY_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("cherry_sanctuary_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<VioletWolf>> NEAREST_VIOLET_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_violet_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<VioletWolf>> NEAREST_VIOLET_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_violet_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> VIOLET_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("violet_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> VIOLET_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("violet_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> VIOLET_INJURED_FAMILY =
+            MEMORY_MODULE_TYPES.register("violet_injured_family", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> VIOLET_LEAP_TARGET =
+            MEMORY_MODULE_TYPES.register("violet_leap_target", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> VIOLET_LEAP_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("violet_leap_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> VIOLET_AURA_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("violet_aura_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> VIOLET_HOWL_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("violet_howl_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> VIOLET_BLOOM_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("violet_bloom_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<GemWolf>> NEAREST_GEM_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_gem_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<GemWolf>> NEAREST_GEM_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_gem_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> GEM_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("gem_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> GEM_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("gem_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> GEM_ORE_POS =
+            MEMORY_MODULE_TYPES.register("gem_ore_pos", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> GEM_MARKED_ORE_POS =
+            MEMORY_MODULE_TYPES.register("gem_marked_ore_pos", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> GEM_VEIN_MARK_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("gem_vein_mark_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> GEM_CRYSTAL_DASH_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("gem_crystal_dash_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> GEM_GEO_RESONANCE_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("gem_geo_resonance_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<MushroomWolf>> NEAREST_MUSHROOM_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_mushroom_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<MushroomWolf>> NEAREST_MUSHROOM_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_mushroom_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> MUSHROOM_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("mushroom_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> MUSHROOM_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("mushroom_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> MUSHROOM_FIND_POS =
+            MEMORY_MODULE_TYPES.register("mushroom_find_pos", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> MUSHROOM_INJURED_FAMILY =
+            MEMORY_MODULE_TYPES.register("mushroom_injured_family", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> MUSHROOM_SPORE_BURST_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("mushroom_spore_burst_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BeeWolf>> NEAREST_BEE_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_bee_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BeeWolf>> NEAREST_BEE_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_bee_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> BEE_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("bee_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> BEE_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("bee_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> BEE_HONEY_FIND_POS =
+            MEMORY_MODULE_TYPES.register("bee_honey_find_pos", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> BEE_POLLINATION_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("bee_pollination_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> BEE_HASTE_AURA_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("bee_haste_aura_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    // Zombie Wolf #21 -------------------------------------------------
+    public static final Supplier<MemoryModuleType<ZombieWolf>> NEAREST_ZOMBIE_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_zombie_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<ZombieWolf>> NEAREST_ZOMBIE_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_zombie_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> ZOMBIE_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("zombie_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> ZOMBIE_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("zombie_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> ZOMBIE_GRAVE_SCENT_TARGET =
+            MEMORY_MODULE_TYPES.register("zombie_grave_scent_target", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> ZOMBIE_DEATHLESS_RUSH_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("zombie_deathless_rush_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> ZOMBIE_RISE_AGAIN_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("zombie_rise_again_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+
+    // Skeleton Wolf #22 -------------------------------------------------
+    public static final Supplier<MemoryModuleType<SkeletonWolf>> NEAREST_SKELETON_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_skeleton_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<SkeletonWolf>> NEAREST_SKELETON_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_skeleton_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SKELETON_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("skeleton_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> SKELETON_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("skeleton_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SKELETON_BONE_SHOT_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("skeleton_bone_shot_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SKELETON_BONE_RATTLE_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("skeleton_bone_rattle_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SKELETON_VOLLEY_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("skeleton_volley_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SKELETON_MARROW_GUARD_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("skeleton_marrow_guard_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+
+    // Husk Wolf #23 -------------------------------------------------
+    public static final Supplier<MemoryModuleType<HuskWolf>> NEAREST_HUSK_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_husk_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<HuskWolf>> NEAREST_HUSK_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_husk_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> HUSK_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("husk_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> HUSK_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("husk_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> HUSK_SANDSTORM_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("husk_sandstorm_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> HUSK_DRYING_HOWL_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("husk_drying_howl_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+
+    // Drowned Wolf #24 -------------------------------------------------
+    public static final Supplier<MemoryModuleType<DrownedWolf>> NEAREST_DROWNED_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_drowned_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<DrownedWolf>> NEAREST_DROWNED_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_drowned_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> DROWNED_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("drowned_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> DROWNED_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("drowned_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> DROWNED_TRIDENT_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("drowned_trident_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> DROWNED_DROWN_OTHERS_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("drowned_drown_others_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+
+    // Phantom Wolf #25 -------------------------------------------------
+    public static final Supplier<MemoryModuleType<PhantomWolf>> NEAREST_PHANTOM_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_phantom_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<PhantomWolf>> NEAREST_PHANTOM_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_phantom_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> PHANTOM_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("phantom_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> PHANTOM_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("phantom_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> PHANTOM_RECON_TARGET =
+            MEMORY_MODULE_TYPES.register("phantom_recon_target", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> PHANTOM_DIVE_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("phantom_dive_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> PHANTOM_PHASING_BITE_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("phantom_phasing_bite_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> PHANTOM_SCREECH_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("phantom_screech_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> PHANTOM_SWEEP_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("phantom_sweep_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> PHANTOM_SKY_HUNTER_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("phantom_sky_hunter_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+    // Blood Wolf #26 -------------------------------------------------
+    public static final Supplier<MemoryModuleType<BloodWolf>> NEAREST_BLOOD_PACKMATE =
+            MEMORY_MODULE_TYPES.register(
+                    "nearest_blood_packmate",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BloodWolf>> NEAREST_BLOOD_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register(
+                    "nearest_blood_adult_packmate",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> BLOOD_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register(
+                    "blood_pack_size",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> BLOOD_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "blood_pack_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    // End Wolf #27 ---------------------------------------------------
+    public static final Supplier<MemoryModuleType<EndWolf>> NEAREST_END_PACKMATE =
+            MEMORY_MODULE_TYPES.register(
+                    "nearest_end_packmate",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<EndWolf>> NEAREST_END_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register(
+                    "nearest_end_adult_packmate",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> END_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register(
+                    "end_pack_size",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> END_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "end_pack_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    // Sculk Wolf #28 -------------------------------------------------
+    public static final Supplier<MemoryModuleType<SculkWolf>> NEAREST_SCULK_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_sculk_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<SculkWolf>> NEAREST_SCULK_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_sculk_adult_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SCULK_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("sculk_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> SCULK_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("sculk_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+    // Infernal Wolf #29 -----------------------------------------------
+    public static final Supplier<MemoryModuleType<InfernalWolf>> NEAREST_INFERNAL_PACKMATE =
+            MEMORY_MODULE_TYPES.register(
+                    "nearest_infernal_packmate",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<InfernalWolf>> NEAREST_INFERNAL_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register(
+                    "nearest_infernal_adult_packmate",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> INFERNAL_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register(
+                    "infernal_pack_size",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> INFERNAL_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "infernal_pack_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> INFERNAL_AWARENESS_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "infernal_awareness_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> INFERNAL_LAVA_HAZARD =
+            MEMORY_MODULE_TYPES.register(
+                    "infernal_lava_hazard",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> INFERNAL_SAFE_POS =
+            MEMORY_MODULE_TYPES.register(
+                    "infernal_safe_pos",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    // Omen Wolf #30 --------------------------------------------------
+    public static final Supplier<MemoryModuleType<OmenWolf>> NEAREST_OMEN_PACKMATE =
+            MEMORY_MODULE_TYPES.register(
+                    "nearest_omen_packmate",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<OmenWolf>> NEAREST_OMEN_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register(
+                    "nearest_omen_adult_packmate",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> OMEN_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register(
+                    "omen_pack_size",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> OMEN_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "omen_pack_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> OMEN_DEVELOPING_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "omen_developing_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> OMEN_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "omen_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Boolean>> OMEN_RAID_ACTIVE =
+            MEMORY_MODULE_TYPES.register(
+                    "omen_raid_active",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    // Astral Wolf #31 -----------------------------------------------
+    public static final Supplier<MemoryModuleType<AstralWolf>> NEAREST_ASTRAL_PACKMATE =
+            MEMORY_MODULE_TYPES.register(
+                    "nearest_astral_packmate",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<AstralWolf>> NEAREST_ASTRAL_ADULT_PACKMATE =
+            MEMORY_MODULE_TYPES.register(
+                    "nearest_astral_adult_packmate",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> ASTRAL_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register(
+                    "astral_pack_size",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> ASTRAL_SHARED_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "astral_shared_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> ASTRAL_FAMILY_IN_DANGER =
+            MEMORY_MODULE_TYPES.register(
+                    "astral_family_in_danger",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> ASTRAL_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "astral_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> ASTRAL_SAFE_ROUTE_POS =
+            MEMORY_MODULE_TYPES.register(
+                    "astral_safe_route_pos",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> ASTRAL_HOME_POS =
+            MEMORY_MODULE_TYPES.register(
+                    "astral_home_pos",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> DEMON_PRIORITY_TARGET =
+            MEMORY_MODULE_TYPES.register("demon_priority_target", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> DEMON_CLUSTER_TARGET =
+            MEMORY_MODULE_TYPES.register("demon_cluster_target", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> DEMON_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("demon_hostile_count", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> DEMON_CHARM_THREAT =
+            MEMORY_MODULE_TYPES.register("demon_charm_threat", () -> new MemoryModuleType<>(Optional.empty()));
+
+
 
     private ModMemoryModuleTypes() {
     }

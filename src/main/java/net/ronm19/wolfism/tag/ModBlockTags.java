@@ -16,6 +16,14 @@ public final class ModBlockTags {
             Registries.BLOCK,
             Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "earth_manipulable"));
 
+    public static final TagKey<Block> GOLDEN_VALUABLE = TagKey.create(
+            Registries.BLOCK,
+            Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "golden_valuable"));
+
+    public static final TagKey<Block> GEM_TRACKABLE_ORE = TagKey.create(
+            Registries.BLOCK,
+            Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "gem_trackable_ore"));
+
     private ModBlockTags() {
     }
 }

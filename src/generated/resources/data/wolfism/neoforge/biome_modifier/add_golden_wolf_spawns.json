@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/golden_wolf",
+  "spawners": {
+    "type": "wolfism:golden_wolf",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 4
+  }
+}
