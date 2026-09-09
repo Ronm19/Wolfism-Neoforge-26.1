@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.ronm19.wolfism.Wolfism;
@@ -954,7 +955,508 @@ public final class ModMemoryModuleTypes {
     public static final Supplier<MemoryModuleType<LivingEntity>> DEMON_CHARM_THREAT =
             MEMORY_MODULE_TYPES.register("demon_charm_threat", () -> new MemoryModuleType<>(Optional.empty()));
 
+    // Wolf King #38 ---------------------------------------------------
+    public static final Supplier<MemoryModuleType<Wolf>> NEAREST_WOLF_KING_ALLY =
+            MEMORY_MODULE_TYPES.register(
+                    "nearest_wolf_king_ally",
+                    () -> new MemoryModuleType<>(Optional.empty()));
 
+    public static final Supplier<MemoryModuleType<Integer>> WOLF_KING_ALLY_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_ally_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> WOLF_KING_SHARED_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_shared_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> WOLF_KING_PRIORITY_TARGET =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_priority_target",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> WOLF_KING_OWNER_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_owner_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> WOLF_KING_THREATENED_ALLY =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_threatened_ally",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> WOLF_KING_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Boolean>> WOLF_KING_PACK_SCATTERED =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_pack_scattered",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Boolean>> WOLF_KING_PACK_OUTNUMBERED =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_pack_outnumbered",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> WOLF_KING_MARKED_TARGET =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_marked_target",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> WOLF_KING_ROYAL_COMMAND_COOLDOWN =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_royal_command_cooldown",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> WOLF_KING_COMMANDING_HOWL_COOLDOWN =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_commanding_howl_cooldown",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> WOLF_KING_IRON_WILL_COOLDOWN =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_iron_will_cooldown",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> WOLF_KING_LEADERSHIP_DASH_COOLDOWN =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_leadership_dash_cooldown",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+
+
+    // Alpha-King V2 wild hunt / operational pack memories.
+    public static final Supplier<MemoryModuleType<LivingEntity>> WOLF_KING_ALPHA_HUNT_TARGET =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_alpha_hunt_target",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Boolean>> WOLF_KING_ALPHA_HUNT_ACTIVE =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_alpha_hunt_active",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> WOLF_KING_WILD_RECRUIT_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_wild_recruit_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> WOLF_KING_ALPHA_FOLLOWER_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "wolf_king_alpha_follower_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    // Primordial Wolf #39 ---------------------------------------------
+    public static final Supplier<MemoryModuleType<LivingEntity>> PRIMORDIAL_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register("primordial_priority_threat", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> PRIMORDIAL_SHARED_THREAT =
+            MEMORY_MODULE_TYPES.register("primordial_shared_threat", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> PRIMORDIAL_FAMILY_IN_DANGER =
+            MEMORY_MODULE_TYPES.register("primordial_family_in_danger", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> PRIMORDIAL_FAMILY_ATTACKER =
+            MEMORY_MODULE_TYPES.register("primordial_family_attacker", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> PRIMORDIAL_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("primordial_hostile_count", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> PRIMORDIAL_PACK_COUNT =
+            MEMORY_MODULE_TYPES.register("primordial_pack_count", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Boolean>> PRIMORDIAL_PACK_OUTNUMBERED =
+            MEMORY_MODULE_TYPES.register("primordial_pack_outnumbered", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Boolean>> PRIMORDIAL_PRIMAL_STATE_ACTIVE =
+            MEMORY_MODULE_TYPES.register("primordial_primal_state_active", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Boolean>> PRIMORDIAL_FIRST_PACK_ACTIVE =
+            MEMORY_MODULE_TYPES.register("primordial_first_pack_active", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> PRIMORDIAL_PRIMAL_STATE_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("primordial_primal_state_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> PRIMORDIAL_FIRST_PACK_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("primordial_first_pack_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+
+
+    // Creator Wolf — secret #53 / six-star ----------------------------
+    public static final Supplier<MemoryModuleType<LivingEntity>> CREATOR_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register("creator_priority_threat", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> CREATOR_SHARED_THREAT =
+            MEMORY_MODULE_TYPES.register("creator_shared_threat", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> CREATOR_ENDANGERED_FAMILY =
+            MEMORY_MODULE_TYPES.register("creator_endangered_family", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> CREATOR_FAMILY_ATTACKER =
+            MEMORY_MODULE_TYPES.register("creator_family_attacker", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> CREATOR_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("creator_hostile_count", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> CREATOR_FAMILY_COUNT =
+            MEMORY_MODULE_TYPES.register("creator_family_count", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> CREATOR_BEAM_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("creator_beam_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> CREATOR_TOUCH_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("creator_touch_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> CREATOR_INTERVENTION_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("creator_intervention_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Boolean>> CREATOR_PERFECT_INSTINCT_ACTIVE =
+            MEMORY_MODULE_TYPES.register("creator_perfect_instinct_active", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> CREATOR_PERFECT_INSTINCT_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("creator_perfect_instinct_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Boolean>> CREATOR_WILL_ACTIVE =
+            MEMORY_MODULE_TYPES.register("creator_will_active", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> CREATOR_WILL_COOLDOWN =
+            MEMORY_MODULE_TYPES.register("creator_will_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Boolean>> CREATOR_RECOVERY_ACTIVE =
+            MEMORY_MODULE_TYPES.register("creator_recovery_active", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> CREATOR_ADAPTATION_LEVEL =
+            MEMORY_MODULE_TYPES.register("creator_adaptation_level", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<MagmaWolf>> NEAREST_MAGMA_PACKMATE =
+            MEMORY_MODULE_TYPES.register("nearest_magma_packmate", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> MAGMA_PACK_SIZE =
+            MEMORY_MODULE_TYPES.register("magma_pack_size", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> MAGMA_PACK_THREAT =
+            MEMORY_MODULE_TYPES.register("magma_pack_threat", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> MAGMA_TACTICAL_THREAT =
+            MEMORY_MODULE_TYPES.register("magma_tactical_threat", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<BlockPos>> MAGMA_LAVA_SURFACE =
+            MEMORY_MODULE_TYPES.register("magma_lava_surface", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> MAGMA_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("magma_hostile_count", () -> new MemoryModuleType<>(Optional.empty()));
+
+    // Vampire Wolf — adaptive predator tactical memories.
+    public static final Supplier<MemoryModuleType<LivingEntity>> VAMPIRE_FLYING_TARGET =
+            MEMORY_MODULE_TYPES.register("vampire_flying_target", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> VAMPIRE_DRAIN_TARGET =
+            MEMORY_MODULE_TYPES.register("vampire_drain_target", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> VAMPIRE_CHARM_TARGET =
+            MEMORY_MODULE_TYPES.register("vampire_charm_target", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> VAMPIRE_VULNERABLE_FAMILY =
+            MEMORY_MODULE_TYPES.register("vampire_vulnerable_family", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> VAMPIRE_CLUSTER_TARGET =
+            MEMORY_MODULE_TYPES.register("vampire_cluster_target", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> VAMPIRE_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("vampire_hostile_count", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> SPECTRAL_RANGED_TARGET =
+            MEMORY_MODULE_TYPES.register("spectral_ranged_target", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> SPECTRAL_PHASE_TARGET =
+            MEMORY_MODULE_TYPES.register("spectral_phase_target", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> SPECTRAL_VULNERABLE_FAMILY =
+            MEMORY_MODULE_TYPES.register("spectral_vulnerable_family", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> SPECTRAL_CLUSTER_TARGET =
+            MEMORY_MODULE_TYPES.register("spectral_cluster_target", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> SPECTRAL_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("spectral_hostile_count", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> TOXIC_RANGED_TARGET =
+            MEMORY_MODULE_TYPES.register("toxic_ranged_target", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> TOXIC_CLUSTER_TARGET =
+            MEMORY_MODULE_TYPES.register("toxic_cluster_target", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> TOXIC_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("toxic_hostile_count", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> WAR_PRIMARY_TARGET =
+            MEMORY_MODULE_TYPES.register("war_primary_target", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<LivingEntity>> WAR_VULNERABLE_FAMILY =
+            MEMORY_MODULE_TYPES.register("war_vulnerable_family", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Integer>> WAR_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("war_hostile_count", () -> new MemoryModuleType<>(Optional.empty()));
+
+// Illager Wolf #46 ----------------------------------------------------
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            ILLAGER_PRIMARY_TARGET = MEMORY_MODULE_TYPES.register(
+                    "illager_primary_target", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            ILLAGER_ARMORED_TARGET =
+            MEMORY_MODULE_TYPES.register(
+                    "illager_armored_target",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            ILLAGER_RAIDER_TARGET =
+            MEMORY_MODULE_TYPES.register(
+                    "illager_raider_target",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>>
+            ILLAGER_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "illager_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            ANCIENT_PRIMARY_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "ancient_primary_threat",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            ANCIENT_VULNERABLE_FAMILY =
+            MEMORY_MODULE_TYPES.register(
+                    "ancient_vulnerable_family",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    // #47 Ancient Wolf
+
+    public static final Supplier<MemoryModuleType<BlockPos>>
+            ANCIENT_HAZARD_POS =
+            MEMORY_MODULE_TYPES.register(
+                    "ancient_hazard_pos",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>>
+            ANCIENT_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "ancient_hostile_count",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    // #48 Blade Wolf
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            BLADE_PRIMARY_TARGET =
+            MEMORY_MODULE_TYPES.register(
+                    "blade_primary_target",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>>
+            BLADE_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "blade_hostile_count",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>>
+            BLADE_CLUSTERED_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "blade_clustered_count",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    // Raven Wolf #49 =====================================================
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            RAVEN_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "raven_priority_threat",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            RAVEN_OBSERVED_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "raven_observed_threat",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            RAVEN_REPORTED_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "raven_reported_threat",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>>
+            RAVEN_LOOT_POS =
+            MEMORY_MODULE_TYPES.register(
+                    "raven_loot_pos",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>>
+            RAVEN_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "raven_hostile_count",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>>
+            RAVEN_NEARBY_RAVEN_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "raven_nearby_raven_count",
+                    () -> new MemoryModuleType<>(
+                            Optional.empty()));
+
+    // --- #50 Command Wolf
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            COMMAND_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "command_priority_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            COMMAND_DANGEROUS_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "command_dangerous_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            COMMAND_VULNERABLE_FAMILY =
+            MEMORY_MODULE_TYPES.register(
+                    "command_vulnerable_family",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>>
+            COMMAND_ISOLATED_FAMILY =
+            MEMORY_MODULE_TYPES.register(
+                    "command_isolated_family",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>>
+            COMMAND_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "command_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>>
+            COMMAND_FAMILY_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "command_family_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    // --- #51 Ash Wolf ----------- //
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> ASH_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "ash_priority_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> ASH_RANGED_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "ash_ranged_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> ASH_BURNING_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "ash_burning_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> ASH_VULNERABLE_FAMILY =
+            MEMORY_MODULE_TYPES.register(
+                    "ash_vulnerable_family",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> ASH_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "ash_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> ASH_CLUSTER_SIZE =
+            MEMORY_MODULE_TYPES.register(
+                    "ash_cluster_size",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> ASH_FOCUSING_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "ash_focusing_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    // --- #52 Wither Wolf ----------- //
+
+    /** Persistent vanilla Wither quarry selected by Wither Awareness. */
+    public static final Supplier<MemoryModuleType<LivingEntity>> WITHER_QUARRY =
+            MEMORY_MODULE_TYPES.register(
+                    "wither_quarry",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    /** 0 = none, 1 = spawning/invulnerable, 2 = ranged-accessible, 3 = armored melee phase. */
+    public static final Supplier<MemoryModuleType<Integer>> WITHER_BOSS_PHASE =
+            MEMORY_MODULE_TYPES.register(
+                    "wither_boss_phase",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    /** Best ordinary hostile for Withering Projectile focus. */
+    public static final Supplier<MemoryModuleType<LivingEntity>> WITHER_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "wither_priority_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    /** Family member currently in the most urgent Wither-related danger. */
+    public static final Supplier<MemoryModuleType<LivingEntity>> WITHER_VULNERABLE_FAMILY =
+            MEMORY_MODULE_TYPES.register(
+                    "wither_vulnerable_family",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    /** Number of valid ordinary hostiles inside Wither Wolf's artillery awareness. */
+    public static final Supplier<MemoryModuleType<Integer>> WITHER_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "wither_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    /** Number of nearby Wither skulls currently threatening the family. */
+    public static final Supplier<MemoryModuleType<Integer>> WITHER_INCOMING_SKULL_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "wither_incoming_skull_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    // --- #53 Blaze Wolf ----------- //
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> BLAZE_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "blaze_priority_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> BLAZE_RANGED_TARGET =
+            MEMORY_MODULE_TYPES.register(
+                    "blaze_ranged_target",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> BLAZE_CLOSE_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "blaze_close_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> BLAZE_FRONTLINE_LOCKED_TARGET =
+            MEMORY_MODULE_TYPES.register(
+                    "blaze_frontline_locked_target",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> BLAZE_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "blaze_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> BLAZE_CLUSTER_SIZE =
+            MEMORY_MODULE_TYPES.register(
+                    "blaze_cluster_size",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> BLAZE_FIRE_IMMUNE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "blaze_fire_immune_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> BLAZE_INCOMING_FIREBALL_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "blaze_incoming_fireball_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+
+
+    // --- Holiday #1 Halloween Wolf ----------- //
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> HALLOWEEN_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register(
+                    "halloween_priority_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> HALLOWEEN_VULNERABLE_FAMILY =
+            MEMORY_MODULE_TYPES.register(
+                    "halloween_vulnerable_family",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> HALLOWEEN_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register(
+                    "halloween_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Boolean>> HALLOWEEN_LOW_LIGHT =
+            MEMORY_MODULE_TYPES.register(
+                    "halloween_low_light",
+                    () -> new MemoryModuleType<>(Optional.empty()));
 
     private ModMemoryModuleTypes() {
     }

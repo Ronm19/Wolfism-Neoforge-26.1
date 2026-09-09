@@ -94,7 +94,7 @@ public final class ModBiomes {
          */
         spawns.addSpawn(
                 MobCategory.MONSTER,
-                12,
+                28,
                 new MobSpawnSettings.SpawnerData(
                         ModEntities.SCULK_WOLF.get(),
                         1,

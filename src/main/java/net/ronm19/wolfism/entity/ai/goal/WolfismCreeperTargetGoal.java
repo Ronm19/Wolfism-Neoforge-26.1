@@ -17,9 +17,6 @@ import net.ronm19.wolfism.entity.AbstractWolfismWolf;
  * suicidal.</p>
  */
 public final class WolfismCreeperTargetGoal extends Goal {
-    private static final double ACQUIRE_RADIUS = 16.0D;
-    private static final double MAX_CHASE_DISTANCE_SQR = 24.0D * 24.0D;
-
     private final AbstractWolfismWolf wolf;
     private Creeper creeper;
 
@@ -44,7 +41,8 @@ public final class WolfismCreeperTargetGoal extends Goal {
 
         List<Creeper> nearby = serverLevel.getEntitiesOfClass(
                 Creeper.class,
-                this.wolf.getBoundingBox().inflate(ACQUIRE_RADIUS),
+                this.wolf.getBoundingBox().inflate(
+                        this.wolf.getWolfismPhysicalAggroAcquireRadius()),
                 candidate -> candidate.isAlive()
                         && this.wolf.canAttack(candidate)
                         && !this.wolf.isAlliedTo(candidate));
@@ -62,7 +60,7 @@ public final class WolfismCreeperTargetGoal extends Goal {
                 && this.creeper != null
                 && this.creeper.isAlive()
                 && this.wolf.getTarget() == this.creeper
-                && this.wolf.distanceToSqr(this.creeper) <= MAX_CHASE_DISTANCE_SQR;
+                && this.wolf.isWithinWolfismPhysicalAggroReleaseRange(this.creeper);
     }
 
     @Override

@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/void_wolf",
+  "spawners": {
+    "type": "wolfism:void_wolf",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 2
+  }
+}

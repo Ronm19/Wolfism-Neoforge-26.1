@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "wolfism:item/salva_wolf_spawn_egg"
+  }
+}

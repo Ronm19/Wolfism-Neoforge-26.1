@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/vampire_wolf",
+  "spawners": {
+    "type": "wolfism:vampire_wolf",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 3
+  }
+}

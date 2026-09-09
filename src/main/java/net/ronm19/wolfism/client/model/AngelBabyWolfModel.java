@@ -131,8 +131,16 @@ public final class AngelBabyWolfModel extends BabyWolfModel {
                 "halo",
                 CubeListBuilder.create()
                         .texOffs(22, 34)
-                        .addBox(-2.5F, -0.5F, -2.5F, 5.0F, 1.0F, 5.0F, none),
-                PartPose.offset(0.0F, 10.8F, -4.5F));
+                        .addBox(
+                                -2.5F,
+                                -0.5F,
+                                -2.5F,
+                                5.0F,
+                                0.10F,
+                                5.0F,
+                                new CubeDeformation(0.65F, 0.0F, 0.65F)),
+                // Baby ears had even less clearance than the adult model.
+                PartPose.offset(0.0F, 8.0F, -4.5F));
 
 
 

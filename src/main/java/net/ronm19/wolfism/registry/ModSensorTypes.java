@@ -173,7 +173,77 @@ public final class ModSensorTypes {
     public static final Supplier<SensorType<DemonWolfCharmSensor>> DEMON_CHARM =
             SENSOR_TYPES.register("demon_charm", () -> new SensorType<>(DemonWolfCharmSensor::new));
 
+    public static final Supplier<SensorType<WolfKingPackSensor>> WOLF_KING_PACK =
+            SENSOR_TYPES.register(
+                    "wolf_king_pack",
+                    () -> new SensorType<>(WolfKingPackSensor::new));
 
+    public static final Supplier<SensorType<WolfKingThreatSensor>> WOLF_KING_THREAT =
+            SENSOR_TYPES.register(
+                    "wolf_king_threat",
+                    () -> new SensorType<>(WolfKingThreatSensor::new));
+
+
+    public static final Supplier<SensorType<PrimordialPackSensor>> PRIMORDIAL_PACK =
+            SENSOR_TYPES.register("primordial_pack", () -> new SensorType<>(PrimordialPackSensor::new));
+
+    public static final Supplier<SensorType<PrimordialAwarenessSensor>> PRIMORDIAL_AWARENESS =
+            SENSOR_TYPES.register("primordial_awareness", () -> new SensorType<>(PrimordialAwarenessSensor::new));
+
+    public static final Supplier<SensorType<CreatorAwarenessSensor>> CREATOR_AWARENESS =
+            SENSOR_TYPES.register("creator_awareness", () -> new SensorType<>(CreatorAwarenessSensor::new));
+
+    public static final Supplier<SensorType<CreatorFamilySensor>> CREATOR_FAMILY =
+            SENSOR_TYPES.register("creator_family", () -> new SensorType<>(CreatorFamilySensor::new));
+
+    public static final Supplier<SensorType<MagmaWolfPackSensor>> MAGMA_PACK =
+            SENSOR_TYPES.register("magma_pack", () -> new SensorType<>(MagmaWolfPackSensor::new));
+
+    public static final Supplier<SensorType<MagmaWolfTacticalSensor>> MAGMA_TACTICAL =
+            SENSOR_TYPES.register("magma_tactical", () -> new SensorType<>(MagmaWolfTacticalSensor::new));
+
+    public static final Supplier<SensorType<VampireWolfTacticalSensor>> VAMPIRE_TACTICAL =
+            SENSOR_TYPES.register("vampire_tactical", () -> new SensorType<>(VampireWolfTacticalSensor::new));
+
+    public static final Supplier<SensorType<SpectralWolfTacticalSensor>> SPECTRAL_TACTICAL =
+            SENSOR_TYPES.register("spectral_tactical", () -> new SensorType<>(SpectralWolfTacticalSensor::new));
+
+    public static final Supplier<SensorType<ToxicWolfTacticalSensor>> TOXIC_TACTICAL =
+            SENSOR_TYPES.register("toxic_tactical", () -> new SensorType<>(ToxicWolfTacticalSensor::new));
+
+    public static final Supplier<SensorType<WarWolfTacticalSensor>> WAR_TACTICAL =
+            SENSOR_TYPES.register("war_tactical", () -> new SensorType<>(WarWolfTacticalSensor::new));
+
+    public static final Supplier<SensorType<IllagerWolfTacticalSensor>> ILLAGER_TACTICAL =
+            SENSOR_TYPES.register("illager_tactical", () -> new SensorType<>(IllagerWolfTacticalSensor::new));
+
+    public static final Supplier<SensorType<AncientWolfTacticalSensor>>
+            ANCIENT_TACTICAL = SENSOR_TYPES.register("ancient_tactical", () -> new SensorType<>(AncientWolfTacticalSensor::new));
+
+    public static final Supplier<SensorType<BladeWolfTacticalSensor>> BLADE_TACTICAL =
+            SENSOR_TYPES.register("blade_tactical", () -> new SensorType<>(BladeWolfTacticalSensor::new));
+
+    public static final Supplier<SensorType<RavenWolfTacticalSensor>> RAVEN_TACTICAL =
+            SENSOR_TYPES.register("raven_tactical", () -> new SensorType<>(RavenWolfTacticalSensor::new));
+
+    public static final Supplier<SensorType<CommandWolfAwarenessSensor>> COMMAND_AWARENESS =
+            SENSOR_TYPES.register("command_awareness", () -> new SensorType<>(CommandWolfAwarenessSensor::new));
+
+    public static final Supplier<SensorType<AshWolfAwarenessSensor>> ASH_AWARENESS =
+            SENSOR_TYPES.register("ash_awareness", () -> new SensorType<>(AshWolfAwarenessSensor::new));
+
+    public static final Supplier<SensorType<WitherWolfAwarenessSensor>> WITHER_AWARENESS =
+            SENSOR_TYPES.register("wither_awareness", () -> new SensorType<>(WitherWolfAwarenessSensor::new));
+
+    public static final Supplier<SensorType<BlazeWolfAwarenessSensor>> BLAZE_AWARENESS =
+            SENSOR_TYPES.register("blaze_awareness", () -> new SensorType<>(BlazeWolfAwarenessSensor::new));
+
+
+
+    public static final Supplier<SensorType<HalloweenWolfAwarenessSensor>> HALLOWEEN_AWARENESS =
+            SENSOR_TYPES.register(
+                    "halloween_awareness",
+                    () -> new SensorType<>(HalloweenWolfAwarenessSensor::new));
 
     private ModSensorTypes() {
     }

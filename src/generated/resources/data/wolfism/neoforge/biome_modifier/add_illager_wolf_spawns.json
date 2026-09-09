@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/illager_wolf",
+  "spawners": {
+    "type": "wolfism:illager_wolf",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 2
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/toxic_wolf",
+  "spawners": {
+    "type": "wolfism:toxic_wolf",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 3
+  }
+}

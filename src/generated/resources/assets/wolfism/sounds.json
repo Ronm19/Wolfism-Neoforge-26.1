@@ -1,0 +1,70 @@
+{
+  "entity.creator_wolf.growl": {
+    "sounds": [
+      {
+        "name": "wolfism:entity/creator_wolf/growl_1",
+        "weight": 3
+      },
+      {
+        "name": "wolfism:entity/creator_wolf/growl_2",
+        "weight": 2
+      },
+      {
+        "name": "wolfism:entity/creator_wolf/growl_3",
+        "weight": 2
+      }
+    ],
+    "subtitle": "subtitles.wolfism.creator_wolf.growl"
+  },
+  "entity.creator_wolf.howl": {
+    "sounds": [
+      {
+        "name": "wolfism:entity/creator_wolf/howl_1",
+        "weight": 3
+      },
+      {
+        "name": "wolfism:entity/creator_wolf/howl_2",
+        "weight": 2
+      },
+      {
+        "name": "wolfism:entity/creator_wolf/howl_3",
+        "weight": 2
+      }
+    ],
+    "subtitle": "subtitles.wolfism.creator_wolf.howl"
+  },
+  "entity.primordial_wolf.howl": {
+    "sounds": [
+      {
+        "name": "wolfism:entity/primordial_wolf/howl_1",
+        "weight": 3
+      },
+      {
+        "name": "wolfism:entity/primordial_wolf/howl_2",
+        "weight": 2
+      },
+      {
+        "name": "wolfism:entity/primordial_wolf/howl_3",
+        "weight": 2
+      }
+    ],
+    "subtitle": "subtitles.wolfism.primordial_wolf.howl"
+  },
+  "entity.wolf_king.howl": {
+    "sounds": [
+      {
+        "name": "wolfism:entity/wolf_king/howl_1",
+        "weight": 3
+      },
+      {
+        "name": "wolfism:entity/wolf_king/howl_2",
+        "weight": 2
+      },
+      {
+        "name": "wolfism:entity/wolf_king/howl_3",
+        "weight": 2
+      }
+    ],
+    "subtitle": "subtitles.wolfism.wolf_king.howl"
+  }
+}

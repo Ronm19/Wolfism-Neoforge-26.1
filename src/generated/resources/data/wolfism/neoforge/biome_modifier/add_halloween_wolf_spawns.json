@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/halloween_wolf",
+  "spawners": {
+    "type": "wolfism:halloween_wolf",
+    "maxCount": 3,
+    "minCount": 1,
+    "weight": 16
+  }
+}

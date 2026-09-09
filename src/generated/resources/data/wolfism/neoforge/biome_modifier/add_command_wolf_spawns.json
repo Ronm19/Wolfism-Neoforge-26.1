@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/command_wolf",
+  "spawners": {
+    "type": "wolfism:command_wolf",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 4
+  }
+}

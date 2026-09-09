@@ -175,14 +175,15 @@ public final class AngelAdultWolfModel extends AdultWolfModel {
 
         /*
          * Halo: the texture's gold island is a normal 5x1x5 box unwrap at
-         * (25,52). The center pixels are transparent, so one thin box renders
-         * as the exact square ring drawn in Blockbench.
+         * (25,52). The center pixels are transparent. Keep the halo almost
+         * paper-thin: a full 1-pixel Y thickness renders the textured top and
+         * bottom faces as two visibly separated rings from side angles.
          */
         root.addOrReplaceChild(
                 "halo",
                 CubeListBuilder.create()
                         .texOffs(25, 52)
-                        .addBox(-2.5F, -0.5F, -2.5F, 5.0F, 1.0F, 5.0F, none),
+                        .addBox(-2.5F, -0.05F, -2.5F, 5.0F, 0.10F, 5.0F, none),
                 PartPose.offset(0.0F, 5.8F, -7.0F));
 
 

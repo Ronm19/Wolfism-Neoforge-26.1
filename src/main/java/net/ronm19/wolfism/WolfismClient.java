@@ -41,6 +41,7 @@ public final class WolfismClient {
         event.registerEntityRenderer(ModEntities.DROWNED_WOLF.get(), DrownedWolfRenderer::new);
         event.registerEntityRenderer(ModEntities.PHANTOM_WOLF.get(), PhantomWolfRenderer::new);
         event.registerEntityRenderer(ModEntities.BLOOD_WOLF.get(), BloodWolfRenderer ::new);
+        event.registerEntityRenderer(ModEntities.VAMPIRE_WOLF.get(), VampireWolfRenderer::new);
         event.registerEntityRenderer(ModEntities.END_WOLF.get(), EndWolfRenderer::new);
         event.registerEntityRenderer(ModEntities.SCULK_WOLF.get(), SculkWolfRenderer::new);
         event.registerEntityRenderer(ModEntities.INFERNAL_WOLF.get(), InfernalWolfRenderer::new);
@@ -49,9 +50,29 @@ public final class WolfismClient {
         event.registerEntityRenderer(ModEntities.ANGEL_WOLF.get(), AngelWolfRenderer::new);
         event.registerEntityRenderer(ModEntities.DEMON_WOLF.get(), DemonWolfRenderer::new);
         event.registerEntityRenderer(ModEntities.GRAVE_WOLF.get(), GraveWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.RIFT_WOLF.get(), RiftWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.VOID_WOLF.get(), VoidWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.SPECTRAL_WOLF.get(), SpectralWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.SALVA_WOLF.get(), SalvaWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.WOLF_KING.get(), WolfKingRenderer::new);
+        event.registerEntityRenderer(ModEntities.PRIMORDIAL_WOLF.get(), PrimordialWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.TOXIC_WOLF.get(), ToxicWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.WAR_WOLF.get(), WarWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.MAGMA_WOLF.get(), MagmaWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.ILLAGER_WOLF.get(), IllagerWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.ANCIENT_WOLF.get(), AncientWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.BLADE_WOLF.get(), BladeWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.RAVEN_WOLF.get(), RavenWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.COMMAND_WOLF.get(), CommandWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.ASH_WOLF.get(), AshWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.WITHER_WOLF.get(), WitherWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.BLAZE_WOLF.get(), BlazeWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.HALLOWEEN_WOLF.get(), HalloweenWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.CREATOR_WOLF.get(), CreatorWolfRenderer::new);
 
 
         event.registerEntityRenderer(ModEntities.BONE_SHARD.get(), BoneShardRenderer::new);
+        event.registerEntityRenderer(ModEntities.RIFT_PORTAL.get(), RiftPortalRenderer::new);
     }
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -81,6 +102,8 @@ public final class WolfismClient {
         event.registerLayerDefinition(SculkBabyWolfModel.LAYER_LOCATION, SculkBabyWolfModel ::createBodyLayer);
         event.registerLayerDefinition(DemonWolfModel.LAYER_LOCATION, DemonWolfModel ::createBodyLayer);
         event.registerLayerDefinition(DemonWolfBabyModel.LAYER_LOCATION, DemonWolfBabyModel ::createBodyLayer);
+        event.registerLayerDefinition(RavenWolfModel.LAYER_LOCATION, RavenWolfModel ::createBodyLayer);
+        event.registerLayerDefinition(RavenWolfBabyModel.LAYER_LOCATION, RavenWolfBabyModel ::createBodyLayer);
         event.registerLayerDefinition(WolfismAdultCollarModel.LAYER_LOCATION, WolfismAdultCollarModel::createBodyLayer);
         event.registerLayerDefinition(WolfismBabyCollarModel.LAYER_LOCATION, WolfismBabyCollarModel::createBodyLayer);
 

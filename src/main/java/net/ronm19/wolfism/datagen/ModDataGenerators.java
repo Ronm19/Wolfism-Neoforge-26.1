@@ -10,6 +10,7 @@ public final class ModDataGenerators {
         event.createProvider(ModBiomeTagProvider::new);
         event.createProvider(ModBlockTagProvider::new);
         event.createProvider(ModModelProvider::new);
+        event.createProvider(ModSoundDefinitionsProvider::new);
     }
 
     private ModDataGenerators() {

@@ -4,7 +4,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -31,15 +30,14 @@ public final class ModCreativeModeTabs {
 
     /**
      * Wolfism non-block, non-spawn-egg items only.
-     *
-     * Bone is a temporary icon until Wolfism has a suitable normal item.
+     * The Wolf Staff is now the tab icon as Wolfism's primary command item.
      */
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> WOLFISM_ITEMS =
             CREATIVE_MODE_TABS.register("wolfism_items", () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.wolfism.items"))
-                    .icon(() -> new ItemStack(Items.BONE))
+                    .icon(() -> new ItemStack(ModItems.WOLF_STAFF.get()))
                     .displayItems((parameters, output) -> {
-                        // Add normal Wolfism items here as they are implemented.
+                        output.accept(ModItems.WOLF_STAFF.get());
                     })
                     .build());
 
@@ -86,7 +84,26 @@ public final class ModCreativeModeTabs {
                         output.accept(ModItems.ANGEL_WOLF_SPAWN_EGG.get());
                         output.accept(ModItems.DEMON_WOLF_SPAWN_EGG.get());
                         output.accept(ModItems.GRAVE_WOLF_SPAWN_EGG.get());
-
+                        output.accept(ModItems.RIFT_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.VOID_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.SALVA_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.WOLF_KING_SPAWN_EGG.get());
+                        output.accept(ModItems.PRIMORDIAL_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.MAGMA_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.VAMPIRE_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.SPECTRAL_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.TOXIC_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.WAR_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.ILLAGER_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.ANCIENT_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.BLADE_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.RAVEN_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.COMMAND_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.ASH_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.WITHER_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.BLAZE_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.HALLOWEEN_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.CREATOR_WOLF_SPAWN_EGG.get());
 
 
 

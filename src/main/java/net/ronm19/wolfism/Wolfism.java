@@ -8,10 +8,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.ronm19.wolfism.datagen.ModDataGenerators;
 import net.ronm19.wolfism.event.ModEntityEvents;
-import net.ronm19.wolfism.registry.ModEntities;
-import net.ronm19.wolfism.registry.ModItems;
-import net.ronm19.wolfism.registry.ModMemoryModuleTypes;
-import net.ronm19.wolfism.registry.ModSensorTypes;
+import net.ronm19.wolfism.registry.*;
 import net.ronm19.wolfism.tab.ModCreativeModeTabs;
 import net.ronm19.wolfism.worldgen.region.SculkPlainsRegion;
 import org.slf4j.Logger;
@@ -23,10 +20,12 @@ public final class Wolfism {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public Wolfism(IEventBus modEventBus, ModContainer modContainer) {
+        ModGameRules.GAME_RULES.register(modEventBus);
         ModMemoryModuleTypes.MEMORY_MODULE_TYPES.register(modEventBus);
         ModSensorTypes.SENSOR_TYPES.register(modEventBus);
         ModEntities.ENTITY_TYPES.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
+        ModSounds.register(modEventBus);
         ModCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);

@@ -3,8 +3,11 @@ package net.ronm19.wolfism.datagen;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.model.ModelTemplate;
+import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.renderer.item.ClientItem;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 import net.minecraft.data.PackOutput;
 import net.ronm19.wolfism.Wolfism;
 import net.ronm19.wolfism.registry.ModItems;
@@ -50,5 +53,83 @@ public final class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.ANGEL_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.DEMON_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.GRAVE_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.RIFT_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.VOID_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SALVA_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.WOLF_KING_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.PRIMORDIAL_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.MAGMA_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.VAMPIRE_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPECTRAL_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.TOXIC_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.WAR_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.ILLAGER_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.ANCIENT_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.BLADE_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.RAVEN_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.COMMAND_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.ASH_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.WITHER_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.BLAZE_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.HALLOWEEN_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.CREATOR_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+
+        generateWolfStaffModels(itemModels);
     }
+    /**
+     * Generates the Wolf Staff as a proper handheld item, including every command-mode
+     * texture/model used by WolfStaffItem through DataComponents.ITEM_MODEL.
+     *
+     * <p>The texture files are still normal assets:</p>
+     * <ul>
+     *     <li>wolf_staff_follow.png</li>
+     *     <li>wolf_staff_sit.png</li>
+     *     <li>wolf_staff_guard.png</li>
+     *     <li>wolf_staff_attack.png</li>
+     *     <li>wolf_staff_recall.png</li>
+     * </ul>
+     *
+     * <p>Datagen creates both the handheld model JSON and the arbitrarily named
+     * client-item definition required by the staff's runtime ITEM_MODEL swap.</p>
+     */
+    private static void generateWolfStaffModels(ItemModelGenerators itemModels) {
+        Item staff = ModItems.WOLF_STAFF.get();
+
+        // Fallback/default registered item model. WolfStaffItem immediately resolves
+        // to FOLLOW, but keeping the base model handheld prevents an ugly flat frame.
+        itemModels.generateFlatItem(staff, ModelTemplates.FLAT_HANDHELD_ITEM);
+
+        generateWolfStaffMode(itemModels, staff, "follow");
+        generateWolfStaffMode(itemModels, staff, "sit");
+        generateWolfStaffMode(itemModels, staff, "guard");
+        generateWolfStaffMode(itemModels, staff, "attack");
+        generateWolfStaffMode(itemModels, staff, "recall");
+    }
+
+    private static void generateWolfStaffMode(
+            ItemModelGenerators itemModels,
+            Item staff,
+            String mode) {
+
+        String suffix = "_" + mode;
+
+        // models/item/wolf_staff_<mode>.json
+        Identifier modelId = itemModels.createFlatItemModel(
+                staff,
+                suffix,
+                ModelTemplates.FLAT_HANDHELD_ITEM);
+
+        // items/wolf_staff_<mode>.json
+        // These are the IDs WolfStaffItem writes into DataComponents.ITEM_MODEL.
+        Identifier clientItemId = Identifier.fromNamespaceAndPath(
+                Wolfism.MOD_ID,
+                "wolf_staff_" + mode);
+
+        itemModels.itemModelOutput.register(
+                clientItemId,
+                new ClientItem(
+                        ItemModelUtils.plainModel(modelId),
+                        ClientItem.Properties.DEFAULT));
+    }
+
 }

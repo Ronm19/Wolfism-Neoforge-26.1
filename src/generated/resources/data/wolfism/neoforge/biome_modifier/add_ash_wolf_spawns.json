@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/ash_wolf",
+  "spawners": {
+    "type": "wolfism:ash_wolf",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 2
+  }
+}

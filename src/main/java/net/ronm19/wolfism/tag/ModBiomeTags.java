@@ -167,12 +167,59 @@ public final class ModBiomeTags {
             Registries.BIOME,
             Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/grave_wolf"));
 
+    public static final TagKey<Biome> RIFT_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/rift_wolf"));
+
+    public static final TagKey<Biome> VOID_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/void_wolf"));
+
+    public static final TagKey<Biome> SALVA_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/salva_wolf"));
+
+    public static final TagKey<Biome> MAGMA_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/magma_wolf"));
+
+    public static final TagKey<Biome> VAMPIRE_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/vampire_wolf"));
+
+    public static final TagKey<Biome> SPECTRAL_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/spectral_wolf"));
+
+    public static final TagKey<Biome> TOXIC_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/toxic_wolf"));
+
+    public static final TagKey<Biome> WAR_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/war_wolf"));
+
+    public static final TagKey<Biome> ILLAGER_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/illager_wolf"));
+
+    public static final TagKey<Biome> ANCIENT_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/ancient_wolf"));
+
+    public static final TagKey<Biome> BLADE_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/blade_wolf"));
+
+    public static final TagKey<Biome> RAVEN_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/raven_wolf"));
+
+    public static final TagKey<Biome> COMMAND_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/command_wolf"));
+
+    public static final TagKey<Biome> ASH_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/ash_wolf"));
+
+
+    public static final TagKey<Biome> WITHER_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/wither_wolf"));
+
+    public static final TagKey<Biome> BLAZE_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/blaze_wolf"));
 
 
 
-
-
-
+    public static final TagKey<Biome> HALLOWEEN_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/halloween_wolf"));
 
     private ModBiomeTags() {
     }

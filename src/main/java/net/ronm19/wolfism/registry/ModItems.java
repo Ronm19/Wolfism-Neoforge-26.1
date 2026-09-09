@@ -4,9 +4,15 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.ronm19.wolfism.Wolfism;
+import net.ronm19.wolfism.registry.custom.item.CreatorWolfSpawnEggItem;
+import net.ronm19.wolfism.registry.custom.item.WolfStaffItem;
 
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Wolfism.MOD_ID);
+
+    public static final DeferredItem<WolfStaffItem> WOLF_STAFF = ITEMS.registerItem(
+            "wolf_staff",
+            properties -> new WolfStaffItem(properties.stacksTo(1)));
 
     public static final DeferredItem<SpawnEggItem> TIMBER_WOLF_SPAWN_EGG = ITEMS.registerItem(
             "timber_wolf_spawn_egg",
@@ -148,6 +154,78 @@ public final class ModItems {
             ITEMS.registerItem("grave_wolf_spawn_egg", properties -> new SpawnEggItem(
                     properties.spawnEgg(ModEntities.GRAVE_WOLF.get())));
 
+    public static final DeferredItem<SpawnEggItem> RIFT_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("rift_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.RIFT_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> VOID_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("void_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.VOID_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> SALVA_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("salva_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.SALVA_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> WOLF_KING_SPAWN_EGG =
+            ITEMS.registerItem("wolf_king_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.WOLF_KING.get())));
+
+    public static final DeferredItem<SpawnEggItem> PRIMORDIAL_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("primordial_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.PRIMORDIAL_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> TOXIC_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("toxic_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.TOXIC_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> MAGMA_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("magma_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.MAGMA_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> VAMPIRE_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("vampire_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.VAMPIRE_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> SPECTRAL_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("spectral_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.SPECTRAL_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> WAR_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("war_wolf_spawn_egg", properties -> new SpawnEggItem(
+                            properties.spawnEgg(ModEntities.WAR_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> ILLAGER_WOLF_SPAWN_EGG = ITEMS.registerItem("illager_wolf_spawn_egg",
+            properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.ILLAGER_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> ANCIENT_WOLF_SPAWN_EGG = ITEMS.registerItem("ancient_wolf_spawn_egg",
+                    properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.ANCIENT_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> BLADE_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("blade_wolf_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.BLADE_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> RAVEN_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("raven_wolf_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.RAVEN_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> COMMAND_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("command_wolf_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.COMMAND_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> ASH_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("ash_wolf_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.ASH_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> WITHER_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("wither_wolf_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.WITHER_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> BLAZE_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("blaze_wolf_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.BLAZE_WOLF.get())));
+
+
+    public static final DeferredItem<SpawnEggItem> HALLOWEEN_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("halloween_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.HALLOWEEN_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> CREATOR_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("creator_wolf_spawn_egg", properties -> new CreatorWolfSpawnEggItem(
+                    properties.spawnEgg(ModEntities.CREATOR_WOLF.get())));
 
 
 

@@ -1,16 +1,13 @@
 package net.ronm19.wolfism.datagen;
 
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.Weighted;
-import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers.AddSpawnsBiomeModifier;
@@ -135,55 +132,85 @@ public final class ModBiomeModifierProvider {
             NeoForgeRegistries.Keys.BIOME_MODIFIERS,
             Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_end_wolf_spawns"));
 
-    public static final ResourceKey<BiomeModifier> ADD_INFERNAL_WOLF_SPAWNS =
-            ResourceKey.create(
-                    NeoForgeRegistries.Keys.BIOME_MODIFIERS,
-                    Identifier.fromNamespaceAndPath(
-                            Wolfism.MOD_ID,
-                            "add_infernal_wolf_spawns"));
+    public static final ResourceKey<BiomeModifier> ADD_INFERNAL_WOLF_SPAWNS = ResourceKey.create
+            (NeoForgeRegistries.Keys.BIOME_MODIFIERS,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_infernal_wolf_spawns"));
 
     public static final ResourceKey<BiomeModifier> ADD_OMEN_WOLF_SPAWNS =
-            ResourceKey.create(
-                    NeoForgeRegistries.Keys.BIOME_MODIFIERS,
-                    Identifier.fromNamespaceAndPath(
-                            Wolfism.MOD_ID,
-                            "add_omen_wolf_spawns"));
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(
+                            Wolfism.MOD_ID, "add_omen_wolf_spawns"));
 
-    public static final ResourceKey<BiomeModifier> ADD_ASTRAL_WOLF_SPAWNS =
-            ResourceKey.create(
-                    NeoForgeRegistries.Keys.BIOME_MODIFIERS,
-                    Identifier.fromNamespaceAndPath(
-                            Wolfism.MOD_ID,
-                            "add_astral_wolf_spawns"));
+    public static final ResourceKey<BiomeModifier> ADD_ASTRAL_WOLF_SPAWNS = ResourceKey.create
+            (NeoForgeRegistries.Keys.BIOME_MODIFIERS,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_astral_wolf_spawns"));
 
-    public static final ResourceKey<BiomeModifier> ADD_ANGEL_WOLF_SPAWNS =
-            ResourceKey.create(
-                    NeoForgeRegistries.Keys.BIOME_MODIFIERS,
-                    Identifier.fromNamespaceAndPath(
-                            Wolfism.MOD_ID,
-                            "add_angel_wolf_spawns"));
+    public static final ResourceKey<BiomeModifier> ADD_ANGEL_WOLF_SPAWNS = ResourceKey.create
+            (NeoForgeRegistries.Keys.BIOME_MODIFIERS,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_angel_wolf_spawns"));
 
-    public static final ResourceKey<BiomeModifier> ADD_ANGEL_WOLF_HIGHLAND_SPAWNS =
-            ResourceKey.create(
-                    NeoForgeRegistries.Keys.BIOME_MODIFIERS,
-                    Identifier.fromNamespaceAndPath(
-                            Wolfism.MOD_ID,
-                            "add_angel_wolf_highland_spawns"));
+    public static final ResourceKey<BiomeModifier> ADD_ANGEL_WOLF_HIGHLAND_SPAWNS = ResourceKey.create
+                    (NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_angel_wolf_highland_spawns"));
 
     public static final ResourceKey<BiomeModifier> ADD_DEMON_WOLF_SPAWNS =
-            ResourceKey.create(
-                    NeoForgeRegistries.Keys.BIOME_MODIFIERS,
-                    Identifier.fromNamespaceAndPath(
-                            Wolfism.MOD_ID,
-                            "add_demon_wolf_spawns"));
-
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_demon_wolf_spawns"));
 
     public static final ResourceKey<BiomeModifier> ADD_GRAVE_WOLF_SPAWNS =
-            ResourceKey.create(
-                    NeoForgeRegistries.Keys.BIOME_MODIFIERS,
-                    Identifier.fromNamespaceAndPath(
-                            Wolfism.MOD_ID,
-                            "add_grave_wolf_spawns"));
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_grave_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_RIFT_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_rift_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_VOID_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_void_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_SALVA_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_salva_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_MAGMA_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_magma_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_VAMPIRE_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_vampire_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_SPECTRAL_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_spectral_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_TOXIC_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_toxic_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_WAR_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_war_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_ILLAGER_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_illager_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_ANCIENT_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_ancient_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_BLADE_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_blade_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_RAVEN_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_raven_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_COMMAND_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_command_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_ASH_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_ash_wolf_spawns"));
+
+
+    public static final ResourceKey<BiomeModifier> ADD_WITHER_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_wither_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_BLAZE_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_blaze_wolf_spawns"));
+
+
+
+    public static final ResourceKey<BiomeModifier> ADD_HALLOWEEN_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_halloween_wolf_spawns"));
 
 
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
@@ -575,12 +602,242 @@ public final class ModBiomeModifierProvider {
                 )
         );
 
+        context.register(
+                ADD_RIFT_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(
+                                ModBiomeTags.RIFT_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.RIFT_WOLF.get(),
+                                        1,
+                                        1),
+                                3
+                        )
+                )
+        );
+
+        context.register(
+                ADD_VOID_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(
+                                ModBiomeTags.VOID_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.VOID_WOLF.get(),
+                                        1,
+                                        1),
+                                2
+                        )
+                )
+        );
+
+        context.register(
+                ADD_SALVA_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(
+                                ModBiomeTags.SALVA_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.SALVA_WOLF.get(),
+                                        1,
+                                        2),
+                                2
+                        )
+                )
+        );
+
+        context.register(
+                ADD_MAGMA_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(ModBiomeTags.MAGMA_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(ModEntities.MAGMA_WOLF.get(), 1, 1),
+                                4
+                        )
+                )
+        );
+
+        context.register(
+                ADD_VAMPIRE_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(ModBiomeTags.VAMPIRE_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(ModEntities.VAMPIRE_WOLF.get(), 1, 1),
+                                3
+                        )
+                )
+        );
+
+        context.register(
+                    ADD_SPECTRAL_WOLF_SPAWNS,
+                    AddSpawnsBiomeModifier.singleSpawn(
+                            biomes.getOrThrow(ModBiomeTags.SPECTRAL_WOLF_SPAWNS),
+                            new Weighted<>(
+                                    new SpawnerData(
+                                            ModEntities.SPECTRAL_WOLF.get(), 1, 1),
+                                    3
+                            )
+                    )
+        );
+
+        context.register(
+                ADD_TOXIC_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(ModBiomeTags.TOXIC_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.TOXIC_WOLF.get(), 1, 1),
+                                3
+                        )
+                )
+        );
+
+        context.register(
+                ADD_WAR_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(
+                                ModBiomeTags.WAR_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.WAR_WOLF.get(),
+                                        1,
+                                        1),
+                                3
+                        )
+                )
+        );
+
+        context.register(
+                ADD_ILLAGER_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(
+                                ModBiomeTags.ILLAGER_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.ILLAGER_WOLF.get(),
+                                        1,
+                                        1),
+                                2
+                        )
+                )
+        );
+
+        context.register(
+                ADD_ANCIENT_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(
+                                ModBiomeTags.ANCIENT_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.ANCIENT_WOLF.get(),
+                                        1,
+                                        1),
+                                4
+                        )
+                )
+        );
+
+        context.register(
+                ADD_BLADE_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(
+                                ModBiomeTags.BLADE_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.BLADE_WOLF.get(),
+                                        1,
+                                        1),
+                                4
+                        )
+                )
+        );
+
+        context.register(
+                ADD_RAVEN_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(
+                                ModBiomeTags.RAVEN_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.RAVEN_WOLF.get(),
+                                        1,
+                                        1),
+                                3
+                        )
+                )
+        );
+
+        context.register(
+                ADD_COMMAND_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(
+                                ModBiomeTags.COMMAND_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.COMMAND_WOLF.get(),
+                                        1,
+                                        1),
+                                4
+                        )
+                )
+        );
+
+        context.register(
+                ADD_ASH_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(
+                                ModBiomeTags.ASH_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.ASH_WOLF.get(),
+                                        1,
+                                        1),
+                                2
+                        )
+                )
+        );
 
 
+        context.register(
+                ADD_WITHER_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(
+                                ModBiomeTags.WITHER_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.WITHER_WOLF.get(),
+                                        1,
+                                        1),
+                                3
+                        )
+                )
+        );
 
+        context.register(
+                ADD_BLAZE_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(ModBiomeTags.BLAZE_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(
+                                        ModEntities.BLAZE_WOLF.get(),
+                                        1,
+                                        1),
+                                3
+                        )
+                )
+        );
 
-
-
+        context.register(
+                ADD_HALLOWEEN_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(ModBiomeTags.HALLOWEEN_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(ModEntities.HALLOWEEN_WOLF.get(), 1, 3),
+                                16
+                        )
+                )
+        );
 
 
     }

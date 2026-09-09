@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/raven_wolf",
+  "spawners": {
+    "type": "wolfism:raven_wolf",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 3
+  }
+}

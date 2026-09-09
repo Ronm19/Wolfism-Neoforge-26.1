@@ -147,7 +147,7 @@
         "type": "wolfism:sculk_wolf",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 12
+        "weight": 28
       }
     ],
     "underground_water_creature": [

@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/ancient_wolf",
+  "spawners": {
+    "type": "wolfism:ancient_wolf",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 4
+  }
+}

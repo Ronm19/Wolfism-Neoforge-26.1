@@ -263,6 +263,65 @@ public final class ModEntityEvents {
         event.put(ModEntities.GRAVE_WOLF.get(),
                 GraveWolf.createAttributes().build());
 
+        event.put(ModEntities.RIFT_WOLF.get(),
+                RiftWolf.createAttributes().build());
+
+        event.put(ModEntities.VOID_WOLF.get(),
+                VoidWolf.createAttributes().build());
+
+        event.put(ModEntities.SALVA_WOLF.get(),
+                SalvaWolf.createAttributes().build());
+
+        event.put(ModEntities.WOLF_KING.get(),
+                WolfKing.createAttributes().build());
+
+        event.put(ModEntities.PRIMORDIAL_WOLF.get(),
+                PrimordialWolf.createAttributes().build());
+
+        event.put(ModEntities.MAGMA_WOLF.get(),
+                MagmaWolf.createAttributes().build());
+
+        event.put(ModEntities.VAMPIRE_WOLF.get(),
+                VampireWolf.createAttributes().build());
+
+        event.put(ModEntities.SPECTRAL_WOLF.get(),
+                SpectralWolf.createAttributes().build());
+
+        event.put(ModEntities.TOXIC_WOLF.get(),
+                ToxicWolf.createAttributes().build());
+
+        event.put(ModEntities.WAR_WOLF.get(),
+                WarWolf.createAttributes().build());
+
+        event.put(ModEntities.ILLAGER_WOLF.get(),
+                IllagerWolf.createAttributes().build());
+
+        event.put(ModEntities.ANCIENT_WOLF.get(),
+                AncientWolf.createAttributes().build());
+
+        event.put(ModEntities.BLADE_WOLF.get(),
+                BladeWolf.createAttributes().build());
+
+        event.put(ModEntities.RAVEN_WOLF.get(),
+                RavenWolf.createAttributes().build());
+
+        event.put(ModEntities.COMMAND_WOLF.get(),
+                CommandWolf.createAttributes().build());
+
+        event.put(ModEntities.ASH_WOLF.get(),
+                AshWolf.createAttributes().build());
+
+        event.put(ModEntities.WITHER_WOLF.get(),
+                WitherWolf.createAttributes().build());
+
+        event.put(ModEntities.BLAZE_WOLF.get(),
+                BlazeWolf.createAttributes().build());
+
+        event.put(ModEntities.HALLOWEEN_WOLF.get(),
+                HalloweenWolf.createAttributes().build());
+
+        event.put(ModEntities.CREATOR_WOLF.get(),
+                CreatorWolf.createAttributes().build());
 
 
     }
@@ -510,8 +569,141 @@ public final class ModEntityEvents {
                 GraveWolf::checkGraveWolfSpawnRules,
                 RegisterSpawnPlacementsEvent.Operation.REPLACE);
 
+        event.register(
+                ModEntities.RIFT_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                RiftWolf::checkRiftWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.VOID_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                VoidWolf::checkVoidWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.SALVA_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                SalvaWolf::checkSalvaWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.WOLF_KING.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                WolfKing::checkWolfKingSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.PRIMORDIAL_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                PrimordialWolf::checkPrimordialWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.MAGMA_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                MagmaWolf::checkMagmaWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.VAMPIRE_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                VampireWolf::checkVampireWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.SPECTRAL_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                SpectralWolf::checkSpectralWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.TOXIC_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                ToxicWolf::checkToxicWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.WAR_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                WarWolf::checkWarWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.ILLAGER_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                IllagerWolf::checkIllagerWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.ANCIENT_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                AncientWolf::checkAncientWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.BLADE_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                BladeWolf::checkBladeWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE
+        );
+
+        event.register(
+                ModEntities.RAVEN_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                RavenWolf::checkRavenWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.COMMAND_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                CommandWolf::checkCommandWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.ASH_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                AshWolf::checkAshWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
 
 
+        event.register(
+                ModEntities.WITHER_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                WitherWolf::checkWitherWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.BLAZE_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                BlazeWolf::checkBlazeWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+
+        event.register(
+                ModEntities.HALLOWEEN_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                HalloweenWolf::checkHalloweenWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
 
 
     }

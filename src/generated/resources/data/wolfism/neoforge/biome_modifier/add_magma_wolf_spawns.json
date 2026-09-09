@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/magma_wolf",
+  "spawners": {
+    "type": "wolfism:magma_wolf",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 4
+  }
+}

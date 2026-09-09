@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/rift_wolf",
+  "spawners": {
+    "type": "wolfism:rift_wolf",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 3
+  }
+}

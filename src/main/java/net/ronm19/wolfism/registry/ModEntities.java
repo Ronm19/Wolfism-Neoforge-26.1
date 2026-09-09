@@ -355,6 +355,232 @@ public final class ModEntities {
                             .clientTrackingRange(12));
 
 
+    public static final Supplier<EntityType<RiftWolf>> RIFT_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "rift_wolf",
+                    RiftWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+
+    public static final Supplier<EntityType<VoidWolf>> VOID_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "void_wolf",
+                    VoidWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<VampireWolf>> VAMPIRE_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "vampire_wolf",
+                    VampireWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<SpectralWolf>> SPECTRAL_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "spectral_wolf",
+                    SpectralWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<SalvaWolf>> SALVA_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "salva_wolf",
+                    SalvaWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<WolfKing>> WOLF_KING =
+            ENTITY_TYPES.registerEntityType(
+                    "wolf_king",
+                    WolfKing::new,
+                    // Spawn-budget category only: keeps the Alpha encounter from
+                    // being starved by the passive CREATURE cap in loaded taigas.
+                    // Wolf King's actual Wolf AI/temperament is unchanged.
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.68F, 0.94F)
+                            .eyeHeight(0.75F)
+                            .clientTrackingRange(12));
+
+
+    public static final Supplier<EntityType<PrimordialWolf>> PRIMORDIAL_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "primordial_wolf",
+                    PrimordialWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<ToxicWolf>> TOXIC_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "toxic_wolf",
+                    ToxicWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+
+    public static final Supplier<EntityType<MagmaWolf>> MAGMA_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "magma_wolf",
+                    MagmaWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.68F, 0.94F)
+                            .eyeHeight(0.75F)
+                            .fireImmune()
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<WarWolf>> WAR_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "war_wolf",
+                    WarWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<IllagerWolf>> ILLAGER_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "illager_wolf",
+                    IllagerWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<AncientWolf>>
+            ANCIENT_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "ancient_wolf",
+                    AncientWolf::new,
+                    MobCategory.CREATURE,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<BladeWolf>> BLADE_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "blade_wolf",
+                    BladeWolf::new,
+                    MobCategory.CREATURE,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<RavenWolf>> RAVEN_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "raven_wolf",
+                    RavenWolf::new,
+                    MobCategory.CREATURE,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<CommandWolf>> COMMAND_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "command_wolf",
+                    CommandWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<AshWolf>> ASH_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "ash_wolf",
+                    AshWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .fireImmune()
+                            .clientTrackingRange(12));
+
+    public static final Supplier<EntityType<WitherWolf>> WITHER_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "wither_wolf",
+                    WitherWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(16));
+
+    public static final Supplier<EntityType<BlazeWolf>> BLAZE_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "blaze_wolf",
+                    BlazeWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .fireImmune()
+                            .clientTrackingRange(16));
+
+
+
+    public static final Supplier<EntityType<HalloweenWolf>> HALLOWEEN_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "halloween_wolf",
+                    HalloweenWolf::new,
+                    MobCategory.CREATURE,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(14));
+
+    public static final Supplier<EntityType<CreatorWolf>> CREATOR_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "creator_wolf",
+                    CreatorWolf::new,
+                    MobCategory.AMBIENT,
+                    builder -> builder
+                            .sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(16));
+
+
+    public static final Supplier<EntityType<RiftPortalEntity>> RIFT_PORTAL =
+            ENTITY_TYPES.registerEntityType(
+                    "rift_portal",
+                    RiftPortalEntity::new,
+                    MobCategory.MISC,
+                    builder -> builder
+                            .sized(0.30F, 1.80F)
+                            .noSave()
+                            .noSummon()
+                            .clientTrackingRange(8)
+                            .updateInterval(1));
+
+
 
 
 
