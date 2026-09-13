@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -530,7 +532,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
          */
         member.hurtMarked = true;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("salva_wolf", level,
                 ParticleTypes.END_ROD,
                 member.getX(),
                 member.getY(0.55D),
@@ -541,7 +543,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
                 0.45D,
                 0.035D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("salva_wolf", level,
                 ParticleTypes.HEART,
                 member.getX(),
                 member.getY(0.75D),
@@ -576,7 +578,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
 
         this.getNavigation().stop();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("salva_wolf", level,
                 ParticleTypes.END_ROD,
                 this.getX(),
                 this.getY(0.55D),
@@ -654,7 +656,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
         }
 
         if (this.tickCount % 2 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("salva_wolf", level,
                     ParticleTypes.END_ROD,
                     this.getX(),
                     this.getY(0.45D),
@@ -733,7 +735,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
             this.sendSanctuaryRing(level);
         }
 
-        if (this.tickCount % 10 != 0) {
+        if (!this.isWolfismWorkTick(10)) {
             return;
         }
 
@@ -754,14 +756,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
                                 true),
                         this);
 
-                member.addEffect(
-                        new MobEffectInstance(
-                                MobEffects.REGENERATION,
-                                25,
-                                0,
-                                true,
-                                true),
-                        this);
+                this.refreshSupportRegeneration(member);
             }
 
             if (member instanceof Mob mob
@@ -798,7 +793,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
             double angle =
                     Math.PI * 2.0D * i / points;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("salva_wolf", level,
                     ParticleTypes.END_ROD,
                     this.sanctuaryCenter.x
                             + Math.cos(angle) * SANCTUARY_RADIUS,
@@ -850,7 +845,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
                     this);
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("salva_wolf", level,
                 ParticleTypes.END_ROD,
                 this.getX(),
                 this.getY(0.65D),
@@ -862,7 +857,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
                 0.055D);
 
         this.playSound(
-                SoundEvents.ALLAY_AMBIENT_WITHOUT_ITEM,
+                this.getWolfismHowlSound(),
                 1.0F,
                 1.35F);
 
@@ -908,7 +903,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
                     this.damageSources().mobAttack(this),
                     GUARDIANS_BITE_BONUS_DAMAGE);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("salva_wolf", level,
                     ParticleTypes.END_ROD,
                     target.getX(),
                     target.getY(0.55D),
@@ -1013,7 +1008,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
             this.noOneLeftBehindTicks = 0;
             this.lastStandSpent.clear();
 
-            level.sendParticles(
+            WolfVfx.sendParticles("salva_wolf", level,
                     ParticleTypes.END_ROD,
                     this.getX(),
                     this.getY(0.55D),
@@ -1038,8 +1033,18 @@ public final class SalvaWolf extends AbstractWolfismWolf {
             this.sendNoOneLeftBehindActiveRing(level);
         }
 
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
             this.applyNoOneLeftBehindSupport(level, false);
+        }
+    }
+
+    private void refreshSupportRegeneration(LivingEntity member) {
+        MobEffectInstance current = member.getEffect(MobEffects.REGENERATION);
+        // Regen I heals on a 50-tick schedule. Refreshing a 25/35-tick effect
+        // every ten ticks never reached a healing tick. Let one recipient's
+        // effect run before renewing it, even when multiple Salvas overlap.
+        if (current == null || current.getAmplifier() == 0 && current.getDuration() <= 10) {
+            member.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 60, 0, true, true), this);
         }
     }
 
@@ -1059,14 +1064,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
                             true),
                     this);
 
-            member.addEffect(
-                    new MobEffectInstance(
-                            MobEffects.REGENERATION,
-                            35,
-                            0,
-                            true,
-                            true),
-                    this);
+            this.refreshSupportRegeneration(member);
 
             /*
              * Short white outline on activation makes it immediately clear
@@ -1085,7 +1083,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
 
             /* Strong harmful-effect resistance = repeated emergency cleansing. */
             if (activationPulse
-                    || this.tickCount % 20 == 0) {
+                    || this.isWolfismWorkTick(20)) {
                 this.cleanseStandardHarmfulEffects(member);
             }
 
@@ -1115,9 +1113,9 @@ public final class SalvaWolf extends AbstractWolfismWolf {
             }
 
             if (activationPulse
-                    || this.tickCount % 20 == 0) {
+                    || this.isWolfismWorkTick(20)) {
 
-                level.sendParticles(
+                WolfVfx.sendParticles("salva_wolf", level,
                         ParticleTypes.END_ROD,
                         member.getX(),
                         member.getY(0.65D),
@@ -1129,7 +1127,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
                         0.0D);
 
                 if (activationPulse) {
-                    level.sendParticles(
+                    WolfVfx.sendParticles("salva_wolf", level,
                             ParticleTypes.HEART,
                             member.getX(),
                             member.getY(0.85D),
@@ -1176,7 +1174,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
                                 * i
                                 / points;
 
-                level.sendParticles(
+                WolfVfx.sendParticles("salva_wolf", level,
                         ParticleTypes.END_ROD,
                         this.getX()
                                 + Math.cos(angle)
@@ -1195,7 +1193,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
             }
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("salva_wolf", level,
                 ParticleTypes.END_ROD,
                 this.getX(),
                 this.getY(0.70D),
@@ -1206,7 +1204,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
                 1.20D,
                 0.075D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("salva_wolf", level,
                 ParticleTypes.HEART,
                 this.getX(),
                 this.getY(0.85D),
@@ -1218,7 +1216,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
                 0.035D);
 
         this.playSound(
-                SoundEvents.ALLAY_AMBIENT_WITH_ITEM,
+                this.getWolfismHowlSound(),
                 1.20F,
                 0.74F);
 
@@ -1252,7 +1250,7 @@ public final class SalvaWolf extends AbstractWolfismWolf {
                             time * 0.70D)
                             * 0.25D;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("salva_wolf", level,
                     ParticleTypes.END_ROD,
                     this.getX()
                             + Math.cos(angle)
@@ -1281,7 +1279,8 @@ public final class SalvaWolf extends AbstractWolfismWolf {
      * and regroup support, but the actual Last Stand token is wolf-only.</p>
      */
     public boolean canLastStandProtect(LivingEntity victim) {
-        return this.noOneLeftBehindTicks > 0
+        return this.isAlive() && !this.isRemoved()
+                && this.noOneLeftBehindTicks > 0
                 && victim instanceof Wolf
                 && this.isSalvaFamilyMember(victim)
                 && this.distanceToSqr(victim)
@@ -1346,18 +1345,9 @@ public final class SalvaWolf extends AbstractWolfismWolf {
             mob.getNavigation().stop();
         }
 
-        level.sendParticles(
-                ParticleTypes.END_ROD,
-                victim.getX(),
-                victim.getY(0.60D),
-                victim.getZ(),
-                70,
-                0.62D,
-                0.72D,
-                0.62D,
-                0.075D);
+        WolfVfx.emergency(this, victim);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("salva_wolf", level,
                 ParticleTypes.HEART,
                 victim.getX(),
                 victim.getY(0.80D),

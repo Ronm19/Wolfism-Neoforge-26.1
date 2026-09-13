@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -169,8 +171,8 @@ public final class LunarWolf extends AbstractWolfismWolf {
         }
 
         if (!this.isBaby() && this.tickCount % LUNAR_AURA_INTERVAL == 0) this.tickLunarAura(level);
-        if (this.isNightEmpowered() && this.tickCount % 20 == 0) {
-            level.sendParticles(ParticleTypes.END_ROD, this.getX(), this.getY() + 0.55D, this.getZ(), 1, 0.20D, 0.18D, 0.20D, 0.002D);
+        if (this.isNightEmpowered() && this.isWolfismWorkTick(20)) {
+            WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.END_ROD, this.getX(), this.getY() + 0.55D, this.getZ(), 1, 0.20D, 0.18D, 0.20D, 0.002D);
         }
     }
 
@@ -248,7 +250,7 @@ public final class LunarWolf extends AbstractWolfismWolf {
                 mob.setTarget(null);
             }
         }
-        if (this.tickCount % 80 == 0) this.sendLunarRing(level, this.position().add(0.0D, 0.12D, 0.0D), 3.1D, 20);
+        if (this.isWolfismWorkTick(80)) this.sendLunarRing(level, this.position().add(0.0D, 0.12D, 0.0D), 3.1D, 20);
     }
 
     // ------------------------------------------------------------------
@@ -300,14 +302,14 @@ public final class LunarWolf extends AbstractWolfismWolf {
                 candidate.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 80, 1));
                 candidate.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0));
             }
-            level.sendParticles(ParticleTypes.PORTAL, center.x, center.y, center.z, 12, 0.16D, 0.22D, 0.16D, 0.03D);
-            level.sendParticles(ParticleTypes.END_ROD, center.x, center.y, center.z, 6, 0.12D, 0.18D, 0.12D, 0.015D);
+            WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.PORTAL, center.x, center.y, center.z, 12, 0.16D, 0.22D, 0.16D, 0.03D);
+            WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.END_ROD, center.x, center.y, center.z, 6, 0.12D, 0.18D, 0.12D, 0.015D);
             if (++hits >= 3) break;
         }
 
         for (double d = 0.6D; d <= length; d += 1.5D) {
             Vec3 p = start.add(dir.scale(d));
-            level.sendParticles(ParticleTypes.PORTAL, p.x, p.y, p.z, 1, 0.035D, 0.035D, 0.035D, 0.0D);
+            WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.PORTAL, p.x, p.y, p.z, 1, 0.035D, 0.035D, 0.035D, 0.0D);
         }
 
         this.getBrain().setMemory(ModMemoryModuleTypes.LUNAR_BEAM_COOLDOWN.get(), LUNAR_BEAM_COOLDOWN_TICKS);
@@ -346,8 +348,8 @@ public final class LunarWolf extends AbstractWolfismWolf {
             member.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 20 * 8, 0));
             member.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 8, 1));
             member.removeEffect(MobEffects.DARKNESS);
-            level.sendParticles(ParticleTypes.END_ROD, member.getX(), member.getY() + member.getBbHeight() * 0.55D, member.getZ(), 10, 0.35D, 0.45D, 0.35D, 0.01D);
-            level.sendParticles(ParticleTypes.WITCH, member.getX(), member.getY() + 0.4D, member.getZ(), 7, 0.35D, 0.25D, 0.35D, 0.01D);
+            WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.END_ROD, member.getX(), member.getY() + member.getBbHeight() * 0.55D, member.getZ(), 10, 0.35D, 0.45D, 0.35D, 0.01D);
+            WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.WITCH, member.getX(), member.getY() + 0.4D, member.getZ(), 7, 0.35D, 0.25D, 0.35D, 0.01D);
         }
         this.getBrain().setMemory(ModMemoryModuleTypes.LUNAR_SHIELD_COOLDOWN.get(), MOON_SHIELD_COOLDOWN_TICKS);
         this.shieldVisualTicks = SHIELD_VISUAL_TICKS;
@@ -387,14 +389,14 @@ public final class LunarWolf extends AbstractWolfismWolf {
 
         Vec3 safe = this.findSafeDreamstepPosition(level, desired, target);
         if (safe == null) return false;
-        level.sendParticles(ParticleTypes.PORTAL, origin.x, origin.y + 0.45D, origin.z, 28, 0.28D, 0.40D, 0.28D, 0.08D);
-        level.sendParticles(ParticleTypes.END_ROD, origin.x, origin.y + 0.45D, origin.z, 8, 0.18D, 0.25D, 0.18D, 0.02D);
+        WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.PORTAL, origin.x, origin.y + 0.45D, origin.z, 28, 0.28D, 0.40D, 0.28D, 0.08D);
+        WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.END_ROD, origin.x, origin.y + 0.45D, origin.z, 8, 0.18D, 0.25D, 0.18D, 0.02D);
         this.getNavigation().stop();
         this.setPos(safe.x, safe.y, safe.z);
         this.setDeltaMovement(Vec3.ZERO);
         this.getLookControl().setLookAt(target, 90.0F, 90.0F);
-        level.sendParticles(ParticleTypes.PORTAL, safe.x, safe.y + 0.45D, safe.z, 28, 0.28D, 0.40D, 0.28D, 0.08D);
-        level.sendParticles(ParticleTypes.END_ROD, safe.x, safe.y + 0.45D, safe.z, 8, 0.18D, 0.25D, 0.18D, 0.02D);
+        WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.PORTAL, safe.x, safe.y + 0.45D, safe.z, 28, 0.28D, 0.40D, 0.28D, 0.08D);
+        WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.END_ROD, safe.x, safe.y + 0.45D, safe.z, 8, 0.18D, 0.25D, 0.18D, 0.02D);
         this.getBrain().setMemory(ModMemoryModuleTypes.LUNAR_DREAMSTEP_COOLDOWN.get(), DREAMSTEP_COOLDOWN_TICKS);
         this.dreamstepVisualTicks = DREAMSTEP_VISUAL_TICKS;
         this.entityData.set(DATA_DREAMSTEP_ACTIVE, true);
@@ -444,13 +446,14 @@ public final class LunarWolf extends AbstractWolfismWolf {
             threat.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 20 * 5, 0));
         }
         this.getBrain().setMemory(ModMemoryModuleTypes.LUNAR_HOWL_COOLDOWN.get(), MOONLIT_HOWL_COOLDOWN_TICKS);
+        this.playSound(this.getWolfismHowlSound(), 1.4F, 1.0F);
         this.howlVisualTicks = HOWL_VISUAL_TICKS;
         this.entityData.set(DATA_HOWL_ACTIVE, true);
         this.sendLunarRing(level, this.position().add(0.0D, 0.12D, 0.0D), 4.0D, 28);
         this.sendLunarRing(level, this.position().add(0.0D, 0.18D, 0.0D), 8.0D, 42);
         this.sendLunarRing(level, this.position().add(0.0D, 0.22D, 0.0D), 11.5D, 56);
-        level.sendParticles(ParticleTypes.END_ROD, this.getX(), this.getY() + 1.0D, this.getZ(), 32, 0.9D, 1.0D, 0.9D, 0.04D);
-        level.sendParticles(ParticleTypes.WITCH, this.getX(), this.getY() + 0.7D, this.getZ(), 24, 1.1D, 0.6D, 1.1D, 0.03D);
+        WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.END_ROD, this.getX(), this.getY() + 1.0D, this.getZ(), 32, 0.9D, 1.0D, 0.9D, 0.04D);
+        WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.WITCH, this.getX(), this.getY() + 0.7D, this.getZ(), 24, 1.1D, 0.6D, 1.1D, 0.03D);
         return true;
     }
 
@@ -521,8 +524,8 @@ public final class LunarWolf extends AbstractWolfismWolf {
             double angle = Math.PI * 2.0D * i / points;
             double x = center.x + Math.cos(angle) * radius;
             double z = center.z + Math.sin(angle) * radius;
-            level.sendParticles(ParticleTypes.PORTAL, x, center.y, z, 1, 0.015D, 0.025D, 0.015D, 0.0D);
-            if (i % 4 == 0) level.sendParticles(ParticleTypes.END_ROD, x, center.y + 0.03D, z, 1, 0.01D, 0.02D, 0.01D, 0.0D);
+            WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.PORTAL, x, center.y, z, 1, 0.015D, 0.025D, 0.015D, 0.0D);
+            if (i % 4 == 0) WolfVfx.sendParticles("lunar_wolf", level, ParticleTypes.END_ROD, x, center.y + 0.03D, z, 1, 0.01D, 0.02D, 0.01D, 0.0D);
         }
     }
 

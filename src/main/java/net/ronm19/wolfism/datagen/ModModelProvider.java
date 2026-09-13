@@ -72,6 +72,12 @@ public final class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.WITHER_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.BLAZE_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.HALLOWEEN_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.CHRISTMAS_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SAINT_PATRICKS_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.NEW_YEARS_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.VALENTINES_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.EASTER_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.FIREWORK_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.CREATOR_WOLF_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 
         generateWolfStaffModels(itemModels);

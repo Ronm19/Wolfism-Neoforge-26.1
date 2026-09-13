@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.EnumSet;
 import java.util.List;
@@ -380,7 +382,7 @@ public final class DrownedWolf extends AbstractWolfismWaterAnimal {
             return;
         }
 
-        if (this.tickCount % 40 == 0) {
+        if (this.isWolfismWorkTick(40)) {
             owner.addEffect(
                     new MobEffectInstance(
                             MobEffects.NIGHT_VISION,
@@ -423,7 +425,7 @@ public final class DrownedWolf extends AbstractWolfismWaterAnimal {
                     target.getDeltaMovement().add(0.0D, -0.12D, 0.0D));
             target.hurtMarked = true;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("drowned_wolf", level,
                     ParticleTypes.BUBBLE,
                     target.getX(),
                     target.getY(0.55D),

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +14,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -26,6 +30,8 @@ import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.ronm19.wolfism.entity.AbstractWolfismWolf;
 import net.ronm19.wolfism.entity.ai.sensor.ZombieWolfPackSensor;
@@ -169,11 +175,11 @@ public final class ZombieWolf extends AbstractWolfismWolf {
                 && this.random.nextFloat() < ROTTEN_BITE_CHANCE) {
             target.addEffect(new MobEffectInstance(MobEffects.HUNGER, ROTTEN_BITE_HUNGER_TICKS, 0), this);
             target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, ROTTEN_BITE_WEAKNESS_TICKS, 0), this);
-            level.sendParticles(
+            WolfVfx.sendParticles("zombie_wolf", level,
                     ParticleTypes.COMPOSTER,
                     target.getX(), target.getY(0.55D), target.getZ(),
                     14, 0.28D, 0.30D, 0.28D, 0.04D);
-            level.sendParticles(
+            WolfVfx.sendParticles("zombie_wolf", level,
                     ParticleTypes.SMOKE,
                     target.getX(), target.getY(0.45D), target.getZ(),
                     7, 0.20D, 0.20D, 0.20D, 0.01D);
@@ -193,7 +199,7 @@ public final class ZombieWolf extends AbstractWolfismWolf {
         }
 
         this.heal(UNDYING_FLESH_HEAL);
-        level.sendParticles(
+        WolfVfx.sendParticles("zombie_wolf", level,
                 ParticleTypes.SOUL,
                 this.getX(), this.getY(0.55D), this.getZ(),
                 4, 0.18D, 0.24D, 0.18D, 0.01D);
@@ -253,7 +259,7 @@ public final class ZombieWolf extends AbstractWolfismWolf {
                 9,
                 ParticleTypes.SOUL);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("zombie_wolf", level,
                 ParticleTypes.SMOKE,
                 target.getX(), target.getY(0.55D), target.getZ(),
                 3, 0.20D, 0.24D, 0.20D, 0.01D);
@@ -296,7 +302,7 @@ public final class ZombieWolf extends AbstractWolfismWolf {
         this.addEffect(new MobEffectInstance(MobEffects.STRENGTH, DEATHLESS_RUSH_DURATION, 0, true, true), this);
         this.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, DEATHLESS_RUSH_DURATION, 0, true, true), this);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("zombie_wolf", level,
                 ParticleTypes.ANGRY_VILLAGER,
                 this.getX(), this.getY(0.65D), this.getZ(),
                 18, 0.35D, 0.38D, 0.35D, 0.02D);
@@ -312,37 +318,54 @@ public final class ZombieWolf extends AbstractWolfismWolf {
 
     @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
-        if (this.isInvulnerableTo(level, source)) {
+        // Shared family filtering and Minecraft's armor/effect pipeline must run
+        // before an attempted hit can spend the intrinsic revival.
+        boolean hurt = super.hurtServer(level, source, damage);
+        if (hurt) this.ticksSinceLastDamage = 0;
+        return hurt;
+    }
+
+    /** Called only from the resolved-damage event, before absorption is consumed. */
+    public boolean tryRiseAgain(ServerLevel level, DamageSource source, float mitigatedDamage) {
+        if (level != this.level() || !this.isAlive() || this.isRemoved() || this.isBaby()
+                || source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)
+                || mitigatedDamage <= 0.0F
+                || mitigatedDamage < this.getHealth() + this.getAbsorptionAmount()
+                || this.isCoolingDown(ModMemoryModuleTypes.ZOMBIE_RISE_AGAIN_COOLDOWN.get())) {
             return false;
         }
-
+        this.getBrain().setMemory(ModMemoryModuleTypes.ZOMBIE_RISE_AGAIN_COOLDOWN.get(), RISE_AGAIN_COOLDOWN_TICKS);
         this.ticksSinceLastDamage = 0;
+        this.setHealth(1.0F);
+        this.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 20 * 4, 2, true, true), this);
+        this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 6, 1, true, true), this);
+        this.abilityLockoutTicks = Math.max(this.abilityLockoutTicks, 30);
 
-        if (!this.isBaby()
-                && damage >= this.getHealth()
-                && !this.isCoolingDown(ModMemoryModuleTypes.ZOMBIE_RISE_AGAIN_COOLDOWN.get())) {
-            this.getBrain().setMemory(
-                    ModMemoryModuleTypes.ZOMBIE_RISE_AGAIN_COOLDOWN.get(),
-                    RISE_AGAIN_COOLDOWN_TICKS);
+        WolfVfx.sendParticles("zombie_wolf", level, ParticleTypes.SOUL,
+                this.getX(), this.getY(0.55D), this.getZ(), 34, 0.42D, 0.48D, 0.42D, 0.06D);
+        WolfVfx.sendParticles("zombie_wolf", level, ParticleTypes.POOF,
+                this.getX(), this.getY(0.50D), this.getZ(), 18, 0.34D, 0.36D, 0.34D, 0.04D);
+        this.sendRing(level, this.position(), 2.0D, 32, ParticleTypes.SOUL);
+        return true;
+    }
 
-            this.setHealth(1.0F);
-            this.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 20 * 4, 2, true, true), this);
-            this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 6, 1, true, true), this);
-            this.abilityLockoutTicks = Math.max(this.abilityLockoutTicks, 30);
+    @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        // Rise Again's remaining cooldown is serialized by Brain's integer codec.
+        output.putInt("ZombieAbilityLockout", this.abilityLockoutTicks);
+        output.putInt("ZombieTicksSinceLastDamage", Math.min(this.ticksSinceLastDamage, UNDYING_FLESH_DELAY_TICKS));
+    }
 
-            level.sendParticles(
-                    ParticleTypes.SOUL,
-                    this.getX(), this.getY(0.55D), this.getZ(),
-                    34, 0.42D, 0.48D, 0.42D, 0.06D);
-            level.sendParticles(
-                    ParticleTypes.POOF,
-                    this.getX(), this.getY(0.50D), this.getZ(),
-                    18, 0.34D, 0.36D, 0.34D, 0.04D);
-            this.sendRing(level, this.position(), 2.0D, 32, ParticleTypes.SOUL);
-            return true;
-        }
-
-        return super.hurtServer(level, source, damage);
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        var memory = ModMemoryModuleTypes.ZOMBIE_RISE_AGAIN_COOLDOWN.get();
+        int remaining = Mth.clamp(this.getBrain().getMemory(memory).orElse(0), 0, RISE_AGAIN_COOLDOWN_TICKS);
+        if (remaining == 0) this.getBrain().eraseMemory(memory);
+        else this.getBrain().setMemory(memory, remaining);
+        this.abilityLockoutTicks = Mth.clamp(input.getIntOr("ZombieAbilityLockout", 0), 0, 30);
+        this.ticksSinceLastDamage = Mth.clamp(input.getIntOr("ZombieTicksSinceLastDamage", UNDYING_FLESH_DELAY_TICKS), 0, UNDYING_FLESH_DELAY_TICKS);
     }
 
     // ---------------------------------------------------------------------
@@ -481,7 +504,7 @@ public final class ZombieWolf extends AbstractWolfismWolf {
         for (int i = 1; i <= points; ++i) {
             double step = length * i / points;
             Vec3 point = source.add(direction.scale(step));
-            level.sendParticles(particle, point.x, point.y, point.z, 1, 0.01D, 0.01D, 0.01D, 0.0D);
+            WolfVfx.sendParticles("zombie_wolf", level, particle, point.x, point.y, point.z, 1, 0.01D, 0.01D, 0.01D, 0.0D);
         }
     }
 
@@ -493,7 +516,7 @@ public final class ZombieWolf extends AbstractWolfismWolf {
             ParticleOptions particle) {
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
-            level.sendParticles(
+            WolfVfx.sendParticles("zombie_wolf", level,
                     particle,
                     center.x + Math.cos(angle) * radius,
                     center.y + 0.18D,

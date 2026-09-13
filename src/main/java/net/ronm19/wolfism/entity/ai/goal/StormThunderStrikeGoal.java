@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.ai.goal;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.EnumSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -59,7 +61,7 @@ public final class StormThunderStrikeGoal extends Goal {
         this.wolf.getLookControl().setLookAt(this.target, 45.0F, 35.0F);
 
         if (this.wolf.level() instanceof ServerLevel level && this.prepareTicks % 2 == 1) {
-            level.sendParticles(
+            WolfVfx.sendParticles(level,
                     ParticleTypes.ELECTRIC_SPARK,
                     this.wolf.getX(),
                     this.wolf.getY() + 0.38D,

@@ -317,6 +317,25 @@ public final class ModEntityEvents {
         event.put(ModEntities.BLAZE_WOLF.get(),
                 BlazeWolf.createAttributes().build());
 
+
+        event.put(ModEntities.CHRISTMAS_WOLF.get(),
+                ChristmasWolf.createAttributes().build());
+
+        event.put(ModEntities.SAINT_PATRICKS_WOLF.get(),
+                SaintPatricksWolf.createAttributes().build());
+
+        event.put(ModEntities.NEW_YEARS_WOLF.get(),
+                NewYearsWolf.createAttributes().build());
+
+        event.put(ModEntities.VALENTINES_WOLF.get(),
+                ValentinesWolf.createAttributes().build());
+
+        event.put(ModEntities.EASTER_WOLF.get(),
+                EasterWolf.createAttributes().build());
+
+        event.put(ModEntities.FIREWORK_WOLF.get(),
+                FireworkWolf.createAttributes().build());
+
         event.put(ModEntities.HALLOWEEN_WOLF.get(),
                 HalloweenWolf.createAttributes().build());
 
@@ -327,6 +346,49 @@ public final class ModEntityEvents {
     }
 
     public static void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
+
+        event.register(
+                ModEntities.CHRISTMAS_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                ChristmasWolf::checkChristmasWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.SAINT_PATRICKS_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                SaintPatricksWolf::checkSaintPatricksWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.NEW_YEARS_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                NewYearsWolf::checkNewYearsWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.VALENTINES_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                ValentinesWolf::checkValentinesWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.EASTER_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                EasterWolf::checkEasterWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(
+                ModEntities.FIREWORK_WOLF.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                FireworkWolf::checkFireworkWolfSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
         event.register(
                 ModEntities.TIMBER_WOLF.get(),
                 SpawnPlacementTypes.ON_GROUND,

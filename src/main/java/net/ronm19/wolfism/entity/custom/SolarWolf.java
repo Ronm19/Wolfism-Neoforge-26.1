@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -182,12 +184,12 @@ public final class SolarWolf extends AbstractWolfismWolf {
                 this.tickDaybreakAura(level);
             }
 
-            if (this.isInDirectSunlight() && this.tickCount % 80 == 0 && this.getHealth() < this.getMaxHealth()) {
+            if (this.isInDirectSunlight() && this.isWolfismWorkTick(80) && this.getHealth() < this.getMaxHealth()) {
                 this.heal(1.0F);
             }
 
             if (this.isInDirectSunlight() && this.tickCount % 18 == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles("solar_wolf", level,
                         ParticleTypes.END_ROD,
                         this.getX(), this.getY() + 0.55D, this.getZ(),
                         2, 0.24D, 0.28D, 0.24D, 0.008D);
@@ -288,7 +290,7 @@ public final class SolarWolf extends AbstractWolfismWolf {
             }
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("solar_wolf", level,
                 ParticleTypes.END_ROD,
                 this.getX(), this.getY() + 0.45D, this.getZ(),
                 8, 1.25D, 0.18D, 1.25D, 0.012D);
@@ -394,8 +396,8 @@ public final class SolarWolf extends AbstractWolfismWolf {
                 candidate.igniteForSeconds(4.0F);
             }
             Vec3 impact = candidate.position().add(0.0D, candidate.getBbHeight() * 0.5D, 0.0D);
-            level.sendParticles(ParticleTypes.END_ROD, impact.x, impact.y, impact.z, 9, 0.20D, 0.24D, 0.20D, 0.035D);
-            level.sendParticles(ParticleTypes.FLAME, impact.x, impact.y, impact.z, 5, 0.15D, 0.18D, 0.15D, 0.020D);
+            WolfVfx.sendParticles("solar_wolf", level, ParticleTypes.END_ROD, impact.x, impact.y, impact.z, 9, 0.20D, 0.24D, 0.20D, 0.035D);
+            WolfVfx.sendParticles("solar_wolf", level, ParticleTypes.FLAME, impact.x, impact.y, impact.z, 5, 0.15D, 0.18D, 0.15D, 0.020D);
             if (++hits >= 4) break;
         }
 
@@ -403,15 +405,15 @@ public final class SolarWolf extends AbstractWolfismWolf {
         // Particles now act as edge sparkle / impact polish rather than faking the beam.
         for (double d = 0.45D; d <= length; d += 1.35D) {
             Vec3 p = start.add(dir.scale(d));
-            level.sendParticles(ParticleTypes.END_ROD, p.x, p.y, p.z, 1, 0.045D, 0.045D, 0.045D, 0.0D);
+            WolfVfx.sendParticles("solar_wolf", level, ParticleTypes.END_ROD, p.x, p.y, p.z, 1, 0.045D, 0.045D, 0.045D, 0.0D);
             if (((int) Math.floor(d * 2.0D)) % 5 == 0) {
-                level.sendParticles(ParticleTypes.FLAME, p.x, p.y, p.z, 1, 0.025D, 0.025D, 0.025D, 0.0D);
+                WolfVfx.sendParticles("solar_wolf", level, ParticleTypes.FLAME, p.x, p.y, p.z, 1, 0.025D, 0.025D, 0.025D, 0.0D);
             }
         }
 
         // A brighter muzzle flash makes the transition from charge particles to beam obvious.
-        level.sendParticles(ParticleTypes.END_ROD, start.x, start.y, start.z, 8, 0.12D, 0.10D, 0.12D, 0.025D);
-        level.sendParticles(ParticleTypes.FLAME, start.x, start.y, start.z, 5, 0.09D, 0.08D, 0.09D, 0.015D);
+        WolfVfx.sendParticles("solar_wolf", level, ParticleTypes.END_ROD, start.x, start.y, start.z, 8, 0.12D, 0.10D, 0.12D, 0.025D);
+        WolfVfx.sendParticles("solar_wolf", level, ParticleTypes.FLAME, start.x, start.y, start.z, 5, 0.09D, 0.08D, 0.09D, 0.015D);
 
         this.getBrain().setMemory(ModMemoryModuleTypes.SOLAR_SUNBEAM_COOLDOWN.get(), SUNBEAM_COOLDOWN_TICKS);
         this.clearSunbeamReservation();
@@ -490,13 +492,13 @@ public final class SolarWolf extends AbstractWolfismWolf {
                 this.celestialDashDirection.z * DASH_SPEED);
         this.hurtMarked = true;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("solar_wolf", level,
                 ParticleTypes.FLAME,
                 this.getX() - this.celestialDashDirection.x * 0.55D,
                 this.getY() + 0.28D,
                 this.getZ() - this.celestialDashDirection.z * 0.55D,
                 4, 0.16D, 0.12D, 0.16D, 0.01D);
-        level.sendParticles(
+        WolfVfx.sendParticles("solar_wolf", level,
                 ParticleTypes.END_ROD,
                 this.getX(), this.getY() + 0.45D, this.getZ(),
                 2, 0.18D, 0.14D, 0.18D, 0.01D);
@@ -606,7 +608,7 @@ public final class SolarWolf extends AbstractWolfismWolf {
             double radius = 0.55D + (i % 3) * 0.08D;
             double x = center.x + Math.cos(phase) * radius;
             double z = center.z + Math.sin(phase) * radius;
-            level.sendParticles(ParticleTypes.END_ROD, x, y, z, 2, 0.10D, 0.14D, 0.10D, 0.004D);
+            WolfVfx.sendParticles("solar_wolf", level, ParticleTypes.END_ROD, x, y, z, 2, 0.10D, 0.14D, 0.10D, 0.004D);
         }
         if (elapsed % 4 == 0) {
             this.sendSolarRing(level, center.add(0.0D, 0.15D, 0.0D), ASCENSION_RADIUS * 0.72D, 28);
@@ -697,8 +699,8 @@ public final class SolarWolf extends AbstractWolfismWolf {
             double angle = Math.PI * 2.0D * i / points;
             double x = center.x + Math.cos(angle) * radius;
             double z = center.z + Math.sin(angle) * radius;
-            level.sendParticles(ParticleTypes.END_ROD, x, center.y, z, 1, 0.02D, 0.04D, 0.02D, 0.0D);
-            if (i % 3 == 0) level.sendParticles(ParticleTypes.FLAME, x, center.y + 0.04D, z, 1, 0.01D, 0.02D, 0.01D, 0.0D);
+            WolfVfx.sendParticles("solar_wolf", level, ParticleTypes.END_ROD, x, center.y, z, 1, 0.02D, 0.04D, 0.02D, 0.0D);
+            if (i % 3 == 0) WolfVfx.sendParticles("solar_wolf", level, ParticleTypes.FLAME, x, center.y + 0.04D, z, 1, 0.01D, 0.02D, 0.01D, 0.0D);
         }
     }
 

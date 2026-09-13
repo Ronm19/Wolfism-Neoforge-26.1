@@ -5,6 +5,6 @@
     "type": "wolfism:astral_wolf",
     "maxCount": 2,
     "minCount": 1,
-    "weight": 2
+    "weight": 4
   }
 }

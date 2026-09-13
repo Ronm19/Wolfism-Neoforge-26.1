@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.event;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.Comparator;
 
 import net.minecraft.core.particles.ParticleTypes;
@@ -107,7 +109,7 @@ public final class OmenWolfGameplayEvents {
                             predictor,
                             tier);
 
-                    level.sendParticles(
+                    WolfVfx.sendParticles("omen_wolf", level,
                             tier >= 2
                                     ? ParticleTypes.WITCH
                                     : ParticleTypes.REVERSE_PORTAL,

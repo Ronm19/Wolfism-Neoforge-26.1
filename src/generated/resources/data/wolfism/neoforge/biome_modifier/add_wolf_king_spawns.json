@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/wolf_king",
+  "spawners": {
+    "type": "wolfism:wolf_king",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 5
+  }
+}

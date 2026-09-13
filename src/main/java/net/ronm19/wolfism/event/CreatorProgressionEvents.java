@@ -265,7 +265,9 @@ public final class CreatorProgressionEvents {
         long value = structure.asLong();
         value ^= player.getUUID().getMostSignificantBits();
         value ^= Long.rotateLeft(player.getUUID().getLeastSignificantBits(), 23);
-        value ^= ((long) level.dimension().hashCode()) * 0x9E3779B97F4A7C15L;
+        // ResourceKey uses object identity: hashing it rerolls this hunt after
+        // a server restart. The dimension identifier is stable across loads.
+        value ^= ((long) level.dimension().identifier().toString().hashCode()) * 0x9E3779B97F4A7C15L;
         value ^= ((long) generation) * 0xD1B54A32D192ED03L;
 
         long mixed = mixCreatorHuntHash(value);
@@ -288,6 +290,11 @@ public final class CreatorProgressionEvents {
     }
 
     private static CreatorWolf spawnCreator(ServerLevel level, BlockPos pos) {
+        // Search helpers may exhaust all candidates. Never turn their fallback
+        // into a wolf embedded in a bed, outside the border, or over a hazard.
+        // The progression flags are set only after a successful spawn, so the
+        // next progression check can retry once a safe space is available.
+        if (!isSafeStandingSpot(level, pos)) return null;
         CreatorWolf creator = ModEntities.CREATOR_WOLF.get()
                 .create(level, EntitySpawnReason.EVENT);
         if (creator == null) return null;
@@ -296,6 +303,9 @@ public final class CreatorProgressionEvents {
                 pos.getX() + 0.5D,
                 pos.getY(),
                 pos.getZ() + 0.5D);
+        if (!level.getWorldBorder().isWithinBounds(creator.getBoundingBox())
+                || !level.noCollision(creator)
+                || !level.isUnobstructed(creator)) return null;
         creator.setPersistenceRequired();
 
         if (!level.addFreshEntity(creator)) return null;
@@ -644,6 +654,15 @@ public final class CreatorProgressionEvents {
     }
 
     private static boolean isSafeStandingSpot(ServerLevel level, BlockPos pos) {
+        if (!level.isInWorldBounds(pos) || !level.isInWorldBounds(pos.above())
+                || !level.getWorldBorder().isWithinBounds(pos)
+                || !level.hasChunkAt(pos)) return false;
+        var floor = level.getBlockState(pos.below());
+        if (floor.is(net.minecraft.world.level.block.Blocks.MAGMA_BLOCK)
+                || floor.is(net.minecraft.world.level.block.Blocks.CACTUS)
+                || floor.is(net.minecraft.world.level.block.Blocks.CAMPFIRE)
+                || floor.is(net.minecraft.world.level.block.Blocks.SOUL_CAMPFIRE)
+                || floor.is(net.minecraft.world.level.block.Blocks.POWDER_SNOW)) return false;
         return level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()
                 && level.getBlockState(pos.above())
                         .getCollisionShape(level, pos.above())

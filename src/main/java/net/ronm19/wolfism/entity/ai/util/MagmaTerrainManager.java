@@ -1,17 +1,12 @@
 package net.ronm19.wolfism.entity.ai.util;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.WeakHashMap;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,50 +24,7 @@ import net.ronm19.wolfism.entity.custom.MagmaWolf;
 public final class MagmaTerrainManager {
     private static final int PATH_RADIUS = 2;
 
-    private static final Map<ServerLevel, Map<BlockPos, Entry>> ACTIVE = new WeakHashMap<>();
-    private static final Map<ServerLevel, Long> LAST_TICK = new WeakHashMap<>();
-
     private MagmaTerrainManager() {
-    }
-
-    public static void tick(ServerLevel level) {
-        long gameTime = level.getGameTime();
-        if (LAST_TICK.getOrDefault(level, Long.MIN_VALUE) == gameTime) return;
-        LAST_TICK.put(level, gameTime);
-
-        Map<BlockPos, Entry> entries = ACTIVE.get(level);
-        if (entries == null || entries.isEmpty()) return;
-
-        Iterator<Map.Entry<BlockPos, Entry>> iterator = entries.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<BlockPos, Entry> mapEntry = iterator.next();
-            Entry entry = mapEntry.getValue();
-            if (entry.expiresAt > gameTime) continue;
-
-            BlockPos pos = mapEntry.getKey();
-
-            /*
-             * Never pull the bridge out from under a traveler. If any living
-             * entity is occupying the block/top space, keep it alive for two
-             * more seconds and try again later.
-             */
-            if (level.getBlockState(pos).is(entry.temporaryBlock)
-                    && isTemporaryBlockOccupied(level, pos)) {
-                mapEntry.setValue(new Entry(
-                        entry.originalState,
-                        entry.temporaryBlock,
-                        gameTime + 40));
-                continue;
-            }
-
-            if (level.getBlockState(pos).is(entry.temporaryBlock)) {
-                level.setBlockAndUpdate(pos, entry.originalState);
-            }
-
-            iterator.remove();
-        }
-
-        if (entries.isEmpty()) ACTIVE.remove(level);
     }
 
     public static void createObsidianPath(ServerLevel level, MagmaWolf wolf) {
@@ -82,6 +34,8 @@ public final class MagmaTerrainManager {
                 wolf.getX(),
                 wolf.getY() - 0.20D,
                 wolf.getZ());
+
+        if (!MagmaTerrainState.loadedNeighborhood(level, center)) return;
 
         boolean nearLava = wolf.isInLava()
                 || level.getFluidState(center).is(FluidTags.LAVA)
@@ -114,6 +68,7 @@ public final class MagmaTerrainManager {
 
                 placeTemporary(
                         level,
+                        wolf,
                         lava,
                         Blocks.OBSIDIAN.defaultBlockState(),
                         expiry);
@@ -132,6 +87,7 @@ public final class MagmaTerrainManager {
             int maxDistance,
             int lifetimeTicks) {
 
+        if (!wolf.isAlive() || wolf.isBaby() || wolf.level() != level || owner.level() != level) return null;
         Vec3 look = owner.getLookAngle();
         Vec3 forward = new Vec3(look.x, 0.0D, look.z);
         if (forward.lengthSqr() < 1.0E-4D) return null;
@@ -189,6 +145,7 @@ public final class MagmaTerrainManager {
 
             if (placeTemporary(
                     level,
+                    wolf,
                     lava,
                     Blocks.OBSIDIAN.defaultBlockState(),
                     expiry)) {
@@ -272,6 +229,7 @@ public final class MagmaTerrainManager {
             int z,
             int referenceY) {
 
+        if (!MagmaTerrainState.loadedNeighborhood(level, new BlockPos(x, referenceY, z))) return null;
         for (int dy = 3; dy >= -7; --dy) {
             BlockPos pos = new BlockPos(x, referenceY + dy, z);
 
@@ -299,6 +257,7 @@ public final class MagmaTerrainManager {
             int z,
             int referenceY) {
 
+        if (!MagmaTerrainState.loadedNeighborhood(level, new BlockPos(x, referenceY, z))) return null;
         for (int dy = 3; dy >= -5; --dy) {
             BlockPos feet = new BlockPos(x, referenceY + dy, z);
             BlockPos head = feet.above();
@@ -333,13 +292,14 @@ public final class MagmaTerrainManager {
     }
 
     /**
-     * Turns exposed nearby lava source blocks into temporary real magma blocks.
+     * Turns exposed nearby lava blocks into temporary real magma blocks.
      * Solid player terrain is deliberately not edited in V1.
      *
      * @return number of lava positions converted.
      */
     public static int createEruption(
             ServerLevel level,
+            MagmaWolf wolf,
             BlockPos center,
             int radius,
             int lifetimeTicks) {
@@ -356,6 +316,7 @@ public final class MagmaTerrainManager {
 
                 if (placeTemporary(
                         level,
+                        wolf,
                         lava,
                         Blocks.MAGMA_BLOCK.defaultBlockState(),
                         expiry)) {
@@ -367,59 +328,17 @@ public final class MagmaTerrainManager {
         return changed;
     }
 
-    private static boolean isTemporaryBlockOccupied(
-            ServerLevel level,
-            BlockPos pos) {
-
-        AABB standingSpace = new AABB(
-                pos.getX(),
-                pos.getY() + 0.80D,
-                pos.getZ(),
-                pos.getX() + 1.0D,
-                pos.getY() + 2.25D,
-                pos.getZ() + 1.0D);
-
-        return !level.getEntitiesOfClass(
-                        LivingEntity.class,
-                        standingSpace,
-                        entity -> entity.isAlive())
-                .isEmpty();
-    }
-
     private static boolean placeTemporary(
             ServerLevel level,
+            MagmaWolf wolf,
             BlockPos pos,
             BlockState temporary,
             long expiry) {
-
-        Map<BlockPos, Entry> entries = ACTIVE.computeIfAbsent(level, ignored -> new HashMap<>());
-        Entry existing = entries.get(pos);
-
-        if (existing != null) {
-            // Do not switch an already-tracked path block into a different type.
-            if (existing.temporaryBlock != temporary.getBlock()) return false;
-
-            entries.put(
-                    pos.immutable(),
-                    new Entry(
-                            existing.originalState,
-                            existing.temporaryBlock,
-                            Math.max(existing.expiresAt, expiry)));
-            return true;
-        }
-
-        BlockState original = level.getBlockState(pos);
-        if (!original.getFluidState().is(FluidTags.LAVA)) return false;
-
-        if (!level.setBlockAndUpdate(pos, temporary)) return false;
-
-        entries.put(
-                pos.immutable(),
-                new Entry(original, temporary.getBlock(), expiry));
-        return true;
+        return MagmaTerrainState.get(level).place(level, wolf, pos, temporary, expiry);
     }
 
     private static BlockPos findSurfaceLava(ServerLevel level, BlockPos start) {
+        if (!MagmaTerrainState.loadedNeighborhood(level, start)) return null;
         for (int dy = 0; dy >= -6; --dy) {
             BlockPos pos = start.offset(0, dy, 0);
 
@@ -442,9 +361,4 @@ public final class MagmaTerrainManager {
             int lavaSteps) {
     }
 
-    private record Entry(
-            BlockState originalState,
-            Block temporaryBlock,
-            long expiresAt) {
-    }
 }

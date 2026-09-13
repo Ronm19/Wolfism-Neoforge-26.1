@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Objects;
@@ -123,7 +125,7 @@ public final class MushroomWolf extends AbstractWolfismWolf {
         }
 
         // Fungus Resistance is a true passive and does not consume the active slot.
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
             this.tickFungusResistance(level);
         }
 
@@ -133,7 +135,7 @@ public final class MushroomWolf extends AbstractWolfismWolf {
             this.updateMushroomFinder(level);
         }
 
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
             this.tickMushroomFinderVisual(level);
         }
 
@@ -265,7 +267,7 @@ public final class MushroomWolf extends AbstractWolfismWolf {
                     this
             );
 
-            level.sendParticles(
+            WolfVfx.sendParticles("mushroom_wolf", level,
                     ParticleTypes.WITCH,
                     target.getX(),
                     target.getY(0.55D),
@@ -277,7 +279,7 @@ public final class MushroomWolf extends AbstractWolfismWolf {
                     0.06D
             );
 
-            level.sendParticles(
+            WolfVfx.sendParticles("mushroom_wolf", level,
                     ParticleTypes.POOF,
                     target.getX(),
                     target.getY(0.50D),
@@ -310,7 +312,7 @@ public final class MushroomWolf extends AbstractWolfismWolf {
             }
 
             if (cleansed) {
-                level.sendParticles(
+                WolfVfx.sendParticles("mushroom_wolf", level,
                         ParticleTypes.HAPPY_VILLAGER,
                         family.getX(), family.getY(0.55D), family.getZ(),
                         12, 0.24D, 0.30D, 0.24D, 0.03D);
@@ -572,7 +574,7 @@ public final class MushroomWolf extends AbstractWolfismWolf {
         for (int i = 1; i <= points; ++i) {
             double step = length * i / points;
             Vec3 point = source.add(direction.scale(step));
-            level.sendParticles(particle, point.x, point.y, point.z, 1, 0.01D, 0.01D, 0.01D, 0.0D);
+            WolfVfx.sendParticles("mushroom_wolf", level, particle, point.x, point.y, point.z, 1, 0.01D, 0.01D, 0.01D, 0.0D);
         }
     }
 
@@ -584,7 +586,7 @@ public final class MushroomWolf extends AbstractWolfismWolf {
             ParticleOptions particle) {
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
-            level.sendParticles(
+            WolfVfx.sendParticles("mushroom_wolf", level,
                     particle,
                     center.x + Math.cos(angle) * radius,
                     center.y + 0.20D,

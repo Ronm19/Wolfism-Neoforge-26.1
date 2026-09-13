@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -315,7 +317,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
         etherealShiftTicks = ETHEREAL_SHIFT_DURATION_TICKS;
         etherealShiftCooldownTicks = ETHEREAL_SHIFT_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("spectral_wolf", level,
                 ParticleTypes.SOUL,
                 this.getX(),
                 this.getY() + 0.55D,
@@ -334,7 +336,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
         this.fallDistance = 0.0F;
 
         if (etherealShiftTicks % 4 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("spectral_wolf", level,
                     ParticleTypes.SOUL,
                     this.getX(),
                     this.getY() + 0.45D,
@@ -371,7 +373,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
                     this.damageSources().generic(),
                     GHOST_BITE_ARMOR_BYPASS_DAMAGE);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("spectral_wolf", level,
                     ParticleTypes.SOUL_FIRE_FLAME,
                     livingTarget.getX(),
                     livingTarget.getY() + livingTarget.getBbHeight() * 0.55D,
@@ -411,7 +413,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
         spectralPhaseCooldownTicks = SPECTRAL_PHASE_COOLDOWN_TICKS;
 
         this.getNavigation().stop();
-        level.sendParticles(
+        WolfVfx.sendParticles("spectral_wolf", level,
                 ParticleTypes.SOUL,
                 this.getX(),
                 this.getY() + 0.45D,
@@ -453,7 +455,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
         this.setPos(next.x, next.y, next.z);
 
         if (spectralPhaseTicks % 2 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("spectral_wolf", level,
                     ParticleTypes.SOUL,
                     this.getX(),
                     this.getY() + 0.45D,
@@ -483,7 +485,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
         if (destinationStillSafe && destination != null) {
             this.setPos(destination.x, destination.y, destination.z);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("spectral_wolf", level,
                     ParticleTypes.SOUL_FIRE_FLAME,
                     destination.x,
                     destination.y + 0.45D,
@@ -690,7 +692,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
         mob.setTarget(null);
         mob.getNavigation().stop();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("spectral_wolf", level,
                 ParticleTypes.SOUL_FIRE_FLAME,
                 mob.getX(),
                 mob.getY() + mob.getBbHeight() * 0.55D,
@@ -728,7 +730,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
             }
 
             if (state.ticks % 10 == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles("spectral_wolf", level,
                         ParticleTypes.SOUL,
                         mob.getX(),
                         mob.getY() + mob.getBbHeight() * 0.55D,
@@ -920,7 +922,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
             mob.getNavigation().stop();
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("spectral_wolf", level,
                 ParticleTypes.SOUL_FIRE_FLAME,
                 boss.getX(),
                 boss.getY() + boss.getBbHeight() * 0.55D,
@@ -945,7 +947,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
         hauntingFieldTicks = HAUNTING_FIELD_DURATION_TICKS;
         hauntingFieldCooldownTicks = HAUNTING_FIELD_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("spectral_wolf", level,
                 ParticleTypes.SOUL,
                 this.getX(),
                 this.getY() + 0.45D,
@@ -1033,7 +1035,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
             double z = this.getZ()
                     + Math.sin(angle) * HAUNTING_FIELD_RADIUS;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("spectral_wolf", level,
                     ParticleTypes.SOUL,
                     x,
                     this.getY() + 0.12D,
@@ -1061,7 +1063,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
         massPossessionTicks = MASS_POSSESSION_DURATION_TICKS;
         massPossessionCooldownTicks = MASS_POSSESSION_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("spectral_wolf", level,
                 ParticleTypes.SOUL_FIRE_FLAME,
                 massPossessionCenter.x,
                 massPossessionCenter.y + 0.45D,
@@ -1164,7 +1166,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
             double z = massPossessionCenter.z
                     + Math.sin(angle) * MASS_POSSESSION_RADIUS;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("spectral_wolf", level,
                     bright
                             ? ParticleTypes.SOUL_FIRE_FLAME
                             : ParticleTypes.SOUL,
@@ -1320,18 +1322,7 @@ public final class SpectralWolf extends AbstractWolfismWolf {
         if (entity == this) return true;
 
         if (this.isTame()) {
-            LivingEntity owner = this.getOwner();
-
-            if (entity == owner) return true;
-
-            if (entity instanceof Wolf wolf
-                    && wolf.isTame()
-                    && owner != null) {
-
-                return wolf.isOwnedBy(owner);
-            }
-
-            return false;
+            return this.isWolfismFamily(entity);
         }
 
         return entity instanceof SpectralWolf spectral

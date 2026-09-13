@@ -1,5 +1,6 @@
 package net.ronm19.wolfism.registry;
 
+import com.mojang.serialization.Codec;
 import java.util.Optional;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,9 +15,9 @@ import net.ronm19.wolfism.entity.custom.*;
 /**
  * Runtime memories used by Wolfism brains.
  *
- * <p>These memories intentionally have no codec. They describe nearby entities,
- * short-lived tactical state, environment awareness, and cooldown state that is
- * rebuilt after loading rather than permanently serialized.</p>
+ * <p>Nearby entities and tactical observations are rebuilt after loading. Spirit
+ * support and Zombie revival cooldowns have integer codecs so unloading a wolf
+ * cannot grant another use before the original cooldown has elapsed.</p>
  */
 public final class ModMemoryModuleTypes {
     public static final DeferredRegister<MemoryModuleType<?>> MEMORY_MODULE_TYPES =
@@ -449,11 +450,11 @@ public final class ModMemoryModuleTypes {
     public static final Supplier<MemoryModuleType<LivingEntity>> SPIRIT_SUPERNATURAL_THREAT =
             MEMORY_MODULE_TYPES.register("spirit_supernatural_threat", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Integer>> SPIRIT_MEND_COOLDOWN =
-            MEMORY_MODULE_TYPES.register("spirit_mend_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+            MEMORY_MODULE_TYPES.register("spirit_mend_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
     public static final Supplier<MemoryModuleType<Integer>> SPIRIT_SOUL_GUARD_COOLDOWN =
-            MEMORY_MODULE_TYPES.register("spirit_soul_guard_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+            MEMORY_MODULE_TYPES.register("spirit_soul_guard_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
     public static final Supplier<MemoryModuleType<Integer>> SPIRIT_GUARDIAN_COOLDOWN =
-            MEMORY_MODULE_TYPES.register("spirit_guardian_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+            MEMORY_MODULE_TYPES.register("spirit_guardian_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
 
     // Angel Wolf: family-health + threat memories for her Brain-driven support AI.
     public static final Supplier<MemoryModuleType<Integer>> ANGEL_FAMILY_SIZE =
@@ -675,7 +676,7 @@ public final class ModMemoryModuleTypes {
             MEMORY_MODULE_TYPES.register("zombie_deathless_rush_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
 
     public static final Supplier<MemoryModuleType<Integer>> ZOMBIE_RISE_AGAIN_COOLDOWN =
-            MEMORY_MODULE_TYPES.register("zombie_rise_again_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
+            MEMORY_MODULE_TYPES.register("zombie_rise_again_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
 
 
     // Skeleton Wolf #22 -------------------------------------------------
@@ -1456,6 +1457,144 @@ public final class ModMemoryModuleTypes {
     public static final Supplier<MemoryModuleType<Boolean>> HALLOWEEN_LOW_LIGHT =
             MEMORY_MODULE_TYPES.register(
                     "halloween_low_light",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+
+    // --- Holiday #2: Christmas Wolf ---
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> CHRISTMAS_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register("christmas_priority_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> CHRISTMAS_FAMILY_IN_NEED =
+            MEMORY_MODULE_TYPES.register("christmas_family_in_need",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> CHRISTMAS_INJURED_FAMILY_COUNT =
+            MEMORY_MODULE_TYPES.register("christmas_injured_family_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> CHRISTMAS_COLD_FAMILY_COUNT =
+            MEMORY_MODULE_TYPES.register("christmas_cold_family_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> CHRISTMAS_INCOMING_PROJECTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("christmas_incoming_projectile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> CHRISTMAS_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("christmas_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    // --- Holiday #3: Saint Patrick's Wolf ---
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> SAINT_PATRICKS_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register("saint_patricks_priority_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> SAINT_PATRICKS_CRITICAL_FAMILY =
+            MEMORY_MODULE_TYPES.register("saint_patricks_critical_family",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> SAINT_PATRICKS_TREASURE_POS =
+            MEMORY_MODULE_TYPES.register("saint_patricks_treasure_pos",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SAINT_PATRICKS_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("saint_patricks_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> SAINT_PATRICKS_INJURED_FAMILY_COUNT =
+            MEMORY_MODULE_TYPES.register("saint_patricks_injured_family_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    // --- Holiday #4: New Year's Wolf ---
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> NEW_YEARS_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register("new_years_priority_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> NEW_YEARS_FAMILY_IN_NEED =
+            MEMORY_MODULE_TYPES.register("new_years_family_in_need",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> NEW_YEARS_INJURED_FAMILY_COUNT =
+            MEMORY_MODULE_TYPES.register("new_years_injured_family_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> NEW_YEARS_HARMFUL_FAMILY_COUNT =
+            MEMORY_MODULE_TYPES.register("new_years_harmful_family_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> NEW_YEARS_FATIGUED_FAMILY_COUNT =
+            MEMORY_MODULE_TYPES.register("new_years_fatigued_family_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> NEW_YEARS_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("new_years_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+
+    // --- Holiday #5: Valentine's Wolf ---
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> VALENTINES_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register("valentines_priority_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> VALENTINES_FAMILY_IN_NEED =
+            MEMORY_MODULE_TYPES.register("valentines_family_in_need",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> VALENTINES_MARKED_TARGET =
+            MEMORY_MODULE_TYPES.register("valentines_marked_target",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> VALENTINES_INJURED_FAMILY_COUNT =
+            MEMORY_MODULE_TYPES.register("valentines_injured_family_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> VALENTINES_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("valentines_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    // --- Holiday #6: Easter Wolf ---
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> EASTER_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register("easter_priority_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> EASTER_FAMILY_IN_NEED =
+            MEMORY_MODULE_TYPES.register("easter_family_in_need",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> EASTER_NATURE_POS =
+            MEMORY_MODULE_TYPES.register("easter_nature_pos",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> EASTER_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("easter_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> EASTER_NATURE_COUNT =
+            MEMORY_MODULE_TYPES.register("easter_nature_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    // --- Holiday #7: Firework Wolf ---
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> FIREWORK_PRIORITY_THREAT =
+            MEMORY_MODULE_TYPES.register("firework_priority_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<LivingEntity>> FIREWORK_CLOSE_THREAT =
+            MEMORY_MODULE_TYPES.register("firework_close_threat",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> FIREWORK_HOSTILE_COUNT =
+            MEMORY_MODULE_TYPES.register("firework_hostile_count",
+                    () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Integer>> FIREWORK_CLUSTER_SIZE =
+            MEMORY_MODULE_TYPES.register("firework_cluster_size",
                     () -> new MemoryModuleType<>(Optional.empty()));
 
     private ModMemoryModuleTypes() {

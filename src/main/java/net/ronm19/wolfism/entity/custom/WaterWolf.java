@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.Comparator;
 import java.util.List;
@@ -145,7 +147,7 @@ public final class WaterWolf extends AbstractWolfismWaterAnimal {
 
         if (this.level() instanceof ServerLevel level && this.isInWater()) {
             if (this.tickCount % 8 == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles("water_wolf", level,
                         ParticleTypes.BUBBLE,
                         this.getX(),
                         this.getY() + 0.35D,
@@ -368,7 +370,7 @@ public final class WaterWolf extends AbstractWolfismWaterAnimal {
                 double angle = (Math.PI * 2.0D * i) / points;
                 double x = this.getX() + Math.cos(angle) * radius;
                 double z = this.getZ() + Math.sin(angle) * radius;
-                level.sendParticles(
+                WolfVfx.sendParticles("water_wolf", level,
                         ring == radii.length - 1 ? ParticleTypes.SPLASH : ParticleTypes.BUBBLE,
                         x,
                         centerY,
@@ -381,7 +383,7 @@ public final class WaterWolf extends AbstractWolfismWaterAnimal {
             }
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("water_wolf", level,
                 ParticleTypes.BUBBLE,
                 this.getX(),
                 centerY,
@@ -447,7 +449,7 @@ public final class WaterWolf extends AbstractWolfismWaterAnimal {
         this.setDeltaMovement(direction.normalize().scale(CURRENT_DASH_SPEED));
 
         if (this.level() instanceof ServerLevel level && this.tickCount % 2 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("water_wolf", level,
                     ParticleTypes.BUBBLE,
                     this.getX(),
                     this.getY() + this.getBbHeight() * 0.45D,
@@ -486,7 +488,7 @@ public final class WaterWolf extends AbstractWolfismWaterAnimal {
             this.currentDashImpactActive = false;
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("water_wolf", level,
                 ParticleTypes.SPLASH,
                 target.getX(),
                 target.getY() + target.getBbHeight() * 0.45D,
@@ -496,7 +498,7 @@ public final class WaterWolf extends AbstractWolfismWaterAnimal {
                 0.28D,
                 0.35D,
                 0.12D);
-        level.sendParticles(
+        WolfVfx.sendParticles("water_wolf", level,
                 ParticleTypes.BUBBLE,
                 this.getX(),
                 this.getY() + 0.30D,
@@ -565,7 +567,7 @@ public final class WaterWolf extends AbstractWolfismWaterAnimal {
                 BUBBLE_SHELTER_COOLDOWN_TICKS);
 
         if (this.level() instanceof ServerLevel level) {
-            level.sendParticles(
+            WolfVfx.sendParticles("water_wolf", level,
                     ParticleTypes.BUBBLE,
                     this.getX(),
                     this.getY() + 0.35D,
@@ -591,7 +593,7 @@ public final class WaterWolf extends AbstractWolfismWaterAnimal {
         --this.bubbleShelterTicks;
 
         if (this.tickCount % 5 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("water_wolf", level,
                     ParticleTypes.BUBBLE,
                     this.getX(),
                     this.getY() + 0.45D,

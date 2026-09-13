@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Objects;
@@ -156,7 +158,7 @@ public final class HuskWolf extends AbstractWolfismWolf {
                 0),
                 this);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("husk_wolf", level,
                 new BlockParticleOption(ParticleTypes.FALLING_DUST, this.getSandParticleState()),
                 target.getX(), target.getY(0.55D), target.getZ(),
                 7, 0.22D, 0.28D, 0.22D, 0.01D);
@@ -174,7 +176,7 @@ public final class HuskWolf extends AbstractWolfismWolf {
                     0),
                     this);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("husk_wolf", level,
                     ParticleTypes.SMOKE,
                     target.getX(), target.getY(0.55D), target.getZ(),
                     10, 0.24D, 0.30D, 0.24D, 0.02D);
@@ -238,7 +240,7 @@ public final class HuskWolf extends AbstractWolfismWolf {
         this.sharePackCooldown(
                 ModMemoryModuleTypes.HUSK_SANDSTORM_COOLDOWN.get(),
                 20 * 6);
-        this.playSound(SoundEvents.HUSK_AMBIENT, 1.15F, 0.72F);
+        this.playSound(this.getWolfismGrowlSound(), 1.15F, 0.72F);
         return true;
     }
 
@@ -293,7 +295,7 @@ public final class HuskWolf extends AbstractWolfismWolf {
         this.sharePackCooldown(
                 ModMemoryModuleTypes.HUSK_DRYING_HOWL_COOLDOWN.get(),
                 20 * 5);
-        this.playSound(SoundEvents.HUSK_AMBIENT, 1.35F, 0.58F);
+        this.playSound(this.getWolfismHowlSound(), 1.35F, 1.0F);
         return true;
     }
 
@@ -463,7 +465,7 @@ public final class HuskWolf extends AbstractWolfismWolf {
             double yOffset) {
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
-            level.sendParticles(
+            WolfVfx.sendParticles("husk_wolf", level,
                     particle,
                     center.x + Math.cos(angle) * radius,
                     center.y + yOffset,

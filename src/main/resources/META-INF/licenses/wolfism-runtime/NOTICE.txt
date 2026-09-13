@@ -1,0 +1,74 @@
+Wolfism 1.0.0 bundled runtime notices
+
+Wolfism's own license applies only to Wolfism-authored code and assets. Third-party
+components retain the licenses and rights described below; no additional restriction
+on modification, reverse engineering for debugging such modifications, replacement,
+or redistribution of an LGPL component is imposed by Wolfism's own terms.
+All runtime jars listed in PROVENANCE.json are included byte-for-byte unmodified.
+No upstream endorsement of Wolfism is implied.
+
+Photon 26.1.2.2 - Copyright (c) 2025 KilaBash
+https://github.com/Low-Drag-MC/Photon/tree/26.1
+CC BY-NC-SA 4.0 plus the author's additional terms: Photon-LICENSE.txt.
+The author explicitly permits Jar-in-Jar inclusion when the containing mod is not
+sold separately or directly monetized. Commercial redistribution requires the
+author's written permission. The original Photon jar is not patched or repackaged.
+Wolfism's separately authored dedicated-server compatibility hook avoids discovery
+of photon:fx_object and photon:timeline_track only; its source is in the Wolfism
+project. All other registries and channels are retained.
+
+LowDragLib2 26.1.2.39 - Low-Drag-MC / KilaBash and contributors
+https://github.com/Low-Drag-MC/LDLib2
+LGPL-3.0: LDLib2-LGPL-3.0.txt and GPL-3.0.txt.
+Complete release source, including build scripts:
+META-INF/third-party-sources/LowDragLib2-26.1.2.39-source.zip
+Commit 3f7fc21e033498b5f03a45ca26f9e254fe3889f9.
+
+TerraBlender 26.1.0.2 - Glitchfiend and contributors
+https://github.com/Glitchfiend/TerraBlender
+LGPLv3: TerraBlender-LGPL-3.0.txt and GPL-3.0.txt.
+Complete release source, including build scripts:
+META-INF/third-party-sources/TerraBlender-26.1.0.2-source.zip
+Commit f0992b3939d9617b0d6a5bc8d0a4be8660003d02, offset 2 from tag 26.1.0.
+
+KilaGraph 26.1.0.14 - Copyright (c) 2026 KilaBash
+https://github.com/Low-Drag-MC/KilaGraph
+MIT: KilaGraph-MIT.txt. Included unchanged inside Photon.
+
+Kotlin standard library 2.1.20 - JetBrains s.r.o. and respective contributors
+https://github.com/JetBrains/kotlin/tree/v2.1.20
+Apache-2.0: Kotlin-Apache-2.0.txt and Kotlin-NOTICE.txt.
+Included unchanged inside LowDragLib2. The original upstream NOTICE mentions its
+compiler distribution; Wolfism includes only the nested JVM standard library.
+
+Taffy-Java 1.1.4 - Copyright (c) 2026 vfyjxf
+https://github.com/vfyjxf/taffy-java
+MIT: Taffy-Java-MIT.txt. Included unchanged inside LowDragLib2.
+The upstream README credits the original Taffy library by DioxusLabs and Stretchable
+by mortencombat. Taffy's original MIT notice is preserved in Taffy-original-MIT.txt.
+
+Replacing or rebuilding an LGPL library
+
+The LGPL libraries remain separate jar files. Extract the relevant source ZIP with
+an ordinary ZIP tool and build the upstream project with its included Gradle wrapper
+and required JDK. TerraBlender derives its version from Git tags: a Git checkout at
+the recorded commit with tags fetched preserves the release version calculation;
+the complete source archive also contains its build scripts.
+
+An interface-compatible modified LGPL jar can replace its corresponding entry in
+META-INF/jarjar in a copy of the Wolfism jar using any ZIP tool. Preserve its manifest,
+mod identifier, and nested dependencies. Keep the advertised library version within
+the metadata's range, or update that entry in META-INF/jarjar/metadata.json and the
+matching Wolfism dependency range if your compatible build uses a different version.
+No proprietary signature or encryption prevents replacement. Wolfism's source is
+also supplied in the project so it can be rebuilt against replacement libraries.
+For LowDragLib2, preserve or replace its own Kotlin/Taffy nested dependencies and
+corresponding notices as appropriate. Runtime artifacts are not guaranteed to be
+byte-reproducible when rebuilt with different toolchains; recorded hashes identify
+the original distributed binaries, not a requirement imposed on modified versions.
+
+Copies and modifications remain subject to each component's own license. This notice
+does not grant rights to unrelated Wolfism assets or other upstream components beyond
+their respective licenses. The archive integrity verifier intentionally reports a
+modified jar as differing from the official binary; it is a release QA tool and is
+not an installation or runtime restriction.

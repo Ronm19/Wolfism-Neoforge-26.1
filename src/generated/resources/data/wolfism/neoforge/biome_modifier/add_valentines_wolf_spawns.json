@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/valentines_wolf",
+  "spawners": {
+    "type": "wolfism:valentines_wolf",
+    "maxCount": 3,
+    "minCount": 1,
+    "weight": 16
+  }
+}

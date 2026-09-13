@@ -38,3 +38,18 @@ run/
 **/src/generated/**/.cache/
 repo/
 !**/src/**/repo/
+
+### Local development output ###
+/run-*/
+/logs/
+/crash-reports/
+/screenshots/
+/*.log
+/hs_err_pid*.log
+/replay_pid*.log
+**/__pycache__/
+*.py[cod]
+
+# Generated audio-authoring reports
+/tools/audio/audio_qa.json
+/tools/audio/audio_onset_comparison.json

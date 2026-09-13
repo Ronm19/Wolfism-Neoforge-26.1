@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -552,11 +554,11 @@ public final class EndWolf extends AbstractWolfismWolf {
         }
 
         this.playSound(SoundEvents.ENDERMAN_TELEPORT, 0.85F, 1.10F + this.random.nextFloat() * 0.12F);
-        level.sendParticles(
+        WolfVfx.sendParticles("end_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 origin.x, origin.y + 0.45D, origin.z,
                 particleCount, 0.28D, 0.30D, 0.28D, 0.04D);
-        level.sendParticles(
+        WolfVfx.sendParticles("end_wolf", level,
                 ParticleTypes.PORTAL,
                 destination.x, destination.y + 0.45D, destination.z,
                 particleCount + 4, 0.28D, 0.30D, 0.28D, 0.05D);

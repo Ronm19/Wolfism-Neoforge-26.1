@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.ai.goal;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.EnumSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -70,7 +72,7 @@ public final class FireFlameRushGoal extends Goal {
             this.wolf.getNavigation().stop();
 
             if (this.wolf.level() instanceof ServerLevel level && this.prepareTicks % 2 == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles(level,
                         ParticleTypes.FLAME,
                         this.wolf.getX(),
                         this.wolf.getY() + 0.20D,

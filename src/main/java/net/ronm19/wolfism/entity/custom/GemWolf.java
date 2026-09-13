@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -189,7 +191,7 @@ public final class GemWolf extends AbstractWolfismWolf {
             this.updateGemSense(level);
         }
 
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
             this.tickGemSenseVisual(level);
             this.refreshMinersInstinct();
         }
@@ -368,7 +370,7 @@ public final class GemWolf extends AbstractWolfismWolf {
         this.getBrain().setMemory(ModMemoryModuleTypes.GEM_MARKED_ORE_POS.get(), this.markedVeins.get(0).pos);
 
         ServerPlayer owner = this.getGemOwner();
-        if (owner == null || this.tickCount % 10 != 0) {
+        if (owner == null || !this.isWolfismWorkTick(10)) {
             return;
         }
 
@@ -427,7 +429,7 @@ public final class GemWolf extends AbstractWolfismWolf {
         if (tracked != null && tracked.distSqr(pos) <= 4.0D) {
             this.getBrain().eraseMemory(ModMemoryModuleTypes.GEM_ORE_POS.get());
         }
-        level.sendParticles(
+        WolfVfx.sendParticles("gem_wolf", level,
                 ParticleTypes.ELECTRIC_SPARK,
                 pos.getX() + 0.5D,
                 pos.getY() + 0.5D,
@@ -440,7 +442,7 @@ public final class GemWolf extends AbstractWolfismWolf {
     }
 
     public void emitMinersInstinctBonusVisual(ServerLevel level, BlockPos pos) {
-        level.sendParticles(
+        WolfVfx.sendParticles("gem_wolf", level,
                 ParticleTypes.ENCHANTED_HIT,
                 pos.getX() + 0.5D,
                 pos.getY() + 0.65D,
@@ -486,7 +488,7 @@ public final class GemWolf extends AbstractWolfismWolf {
         this.getNavigation().stop();
 
         this.steerCrystalDash(oreCenter, 0.72D);
-        level.sendParticles(
+        WolfVfx.sendParticles("gem_wolf", level,
                 ParticleTypes.ELECTRIC_SPARK,
                 this.getX(),
                 this.getY(0.55D),
@@ -511,7 +513,7 @@ public final class GemWolf extends AbstractWolfismWolf {
         this.steerCrystalDash(oreCenter, 0.66D);
         this.breakCrystalDashObstacles(level);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("gem_wolf", level,
                 ParticleTypes.ELECTRIC_SPARK,
                 this.getX(),
                 this.getY(0.48D),
@@ -576,7 +578,7 @@ public final class GemWolf extends AbstractWolfismWolf {
             }
             if (level.destroyBlock(pos, false, this)) {
                 ++this.crystalDashBrokenBlocks;
-                level.sendParticles(
+                WolfVfx.sendParticles("gem_wolf", level,
                         ParticleTypes.ENCHANTED_HIT,
                         pos.getX() + 0.5D,
                         pos.getY() + 0.5D,
@@ -679,7 +681,7 @@ public final class GemWolf extends AbstractWolfismWolf {
             this.sendGemRing(level, owner.position(), radius, 24, ParticleTypes.ELECTRIC_SPARK);
         }
 
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
             Vec3 source = owner.position().add(0.0D, 1.05D, 0.0D);
             int shown = Math.min(12, this.resonanceTargets.size());
             for (int i = 0; i < shown; ++i) {
@@ -989,7 +991,7 @@ public final class GemWolf extends AbstractWolfismWolf {
         for (int i = 1; i <= points; ++i) {
             double step = length * i / points;
             Vec3 point = source.add(direction.scale(step));
-            level.sendParticles(
+            WolfVfx.sendParticles("gem_wolf", level,
                     particle,
                     point.x,
                     point.y,
@@ -1010,7 +1012,7 @@ public final class GemWolf extends AbstractWolfismWolf {
             ParticleOptions particle) {
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
-            level.sendParticles(
+            WolfVfx.sendParticles("gem_wolf", level,
                     particle,
                     center.x + Math.cos(angle) * radius,
                     center.y + 0.12D,

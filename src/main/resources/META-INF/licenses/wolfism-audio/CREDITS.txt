@@ -1,0 +1,25 @@
+Wolfism custom voice credits — revision 2
+
+Sources were modified by excerpt selection, gentle high-pass rumble removal, fades, gain adjustment, high-quality sample-rate conversion and mixing. Original pitch and playback speed are retained. Palettes combine genuine wolf field recordings, domestic-canid close vocals and recorded/performed theme accents.
+
+The credits below also ship inside the mod JAR at `META-INF/licenses/wolfism-audio/CREDITS.txt`. Preserve that directory when redistributing the audio, especially the attribution for IMadeIt's CC BY 3.0 bee effect. The source licenses apply to their recorded material independently of the mod's code license. All sources were retrieved on 2026-09-11. No source author or the NPS endorses Wolfism.
+
+| Source | Credit | License / use |
+| --- | --- | --- |
+| [Wolf, Denali](https://www.nps.gov/subjects/sound/sounds-wolf.htm) | National Park Service | Public domain, declared in the [NPS Sound Gallery](https://www.nps.gov/subjects/sound/gallery.htm); one wolf field recording |
+| [Wolves, Yellowstone](https://www.nps.gov/yell/learn/photosmultimedia/sounds-wolves.htm) | NPS & MSU Acoustic Atlas / Jennifer Jerrett | Public domain under the [NPS Sound Library declaration](https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm); Soda Butte chorus and Christmas 2013 chorus |
+| [Fire, Yellowstone](https://www.nps.gov/yell/learn/photosmultimedia/sounds-fire.htm) | NPS / Jennifer Jerrett | Same NPS public-domain declaration; three wildfire recordings |
+| [Thunder, Yellowstone](https://www.nps.gov/yell/learn/photosmultimedia/sounds-thunder.htm) | NPS / Jennifer Jerrett | Same NPS public-domain declaration; one weather recording |
+| [Dog Growl](https://opengameart.org/content/dog-growl) | bonebrah | CC0 1.0; real dog recorded with a phone |
+| [Dog Sounds](https://opengameart.org/content/dog-sounds) | pauliuw | CC0 1.0; recorded barks and whines |
+| [Dog Snarl, Grunt, Grumble](https://opengameart.org/content/dog-snarl-grunt-grumble) | qubodup | CC0 1.0; recorded dog play vocalizations; [original source](https://freesound.org/people/qubodup/sounds/122183/) |
+| [Zombie Moans](https://opengameart.org/content/zombie-moans) | Darsycho | CC0 1.0; performed fictional-creature vocal effects |
+| [Bat Screeches](https://opengameart.org/content/bat-screeches) | polymorpheva (recording), AntumDeluge (editing) | CC0 1.0; three bat excerpts; [original source](https://freesound.org/s/104205/) |
+| [Bell Dings/Chimes](https://opengameart.org/content/bell-dingschimes) | PWL | CC0 1.0; four bell/chime effects |
+| [Bones Rattle](https://opengameart.org/content/bones-rattle) | blukotek (recording), congusbongus (editing) | CC0 1.0; rattle foley, not a claim of actual bones; [original source](https://freesound.org/people/blukotek/sounds/249319/) |
+| [6 Short Water Splashes](https://opengameart.org/content/6-short-water-splashes) | ezwa (recording), qubodup (submission) | CC0 1.0; three selected splashes |
+| [Crow Caw](https://opengameart.org/content/crow-caw) | zeroisnotnull | CC0 1.0; real crow supporting Raven and Omen Wolf, not a literal raven recording |
+| [25 CC0 Bang / Firework SFX](https://opengameart.org/content/25-cc0-bang-firework-sfx) | rubberduck | CC0 1.0; six firework-derived effects |
+| [Single Bee Sound](https://opengameart.org/content/single-bee-sound) | IMadeIt | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/); excerpted, gently high-pass filtered, faded, gain-adjusted and mixed into all eight Bee Wolf voice files; original pitch and speed retained |
+
+[CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) and CC BY 3.0 legal texts and the bee author's original notice are included in the JAR's audio license directory. There are 15 source pages, 21 used downloads/archives, and 44 selected audio files after extraction. The unused NPS passing-car wolf recording was rejected because vehicle noise dominates it. Unused archive members and raw downloads are not bundled as runtime resources.

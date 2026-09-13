@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/firework_wolf",
+  "spawners": {
+    "type": "wolfism:firework_wolf",
+    "maxCount": 3,
+    "minCount": 1,
+    "weight": 16
+  }
+}

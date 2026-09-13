@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -204,7 +206,6 @@ public final class MagmaWolf extends AbstractWolfismWolf {
         this.getBrain().tick(level, this);
         super.customServerAiStep(level);
 
-        MagmaTerrainManager.tick(level);
         this.tickCooldowns();
 
         if (this.isBaby()) {
@@ -346,7 +347,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
         Vec3 target = Vec3.atBottomCenterOf(destination);
         this.getNavigation().moveTo(target.x, target.y, target.z, 1.18D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("magma_wolf", level,
                 ParticleTypes.LAVA,
                 this.getX(),
                 this.getY() + 0.20D,
@@ -463,6 +464,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
 
         MagmaTerrainManager.createEruption(
                 level,
+                this,
                 center,
                 (int) Math.ceil(ERUPTION_RADIUS),
                 ERUPTION_TERRAIN_LIFETIME_TICKS);
@@ -509,7 +511,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
             }
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("magma_wolf", level,
                 ParticleTypes.LAVA,
                 center.getX() + 0.5D,
                 center.getY() + 0.45D,
@@ -619,7 +621,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
         --this.chargeTicks;
 
         if (this.tickCount % 2 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("magma_wolf", level,
                     ParticleTypes.LAVA,
                     this.getX() - this.chargeDirection.x * 0.45D,
                     this.getY() + 0.22D,
@@ -672,7 +674,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
             victim.knockback(knockback, dx, dz);
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("magma_wolf", level,
                 ParticleTypes.EXPLOSION,
                 impact.x,
                 impact.y + 0.35D,
@@ -681,7 +683,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
                 0.40D, 0.22D, 0.40D,
                 0.0D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("magma_wolf", level,
                 ParticleTypes.LAVA,
                 impact.x,
                 impact.y + 0.25D,
@@ -764,7 +766,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
 
     private void tickMagmasProtection(ServerLevel level) {
         if (!this.isTame()
-                || this.tickCount % 10 != 0
+                || !this.isWolfismWorkTick(10)
                 || !this.isExtremeHeat(level)) {
             return;
         }
@@ -782,8 +784,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
                 this.getBoundingBox().inflate(PROTECTION_RADIUS),
                 candidate -> candidate.isAlive()
                         && candidate.isTame()
-                        && owner != null
-                        && candidate.isOwnedBy(owner))) {
+                        && this.isWolfismFamily(candidate))) {
 
             this.applyMagmaProtection(wolf);
         }
@@ -852,7 +853,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
         this.magmaShowerCooldownTicks = MAGMA_SHOWER_COOLDOWN_TICKS;
         this.magmaShowerProjectilesScheduled = 0;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("magma_wolf", level,
                 ParticleTypes.LAVA,
                 this.getX(),
                 this.getY() + 0.75D,
@@ -861,7 +862,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
                 1.15D, 0.65D, 1.15D,
                 0.065D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("magma_wolf", level,
                 ParticleTypes.FLAME,
                 this.getX(),
                 this.getY() + 1.10D,
@@ -870,7 +871,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
                 1.25D, 0.85D, 1.25D,
                 0.055D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("magma_wolf", level,
                 ParticleTypes.LARGE_SMOKE,
                 this.getX(),
                 this.getY() + 1.20D,
@@ -932,7 +933,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
 
             Vec3 position = marker.start.lerp(marker.impact, progress);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("magma_wolf", level,
                     ParticleTypes.FLAME,
                     position.x,
                     position.y,
@@ -941,7 +942,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
                     0.18D, 0.18D, 0.18D,
                     0.018D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("magma_wolf", level,
                     ParticleTypes.LAVA,
                     position.x,
                     position.y,
@@ -950,7 +951,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
                     0.14D, 0.14D, 0.14D,
                     0.018D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("magma_wolf", level,
                     ParticleTypes.LARGE_SMOKE,
                     position.x,
                     position.y + 0.15D,
@@ -967,7 +968,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
     }
 
     private void impactMagmaProjectile(ServerLevel level, Vec3 impact) {
-        level.sendParticles(
+        WolfVfx.sendParticles("magma_wolf", level,
                 ParticleTypes.EXPLOSION,
                 impact.x,
                 impact.y + 0.3D,
@@ -976,7 +977,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
                 0.30D, 0.18D, 0.30D,
                 0.0D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("magma_wolf", level,
                 ParticleTypes.LAVA,
                 impact.x,
                 impact.y + 0.25D,
@@ -985,7 +986,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
                 0.85D, 0.32D, 0.85D,
                 0.055D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("magma_wolf", level,
                 ParticleTypes.FLAME,
                 impact.x,
                 impact.y + 0.35D,
@@ -994,7 +995,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
                 1.05D, 0.42D, 1.05D,
                 0.065D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("magma_wolf", level,
                 ParticleTypes.LARGE_SMOKE,
                 impact.x,
                 impact.y + 0.45D,
@@ -1040,7 +1041,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
             --zone.ticks;
 
             if (zone.ticks % MAGMA_HAZARD_PULSE_INTERVAL == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles("magma_wolf", level,
                         ParticleTypes.FLAME,
                         zone.center.x,
                         zone.center.y + 0.18D,
@@ -1049,7 +1050,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
                         1.25D, 0.12D, 1.25D,
                         0.025D);
 
-                level.sendParticles(
+                WolfVfx.sendParticles("magma_wolf", level,
                         ParticleTypes.LAVA,
                         zone.center.x,
                         zone.center.y + 0.12D,
@@ -1107,12 +1108,7 @@ public final class MagmaWolf extends AbstractWolfismWolf {
         if (entity == this) return true;
 
         if (this.isTame()) {
-            LivingEntity owner = this.getOwner();
-            if (entity == owner) return true;
-            return owner != null
-                    && entity instanceof Wolf wolf
-                    && wolf.isTame()
-                    && wolf.isOwnedBy(owner);
+            return this.isWolfismFamily(entity);
         }
 
         return entity instanceof MagmaWolf magma && this.isMagmaWolfPackmate(magma);

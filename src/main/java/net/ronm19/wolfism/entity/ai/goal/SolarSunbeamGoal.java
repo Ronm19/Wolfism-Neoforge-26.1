@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.ai.goal;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.EnumSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -49,7 +51,7 @@ public final class SolarSunbeamGoal extends Goal {
         this.wolf.getNavigation().stop();
         this.wolf.getLookControl().setLookAt(this.target, 45.0F, 40.0F);
         if (this.wolf.level() instanceof ServerLevel level && this.aimTicks % 2 == 1) {
-            level.sendParticles(ParticleTypes.END_ROD, this.wolf.getX(), this.wolf.getY() + 0.62D, this.wolf.getZ(), 3, 0.15D, 0.16D, 0.15D, 0.004D);
+            WolfVfx.sendParticles(level, ParticleTypes.END_ROD, this.wolf.getX(), this.wolf.getY() + 0.62D, this.wolf.getZ(), 3, 0.15D, 0.16D, 0.15D, 0.004D);
         }
         if (--this.aimTicks <= 0) this.wolf.performSunbeam(this.target);
     }

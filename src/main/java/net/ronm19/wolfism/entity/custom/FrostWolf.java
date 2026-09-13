@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Objects;
@@ -122,7 +124,7 @@ public final class FrostWolf extends AbstractWolfismWolf {
         if (!this.isBaby()
                 && this.level() instanceof ServerLevel level
                 && this.getRandom().nextInt(110) == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("frost_wolf", level,
                     ParticleTypes.SNOWFLAKE,
                     this.getX() + (this.getRandom().nextDouble() - 0.5D) * 0.40D,
                     this.getY() + 0.25D + this.getRandom().nextDouble() * 0.40D,
@@ -208,7 +210,7 @@ public final class FrostWolf extends AbstractWolfismWolf {
 
         if (hurt && target.isAlive()) {
             this.applyFreezeControl(target, freezeAmount, true);
-            level.sendParticles(
+            WolfVfx.sendParticles("frost_wolf", level,
                     ParticleTypes.SNOWFLAKE,
                     target.getX(),
                     target.getY() + target.getBbHeight() * 0.45D,

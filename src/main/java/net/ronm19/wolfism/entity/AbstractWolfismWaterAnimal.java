@@ -120,7 +120,41 @@ public abstract class AbstractWolfismWaterAnimal extends AbstractWolfismWolf {
 
     @Override
     protected PathNavigation createNavigation(Level level) {
-        return new GroundPathNavigation(this, level);
+        return new AquaticGroundPathNavigation(this, level);
+    }
+
+    /** Keeps a shore route's water waypoints at the height used to advance it. */
+    private static final class AquaticGroundPathNavigation extends GroundPathNavigation {
+        private static final double SHORE_FLOOR_CLEARANCE = 1.0D / 16.0D;
+
+        private AquaticGroundPathNavigation(AbstractWolfismWaterAnimal wolf, Level level) {
+            super(wolf, level);
+        }
+
+        @Override
+        protected double getGroundY(Vec3 target) {
+            if (this.mob.isInWater()) {
+                BlockPos support = BlockPos.containing(target).below();
+                var supportState = this.level.getBlockState(support);
+                var supportShape = supportState.getCollisionShape(this.level, support);
+                if (supportState.getFluidState().is(FluidTags.WATER)
+                        && supportShape.isEmpty()) {
+                    // Water provides no ground collision floor. The ordinary floor
+                    // adjustment aims one block below the path node; an aquatic
+                    // controller can settle there and never enter its <1 Y tolerance.
+                    // Preserve the node height, as WaterBoundPathNavigation does.
+                    return target.y;
+                }
+                if (!supportShape.isEmpty()) {
+                    // Aim just above a real ledge while swimming toward shore.
+                    // Converging on its exact top can leave the paws fractionally
+                    // below it, where clipped movement falls under Entity's tiny-
+                    // movement cutoff. Keep partial-block collision heights intact.
+                    return super.getGroundY(target) + SHORE_FLOOR_CLEARANCE;
+                }
+            }
+            return super.getGroundY(target);
+        }
     }
 
     private void useWaterNavigation() {
@@ -194,6 +228,16 @@ public abstract class AbstractWolfismWaterAnimal extends AbstractWolfismWolf {
         return true;
     }
 
+    /** Idle aquatic wandering yields to the existing owner-follow distance. */
+    public final boolean shouldPrioritizeAquaticOwnerFollowing() {
+        LivingEntity owner = this.getOwner();
+        return this.isTame()
+                && owner != null
+                && owner.isAlive()
+                && owner.level() == this.level()
+                && this.distanceToSqr(owner) >= OWNER_FOLLOW_START_DISTANCE_SQR;
+    }
+
     /**
      * Species such as Drowned Wolf can expose additional vanilla-style aquatic
      * intent (for example "searching for land") without implementing movement
@@ -228,7 +272,7 @@ public abstract class AbstractWolfismWaterAnimal extends AbstractWolfismWolf {
             return;
         }
 
-        if (this.isOrderedToSit() && !this.hasFamilyDefenseEmergency()) {
+        if (this.isOrderedToSit() || this.isInSittingPose()) {
             this.stopWaterAwareMovement();
             this.ownerRepathCooldown = 0;
             return;
@@ -239,13 +283,17 @@ public abstract class AbstractWolfismWaterAnimal extends AbstractWolfismWolf {
             return;
         }
 
+        if (this.isBaby() && this.hasFamilyDefenseEmergency()) {
+            return;
+        }
+
         /* Species rescue/combat/patrol goals keep priority over owner follow. */
         if (this.hasRecentAquaticMoveRequest()) {
             return;
         }
 
         LivingEntity owner = this.getOwner();
-        if (owner == null || !owner.isAlive()) {
+        if (owner == null || !owner.isAlive() || owner.level() != this.level()) {
             return;
         }
 
@@ -334,12 +382,21 @@ public abstract class AbstractWolfismWaterAnimal extends AbstractWolfismWolf {
     // Vanilla-style swimming state — navigation only, NOT wolf pose
     // ---------------------------------------------------------------------
 
+    /** A shore route still needs 3D water travel until the wolf reaches land. */
+    private boolean hasActiveGroundWaterPath() {
+        return this.isInWater()
+                && !this.isOrderedToSit()
+                && !this.isInSittingPose()
+                && this.navigation == this.groundNavigation
+                && this.groundNavigation.isInProgress();
+    }
+
     protected boolean wantsToSwim() {
         if (!this.isInWater()) {
             return false;
         }
 
-        if (this.isOrderedToSit() && !this.hasFamilyDefenseEmergency()) {
+        if (this.isOrderedToSit() || this.isInSittingPose()) {
             return false;
         }
 
@@ -357,6 +414,7 @@ public abstract class AbstractWolfismWaterAnimal extends AbstractWolfismWolf {
         if (this.isTame()
                 && owner != null
                 && owner.isAlive()
+                && owner.level() == this.level()
                 && owner.isInWater()
                 && this.distanceToSqr(owner) > OWNER_FOLLOW_STOP_DISTANCE_SQR) {
             return true;
@@ -373,7 +431,11 @@ public abstract class AbstractWolfismWaterAnimal extends AbstractWolfismWolf {
      * <p>While an aquatic intent is active, WaterBoundPathNavigation remains in
      * control even at the surface. This prevents GroundPathNavigation from
      * taking over at the waterline and dragging the wolf into surface-floating
-     * behavior.</p>
+     * behavior. A live ground route is the exception: it owns a shore
+     * transition, while the existing aquatic controller still follows its XYZ
+     * waypoints until the wolf leaves the water. Replacing that navigator would
+     * discard the dry destination; disabling water travel would strand the wolf
+     * below the surface assumed by the ground pathfinder.</p>
      */
     @Override
     public void updateSwimming() {
@@ -409,7 +471,7 @@ public abstract class AbstractWolfismWaterAnimal extends AbstractWolfismWolf {
             double oldY) {
         if (this.isEffectiveAi()
                 && this.isInWater()
-                && this.wantsToSwim()) {
+                && (this.wantsToSwim() || this.hasActiveGroundWaterPath())) {
             this.moveRelative(0.01F, input);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.90D));
@@ -440,7 +502,8 @@ public abstract class AbstractWolfismWaterAnimal extends AbstractWolfismWolf {
 
         @Override
         public void tick() {
-            if (this.wolf.wantsToSwim() && this.wolf.isInWater()) {
+            if (this.wolf.isInWater()
+                    && (this.wolf.wantsToSwim() || this.wolf.hasActiveGroundWaterPath())) {
                 LivingEntity target = this.wolf.getTarget();
 
                 /* Vanilla Drowned adds a tiny upward bias when pursuing upward. */

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -402,7 +404,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
                     false), this);
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("vampire_wolf", level,
                 ParticleTypes.DAMAGE_INDICATOR,
                 target.getX(),
                 target.getY(0.62D),
@@ -411,8 +413,8 @@ public final class VampireWolf extends AbstractWolfismWolf {
                 0.28D, 0.28D, 0.28D,
                 0.08D);
 
-        // Vanilla cue only. Custom Vampire audio belongs to the later sound pass.
-        this.playSound(SoundEvents.RAVAGER_ROAR, 0.70F, 0.72F);
+        // The shared voice policy preserves this species recording's natural pitch.
+        this.playSound(this.getWolfismGrowlSound(), 0.70F, 0.72F);
         return true;
     }
 
@@ -426,13 +428,13 @@ public final class VampireWolf extends AbstractWolfismWolf {
         this.rageTicks = RAGE_DURATION_TICKS;
         this.refreshRageAttributes();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("vampire_wolf", level,
                 ParticleTypes.DAMAGE_INDICATOR,
                 this.getX(), this.getY(0.55D), this.getZ(),
                 30,
                 0.70D, 0.45D, 0.70D,
                 0.16D);
-        level.sendParticles(
+        WolfVfx.sendParticles("vampire_wolf", level,
                 ParticleTypes.CRIT,
                 this.getX(), this.getY(0.45D), this.getZ(),
                 18,
@@ -443,7 +445,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
     private void tickRageVisuals(ServerLevel level) {
         if (!this.isRageActive() || this.tickCount % 3 != 0) return;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("vampire_wolf", level,
                 ParticleTypes.DAMAGE_INDICATOR,
                 this.getX(), this.getY(0.50D), this.getZ(),
                 4,
@@ -508,7 +510,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
         this.bloodProjectiles.add(new BloodProjectile(start, target.getId()));
         this.bloodProjectileCooldownTicks = BLOOD_PROJECTILE_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("vampire_wolf", level,
                 ParticleTypes.DAMAGE_INDICATOR,
                 start.x, start.y, start.z,
                 8,
@@ -547,7 +549,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
                     target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20 * 2, 0), this);
                 }
 
-                level.sendParticles(
+                WolfVfx.sendParticles("vampire_wolf", level,
                         ParticleTypes.DAMAGE_INDICATOR,
                         targetPos.x, targetPos.y, targetPos.z,
                         10,
@@ -560,7 +562,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
             Vec3 step = delta.normalize().scale(Math.min(BLOOD_PROJECTILE_SPEED, delta.length()));
             shot.position = shot.position.add(step);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("vampire_wolf", level,
                     ParticleTypes.DAMAGE_INDICATOR,
                     shot.position.x, shot.position.y, shot.position.z,
                     2,
@@ -607,7 +609,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
                 true,
                 false), this);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("vampire_wolf", level,
                 ParticleTypes.DAMAGE_INDICATOR,
                 target.getX(), target.getY(0.75D), target.getZ(),
                 14,
@@ -647,7 +649,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
         target.hurtMarked = true;
 
         if (this.charmTicks % 5 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("vampire_wolf", level,
                     ParticleTypes.DAMAGE_INDICATOR,
                     target.getX(), target.getY(0.68D), target.getZ(),
                     3,
@@ -668,7 +670,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
             if (elite) {
                 target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20 * 3, 1, true, true), this);
                 target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20 * 3, 1, true, true), this);
-                level.sendParticles(
+                WolfVfx.sendParticles("vampire_wolf", level,
                         ParticleTypes.DAMAGE_INDICATOR,
                         target.getX(), target.getY(0.70D), target.getZ(),
                         24,
@@ -752,7 +754,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
             }
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("vampire_wolf", level,
                 ParticleTypes.DAMAGE_INDICATOR,
                 this.getX(), this.getY(0.45D), this.getZ(),
                 32,
@@ -768,7 +770,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
                 true,
                 true), this);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("vampire_wolf", level,
                 ParticleTypes.HEART,
                 family.getX(),
                 family.getY(0.75D),
@@ -803,7 +805,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
         this.chargeCooldownTicks = CHARGE_COOLDOWN_TICKS;
         this.getNavigation().stop();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("vampire_wolf", level,
                 ParticleTypes.DAMAGE_INDICATOR,
                 this.getX(), this.getY(0.40D), this.getZ(),
                 20,
@@ -836,7 +838,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
         this.hurtMarked = true;
         this.getLookControl().setLookAt(target, 45.0F, 45.0F);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("vampire_wolf", level,
                 ParticleTypes.DAMAGE_INDICATOR,
                 this.getX(), this.getY(0.42D), this.getZ(),
                 3,
@@ -851,7 +853,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
             double dz = this.getZ() - target.getZ();
             target.knockback(0.75D, dx, dz);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("vampire_wolf", level,
                     ParticleTypes.DAMAGE_INDICATOR,
                     target.getX(), target.getY(0.55D), target.getZ(),
                     8,
@@ -885,7 +887,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
         this.rainCooldownTicks = RAIN_OF_BLOOD_COOLDOWN_TICKS;
         this.rainObservedHealth.clear();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("vampire_wolf", level,
                 ParticleTypes.DAMAGE_INDICATOR,
                 this.rainCenter.x,
                 this.rainCenter.y + 2.5D,
@@ -904,7 +906,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
 
         // Constant visual rain curtain; no terrain griefing.
         if (this.rainTicks % 3 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("vampire_wolf", level,
                     ParticleTypes.DAMAGE_INDICATOR,
                     this.rainCenter.x,
                     this.rainCenter.y + 4.0D,
@@ -974,7 +976,7 @@ public final class VampireWolf extends AbstractWolfismWolf {
             if (family == this || family.getHealth() >= family.getMaxHealth()) continue;
 
             family.heal(familyHeal);
-            level.sendParticles(
+            WolfVfx.sendParticles("vampire_wolf", level,
                     ParticleTypes.HEART,
                     family.getX(), family.getY(0.75D), family.getZ(),
                     2,

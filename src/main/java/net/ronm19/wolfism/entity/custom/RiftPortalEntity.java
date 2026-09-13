@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -267,7 +269,7 @@ public final class RiftPortalEntity extends Entity {
     private void emitOpeningBurst(
             ServerLevel level) {
 
-        level.sendParticles(
+        WolfVfx.sendParticles(level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.getX(),
                 this.getY() + 0.90D,
@@ -278,7 +280,7 @@ public final class RiftPortalEntity extends Entity {
                 0.45D,
                 0.055D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles(level,
                 ParticleTypes.PORTAL,
                 this.getX(),
                 this.getY() + 0.90D,
@@ -295,7 +297,7 @@ public final class RiftPortalEntity extends Entity {
              * enter. Give it a stable bright core rather than a second noisy
              * purple particle cloud.
              */
-            level.sendParticles(
+            WolfVfx.sendParticles(level,
                     ParticleTypes.END_ROD,
                     this.getX(),
                     this.getY() + 0.90D,
@@ -311,7 +313,7 @@ public final class RiftPortalEntity extends Entity {
     private void emitClosingBurst(
             ServerLevel level) {
 
-        level.sendParticles(
+        WolfVfx.sendParticles(level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.getX(),
                 this.getY() + 0.90D,
@@ -376,7 +378,7 @@ public final class RiftPortalEntity extends Entity {
                             + axisZ
                             * horizontal;
 
-            level.sendParticles(
+            WolfVfx.sendParticles(level,
                     ParticleTypes.REVERSE_PORTAL,
                     x,
                     y,
@@ -394,7 +396,7 @@ public final class RiftPortalEntity extends Entity {
              * through THIS one" and distinguishes Passage from the short
              * cinematic rifts used by Step/Rescue/Banish/Recall.
              */
-            level.sendParticles(
+            WolfVfx.sendParticles(level,
                     ParticleTypes.END_ROD,
                     this.getX(),
                     this.getY() + 0.28D,
@@ -405,7 +407,7 @@ public final class RiftPortalEntity extends Entity {
                     0.015D,
                     0.0D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles(level,
                     ParticleTypes.END_ROD,
                     this.getX(),
                     this.getY() + 0.90D,
@@ -416,7 +418,7 @@ public final class RiftPortalEntity extends Entity {
                     0.015D,
                     0.0D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles(level,
                     ParticleTypes.END_ROD,
                     this.getX(),
                     this.getY() + 1.52D,
@@ -428,7 +430,7 @@ public final class RiftPortalEntity extends Entity {
                     0.0D);
 
             if (this.tickCount % 4 == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles(level,
                         ParticleTypes.PORTAL,
                         this.getX(),
                         this.getY() + 0.90D,
@@ -440,7 +442,7 @@ public final class RiftPortalEntity extends Entity {
                         0.0D);
             }
         } else if (this.tickCount % 4 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles(level,
                     ParticleTypes.PORTAL,
                     this.getX(),
                     this.getY() + 0.90D,

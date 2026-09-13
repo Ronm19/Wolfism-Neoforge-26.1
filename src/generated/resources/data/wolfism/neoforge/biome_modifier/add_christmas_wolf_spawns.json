@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/christmas_wolf",
+  "spawners": {
+    "type": "wolfism:christmas_wolf",
+    "maxCount": 3,
+    "minCount": 1,
+    "weight": 16
+  }
+}

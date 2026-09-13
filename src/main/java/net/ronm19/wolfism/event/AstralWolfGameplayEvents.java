@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.event;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.Comparator;
 
 import net.minecraft.core.particles.ParticleTypes;
@@ -121,7 +123,7 @@ public final class AstralWolfGameplayEvents {
             REFLECTING.set(false);
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("astral_wolf", level,
                 ParticleTypes.END_ROD,
                 attacker.getX(),
                 attacker.getY()

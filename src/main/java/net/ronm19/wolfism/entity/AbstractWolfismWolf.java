@@ -1,16 +1,28 @@
 package net.ronm19.wolfism.entity;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import net.ronm19.wolfism.creator.CreatorProgress;
 import java.util.Set;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -24,8 +36,15 @@ import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.animal.wolf.WolfSoundVariants;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -34,6 +53,10 @@ import net.ronm19.wolfism.entity.ai.goal.WolfismFamilyDefenseGoal;
 import net.ronm19.wolfism.entity.ai.goal.WolfismFamilyPupEmergencyGoal;
 import net.ronm19.wolfism.entity.ai.goal.WolfismCreeperRetreatGoal;
 import net.ronm19.wolfism.entity.ai.goal.WolfismCreeperTargetGoal;
+import net.ronm19.wolfism.registry.ModSounds;
+import net.ronm19.wolfism.entity.ai.support.WolfWorkScheduler;
+import net.ronm19.wolfism.entity.ai.support.WolfVoiceBudget;
+import net.ronm19.wolfism.entity.ai.support.WolfStaffThreatCache;
 
 /**
  * Common foundation for Wolfism's normal wolf-shaped species.
@@ -62,6 +85,13 @@ public abstract class AbstractWolfismWolf extends Wolf {
     private static final int OWNER_PORTAL_FOLLOW_GRACE_TICKS = 20 * 4;
 
     private int ownerPortalFollowGraceTicks;
+    private static final Map<Level, WolfVoiceBudget> VOICE_BUDGETS = new WeakHashMap<>();
+    private long nextAmbientVoiceTick;
+    private long nextGrowlVoiceTick;
+    private long nextHowlVoiceTick;
+    private long nextAbilityHowlVoiceTick;
+    private Vec3 staffLastMovementSample;
+    private int staffStuckTicks;
 
     // ---------------------------------------------------------------------
     // Wolf Staff shared command state
@@ -82,6 +112,157 @@ public abstract class AbstractWolfismWolf extends Wolf {
     }
 
     /**
+     * Natural spawning has already checked this species' registered placement
+     * predicate before asking the entity for its final spawn eligibility. The
+     * inherited PathfinderMob check also treats Animal's grass/light navigation
+     * preference as a spawn rule, incorrectly rejecting valid dark or non-grass
+     * habitats. Keep that preference for movement, but do not apply it again to
+     * natural or chunk-generation spawns. Do not rerun the placement predicate:
+     * doing so could repeat a rarity roll or other stateful eligibility check.
+     * Vanilla's separate collision checks and mob caps still apply.
+     */
+    @Override
+    public boolean checkSpawnRules(LevelAccessor level, EntitySpawnReason reason) {
+        if (reason == EntitySpawnReason.NATURAL || reason == EntitySpawnReason.CHUNK_GENERATION) {
+            return true;
+        }
+        return super.checkSpawnRules(level, reason);
+    }
+
+    @Override
+    protected void feed(Player player, InteractionHand hand, ItemStack food, float healingFactor, float defaultHeal) {
+        // NeoForge 26.1's inherited feed currently consumes twice. Preserve the
+        // nutrition, remainder, sound and game event while spending one meal.
+        FoodProperties properties = food.get(DataComponents.FOOD);
+        this.usePlayerItem(player, hand, food);
+        this.heal(properties != null ? healingFactor * properties.nutrition() : defaultHeal);
+        this.playEatingSound();
+        this.gameEvent(GameEvent.EAT);
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        boolean ownedBefore = this.isTame() && this.isOwnedBy(player);
+        boolean wasOrderedToSit = this.isOrderedToSit();
+        InteractionResult result = super.mobInteract(player, hand);
+        if (!this.level().isClientSide() && ownedBefore && this.isOwnedBy(player)
+                && wasOrderedToSit != this.isOrderedToSit()) {
+            // A direct owner order takes this companion out of its previous
+            // Staff order. Feeding, dyeing and armor interactions do not change
+            // the sit flag, so they preserve the existing group command.
+            this.wolfStaffCommanded = false;
+            this.wolfStaffCommandMode = WolfStaffCommandMode.FOLLOW;
+            this.wolfStaffRecallTicks = 0;
+            this.wolfStaffFocusedTarget = null;
+            this.wolfStaffFocusedTargetTicks = 0;
+            this.wolfStaffCommandScanCooldown = 0;
+            this.staffStuckTicks = 0;
+            this.staffLastMovementSample = null;
+            super.setTarget(null);
+            this.getNavigation().stop();
+            if (this.hasFamilyDefenseEmergency()) this.clearFamilyDefense();
+        }
+        return result;
+    }
+
+    /** Species voices are independent of vanilla's randomly assigned dog voice variant. */
+    public final ModSounds.WolfVoice getWolfismVoice() {
+        return ModSounds.voice(this.getType());
+    }
+
+    public final SoundEvent getWolfismHowlSound() {
+        return this.getWolfismVoice().event(ModSounds.Vocalization.HOWL).value();
+    }
+
+    public final SoundEvent getWolfismGrowlSound() {
+        return this.getWolfismVoice().event(ModSounds.Vocalization.GROWL).value();
+    }
+
+    @Override
+    public float getVoicePitch() {
+        // Recordings already carry the species timbre. Large runtime shifts
+        // stretched real howls into robotic growls, especially the old 0.4–0.7 casts.
+        return (this.isBaby() ? 1.12F : 1.0F)
+                + (this.random.nextFloat() - this.random.nextFloat()) * 0.025F;
+    }
+
+    @Override
+    public void playSound(SoundEvent sound, float volume, float pitch) {
+        var id = BuiltInRegistries.SOUND_EVENT.getKey(sound);
+        if (id != null && id.getNamespace().equals("wolfism") && id.getPath().startsWith("entity.")) {
+            if (this.isSilent()) return;
+            String action = id.getPath().substring(id.getPath().lastIndexOf('.') + 1);
+            if (this.level() instanceof ServerLevel) {
+                WolfVoiceBudget.Kind kind = switch (action) {
+                    case "ambient", "whine" -> WolfVoiceBudget.Kind.AMBIENT;
+                    case "growl" -> WolfVoiceBudget.Kind.GROWL;
+                    case "howl" -> WolfVoiceBudget.Kind.HOWL;
+                    default -> null; // Hurt/death remain immediate, readable feedback.
+                };
+                if (kind != null) {
+                    long now = this.level().getGameTime();
+                    boolean important = kind == WolfVoiceBudget.Kind.HOWL && volume >= 1.5F;
+                    long next = switch (kind) {
+                        case AMBIENT -> this.nextAmbientVoiceTick;
+                        case GROWL -> this.nextGrowlVoiceTick;
+                        case HOWL -> important ? this.nextAbilityHowlVoiceTick : this.nextHowlVoiceTick;
+                    };
+                    if (now < next && next - now <= 400) return;
+                    if (!VOICE_BUDGETS.computeIfAbsent(this.level(), ignored -> new WolfVoiceBudget())
+                            .tryAcquire(now, this.getX(), this.getY(), this.getZ(), kind, important)) return;
+                    switch (kind) {
+                        case AMBIENT -> this.nextAmbientVoiceTick = now + 120;
+                        case GROWL -> this.nextGrowlVoiceTick = now + 40;
+                        case HOWL -> {
+                            this.nextHowlVoiceTick = now + 400;
+                            if (important) this.nextAbilityHowlVoiceTick = now + 200;
+                        }
+                    }
+                }
+            }
+            pitch = this.getVoicePitch();
+        }
+        super.playSound(sound, volume, pitch);
+    }
+
+    public final boolean isWolfismWorkTick(int interval) {
+        return WolfWorkScheduler.isDue(this.level().getGameTime(), this.getId(), interval);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        ModSounds.WolfVoice voice = this.getWolfismVoice();
+        if (this.isAngry() || this.getTarget() != null) {
+            return voice.event(ModSounds.Vocalization.GROWL).value();
+        }
+        if (this.isTame() && this.getHealth() < this.getMaxHealth() * 0.5F
+                && this.random.nextInt(3) == 0) {
+            return voice.event(ModSounds.Vocalization.WHINE).value();
+        }
+        // The ordinary ambient scheduler controls frequency. A rare calm
+        // nighttime call lets every species use its own howl, including holidays.
+        if (!this.isBaby() && !this.level().isBrightOutside() && this.random.nextInt(16) == 0) {
+            return voice.event(ModSounds.Vocalization.HOWL).value();
+        }
+        return voice.event(ModSounds.Vocalization.AMBIENT).value();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        // Preserve the vanilla armor-impact cue when wolf armor absorbs the hit.
+        if (this.getBodyArmorItem().is(Items.WOLF_ARMOR)
+                && !source.is(DamageTypeTags.BYPASSES_WOLF_ARMOR)) {
+            return SoundEvents.WOLF_ARMOR_DAMAGE;
+        }
+        return this.getWolfismVoice().event(ModSounds.Vocalization.HURT).value();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return this.getWolfismVoice().event(ModSounds.Vocalization.DEATH).value();
+    }
+
+    /**
      * Global Wolfism family welcome.
      *
      * <p>Every Wolfism wolf that inherits this base gets the same successful
@@ -98,11 +279,11 @@ public abstract class AbstractWolfismWolf extends Wolf {
             return;
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles(level,
                 ParticleTypes.HEART,
                 this.getX(), this.getY(0.72D), this.getZ(),
                 10, 0.55D, 0.45D, 0.55D, 0.035D);
-        level.sendParticles(
+        WolfVfx.sendParticles(level,
                 ParticleTypes.POOF,
                 this.getX(), this.getY(0.45D), this.getZ(),
                 12, 0.65D, 0.18D, 0.65D, 0.025D);
@@ -168,9 +349,8 @@ public abstract class AbstractWolfismWolf extends Wolf {
                 this.setTarget(null);
             }
 
-            if (this.hasFamilyDefenseEmergency()) {
-                this.clearFamilyDefense();
-            }
+            // Pups keep the emergency memory so their flight goal can run.
+            // Non-combatant means no retaliation, not no awareness of danger.
         } else {
             this.enforceSharedPhysicalAggroDiscipline();
         }
@@ -179,9 +359,7 @@ public abstract class AbstractWolfismWolf extends Wolf {
             --this.familyDefenseTicks;
 
             LivingEntity threat = this.familyDefenseTarget;
-            if (threat == null
-                    || !threat.isAlive()
-                    || this.isAlliedTo(threat)
+            if (!this.isValidWolfismCombatTarget(threat)
                     || this.distanceToSqr(threat)
                     > FAMILY_DEFENSE_MAX_PURSUIT_DISTANCE * FAMILY_DEFENSE_MAX_PURSUIT_DISTANCE
                     || this.familyDefenseTicks <= 0) {
@@ -207,8 +385,8 @@ public abstract class AbstractWolfismWolf extends Wolf {
         if (!(this.level() instanceof ServerLevel)
                 || !this.isTame()
                 || !this.isAlive()
+                || this.isNoAi()
                 || this.isOrderedToSit()
-                || this.isInSittingPose()
                 || this.isPassenger()) {
             this.ownerPortalFollowGraceTicks = 0;
             return false;
@@ -224,7 +402,7 @@ public abstract class AbstractWolfismWolf extends Wolf {
         }
 
         if (owner.level() == this.level()) {
-            if (this.distanceToSqr(owner)
+            if (!this.isInSittingPose() && this.distanceToSqr(owner)
                     <= OWNER_PORTAL_FOLLOW_ARM_DISTANCE
                     * OWNER_PORTAL_FOLLOW_ARM_DISTANCE) {
                 this.ownerPortalFollowGraceTicks =
@@ -253,6 +431,9 @@ public abstract class AbstractWolfismWolf extends Wolf {
 
         this.setTarget(null);
         this.getNavigation().stop();
+        // Vanilla automatically sits a tame whose owner changed dimension.
+        // That pose is not an owner order and must not cancel an armed hand-off.
+        this.setInSittingPose(false);
 
         boolean teleported = this.teleportTo(
                 destinationLevel,
@@ -266,6 +447,16 @@ public abstract class AbstractWolfismWolf extends Wolf {
 
         this.ownerPortalFollowGraceTicks = 0;
         return teleported;
+    }
+
+    /** Uses the ordinary companion collision, terrain and loaded-chunk checks. */
+    public final BlockPos findSafeCompanionArrival(ServerLevel destination, BlockPos near) {
+        return this.findSharedPortalFollowDestination(destination, near);
+    }
+
+    /** An external travel transaction has handled this trip, including any refusal. */
+    public final void clearOwnerPortalFollowGrace() {
+        this.ownerPortalFollowGraceTicks = 0;
     }
 
     private BlockPos findSharedPortalFollowDestination(
@@ -320,12 +511,27 @@ public abstract class AbstractWolfismWolf extends Wolf {
             ServerLevel level,
             BlockPos feet ) {
 
+        if (!level.getWorldBorder().isWithinBounds(feet)) return false;
+        // Collision checks include a padding around large wolves. Never ask
+        // unloaded neighboring chunks to generate just to rejoin an owner.
+        int padding = Math.max(2, (int) Math.ceil(this.getBbWidth()));
+        for (int x = (feet.getX() - padding) >> 4; x <= (feet.getX() + padding) >> 4; ++x) {
+            for (int z = (feet.getZ() - padding) >> 4; z <= (feet.getZ() + padding) >> 4; ++z) {
+                if (level.getChunkSource().getChunkNow(x, z) == null) return false;
+            }
+        }
+
         BlockPos head = feet.above();
         BlockPos groundPos = feet.below();
 
         BlockState feetState = level.getBlockState(feet);
         BlockState headState = level.getBlockState(head);
         BlockState groundState = level.getBlockState(groundPos);
+        if (groundState.is(Blocks.MAGMA_BLOCK) || groundState.is(Blocks.CACTUS)
+                || groundState.is(Blocks.CAMPFIRE) || groundState.is(Blocks.SOUL_CAMPFIRE)
+                || feetState.is(Blocks.POWDER_SNOW) || feetState.is(Blocks.SWEET_BERRY_BUSH)
+                || feetState.is(Blocks.WITHER_ROSE) || feetState.is(Blocks.FIRE)
+                || feetState.is(Blocks.SOUL_FIRE)) return false;
 
         if (!level.getFluidState(feet).isEmpty()
                 || !level.getFluidState(head).isEmpty()) {
@@ -337,7 +543,9 @@ public abstract class AbstractWolfismWolf extends Wolf {
             return false;
         }
 
-        return groundState.isFaceSturdy(
+        return level.noCollision(this, this.getBoundingBox().move(
+                feet.getX() + 0.5D - this.getX(), feet.getY() - this.getY(), feet.getZ() + 0.5D - this.getZ()))
+                && groundState.isFaceSturdy(
                 level,
                 groundPos,
                 Direction.UP);
@@ -385,7 +593,7 @@ public abstract class AbstractWolfismWolf extends Wolf {
 
     public final boolean isWithinWolfismPhysicalAggroAcquireRange(
             LivingEntity target ) {
-        if (target == null) return false;
+        if (target == null || target.level() != this.level()) return false;
 
         double radius = this.getWolfismPhysicalAggroAcquireRadius();
         return this.distanceToSqr(target) <= radius * radius;
@@ -393,7 +601,7 @@ public abstract class AbstractWolfismWolf extends Wolf {
 
     public final boolean isWithinWolfismPhysicalAggroReleaseRange(
             LivingEntity target ) {
-        if (target == null) return false;
+        if (target == null || target.level() != this.level()) return false;
 
         double radius = Math.max(
                 this.getWolfismPhysicalAggroAcquireRadius(),
@@ -414,6 +622,13 @@ public abstract class AbstractWolfismWolf extends Wolf {
     private void enforceSharedPhysicalAggroDiscipline() {
         LivingEntity target = this.getTarget();
         if (target == null) return;
+
+        if (!this.canUseActiveWolfismAbility() || !this.canAttack(target)) {
+            super.setTarget(null);
+            this.getNavigation().stop();
+            this.setSprinting(false);
+            return;
+        }
 
         if (this.isWolfStaffAttackTarget(target)
                 || this.isWolfStaffGuardThreat(target)) {
@@ -446,7 +661,10 @@ public abstract class AbstractWolfismWolf extends Wolf {
     }
 
     protected boolean canUseActiveWolfismAbility() {
-        if (!this.canUseAdultWolfismAbility()
+        if (!this.isAlive()
+                || this.isRemoved()
+                || this.isNoAi()
+                || !this.canUseAdultWolfismAbility()
                 || this.isOrderedToSit()
                 || this.isInSittingPose()
                 || this.wolfStaffRecallTicks > 0) {
@@ -461,6 +679,13 @@ public abstract class AbstractWolfismWolf extends Wolf {
 
     @Override
     public void setTarget( LivingEntity target ) {
+        // Sensors and custom goals call setTarget directly; vanilla's target
+        // filtering is not guaranteed to have run for those callers.
+        if (target != null && !this.canAttack(target)) {
+            super.setTarget(null);
+            return;
+        }
+
         if (target != null && this.wolfStaffCommanded) {
             if (this.wolfStaffRecallTicks > 0
                     || this.wolfStaffCommandMode == WolfStaffCommandMode.FOLLOW
@@ -489,6 +714,7 @@ public abstract class AbstractWolfismWolf extends Wolf {
 
         if (target != null
                 && !this.isWithinWolfismPhysicalAggroAcquireRange(target)
+                && !(target == this.familyDefenseTarget && this.hasFamilyDefenseEmergency())
                 && !this.isAllowedDistantRangedTarget(target)
                 && !this.isWolfStaffAttackTarget(target)
                 && !this.isWolfStaffGuardThreat(target)) {
@@ -507,7 +733,7 @@ public abstract class AbstractWolfismWolf extends Wolf {
 
     @Override
     public boolean doHurtTarget( ServerLevel level, Entity target ) {
-        if (!this.canParticipateInWolfismCombat()) {
+        if (!this.canPerformWolfismMelee(target)) {
             this.setTarget(null);
             return false;
         }
@@ -533,7 +759,7 @@ public abstract class AbstractWolfismWolf extends Wolf {
      * doHurtTarget(ServerLevel, Entity).
      */
     public boolean doHurtTarget( Entity target ) {
-        if (!this.canParticipateInWolfismCombat()) {
+        if (!this.canPerformWolfismMelee(target)) {
             this.setTarget(null);
             return false;
         }
@@ -543,6 +769,39 @@ public abstract class AbstractWolfismWolf extends Wolf {
         }
 
         return super.doHurtTarget(serverLevel, target);
+    }
+
+    private boolean canPerformWolfismMelee(Entity target) {
+        return target != null
+                && target.level() == this.level()
+                && this.canUseActiveWolfismAbility()
+                && !this.isWolfismFamily(target)
+                && (!(target instanceof LivingEntity living) || this.canAttack(living));
+    }
+
+    /** Shared safety rule for melee, area damage, and in-flight projectiles. */
+    public final boolean isWolfismFamily(Entity other) {
+        if (other == null) return false;
+        if (other == this || this.isAlliedTo(other)) return true;
+        if (!this.isTame()) return false;
+
+        return other instanceof Wolf wolf && wolf.isTame()
+                || this.getOwnerReference() != null
+                && this.getOwnerReference().getUUID().equals(other.getUUID());
+    }
+
+    /** Target safety independent of age, so pups may remember a threat to flee. */
+    private boolean isValidWolfismCombatTarget(LivingEntity target) {
+        if (target == null
+                || target.level() != this.level()
+                || !target.canBeSeenAsEnemy()
+                || this.isWolfismFamily(target)) {
+            return false;
+        }
+
+        return !(target instanceof Player playerTarget)
+                || !(this.getOwner() instanceof Player playerOwner)
+                || playerOwner.canHarmPlayer(playerTarget);
     }
 
 
@@ -578,6 +837,8 @@ public abstract class AbstractWolfismWolf extends Wolf {
         this.wolfStaffFocusedTarget = null;
         this.wolfStaffFocusedTargetTicks = 0;
         this.wolfStaffCommandScanCooldown = 0;
+        this.staffStuckTicks = 0;
+        this.staffLastMovementSample = null;
 
         switch (mode) {
             case SIT -> {
@@ -612,9 +873,7 @@ public abstract class AbstractWolfismWolf extends Wolf {
     public final void focusWolfStaffTarget(LivingEntity target, int durationTicks) {
         if (!this.isTame()
                 || !this.canParticipateInWolfismCombat()
-                || target == null
-                || !target.isAlive()
-                || this.isAlliedTo(target)) {
+                || !this.isValidWolfismCombatTarget(target)) {
             return;
         }
 
@@ -628,6 +887,8 @@ public abstract class AbstractWolfismWolf extends Wolf {
         this.wolfStaffRecallTicks = 0;
         this.wolfStaffFocusedTarget = target;
         this.wolfStaffFocusedTargetTicks = Math.max(20, durationTicks);
+        this.staffStuckTicks = 0;
+        this.staffLastMovementSample = null;
         this.setOrderedToSit(false);
         this.getNavigation().stop();
         this.setTarget(target);
@@ -635,7 +896,7 @@ public abstract class AbstractWolfismWolf extends Wolf {
 
     /**
      * Emergency Recall is deliberately stronger than FOLLOW: it clears current
-     * combat, extinguishes fire, removes all temporary effects, and aggressively
+     * combat, extinguishes fire, removes harmful temporary effects, and aggressively
      * returns the wolf to its owner. It also cancels species active abilities via
      * canUseActiveWolfismAbility() for the duration of the recall window.
      */
@@ -650,12 +911,14 @@ public abstract class AbstractWolfismWolf extends Wolf {
         this.wolfStaffFocusedTarget = null;
         this.wolfStaffFocusedTargetTicks = 0;
         this.wolfStaffCommandScanCooldown = 0;
+        this.staffStuckTicks = 0;
+        this.staffLastMovementSample = null;
 
         this.setOrderedToSit(false);
         super.setTarget(null);
         this.getNavigation().stop();
         this.clearFire();
-        this.removeAllEffects();
+        this.clearHarmfulWolfStaffEffects();
 
         if (this.hasFamilyDefenseEmergency()) {
             this.clearFamilyDefense();
@@ -670,21 +933,34 @@ public abstract class AbstractWolfismWolf extends Wolf {
             return;
         }
 
+        // Timed orders must still expire while an owner is offline or in a
+        // different dimension; movement alone depends on finding the owner.
+        if (this.wolfStaffRecallTicks > 0) {
+            --this.wolfStaffRecallTicks;
+        }
+        if (this.wolfStaffFocusedTargetTicks > 0) {
+            --this.wolfStaffFocusedTargetTicks;
+        }
+        if (this.wolfStaffFocusedTarget != null && this.wolfStaffFocusedTargetTicks <= 0) {
+            if (this.getTarget() == this.wolfStaffFocusedTarget) {
+                super.setTarget(null);
+            }
+            this.wolfStaffFocusedTarget = null;
+        }
+
         LivingEntity owner = this.getOwner();
         if (owner == null || !owner.isAlive() || owner.level() != this.level()) {
             return;
         }
 
         if (this.wolfStaffRecallTicks > 0) {
-            --this.wolfStaffRecallTicks;
             this.setOrderedToSit(false);
             super.setTarget(null);
             this.clearFire();
 
             // Recall is a reset command, not just a movement instruction.
-            if (!this.getActiveEffects().isEmpty()) {
-                this.removeAllEffects();
-            }
+            if (!this.isWolfismWorkTick(10)) return;
+            this.clearHarmfulWolfStaffEffects();
 
             double distanceSqr = this.distanceToSqr(owner);
             if (distanceSqr > 28.0D * 28.0D) {
@@ -704,17 +980,13 @@ public abstract class AbstractWolfismWolf extends Wolf {
                             false);
                 }
             } else if (distanceSqr > 3.0D * 3.0D) {
-                this.getNavigation().moveTo(owner, 1.35D);
+                this.moveForWolfStaff(level, owner, 1.35D, true);
             } else {
                 this.getNavigation().stop();
                 this.wolfStaffRecallTicks = 0;
             }
 
             return;
-        }
-
-        if (this.wolfStaffFocusedTargetTicks > 0) {
-            --this.wolfStaffFocusedTargetTicks;
         }
 
         if (this.wolfStaffFocusedTarget != null) {
@@ -754,8 +1026,8 @@ public abstract class AbstractWolfismWolf extends Wolf {
                 this.setOrderedToSit(false);
                 super.setTarget(null);
 
-                if (this.distanceToSqr(owner) > 10.0D * 10.0D) {
-                    this.getNavigation().moveTo(owner, 1.1D);
+                if (this.distanceToSqr(owner) > 10.0D * 10.0D && this.isWolfismWorkTick(10)) {
+                    this.moveForWolfStaff(level, owner, 1.1D, false);
                 }
             }
             case GUARD -> this.tickWolfStaffGuard(owner);
@@ -772,7 +1044,7 @@ public abstract class AbstractWolfismWolf extends Wolf {
             current = null;
         }
 
-        if (current == null && this.wolfStaffCommandScanCooldown <= 0) {
+        if (current == null && this.wolfStaffCommandScanCooldown <= 0 && this.isWolfismWorkTick(10)) {
             this.wolfStaffCommandScanCooldown = 10;
             LivingEntity threat = this.findWolfStaffHostileAroundOwner(owner, 14.0D);
             if (threat != null) {
@@ -781,8 +1053,8 @@ public abstract class AbstractWolfismWolf extends Wolf {
             }
         }
 
-        if (current == null && this.distanceToSqr(owner) > 8.0D * 8.0D) {
-            this.getNavigation().moveTo(owner, 1.15D);
+        if (current == null && this.distanceToSqr(owner) > 8.0D * 8.0D && this.isWolfismWorkTick(10)) {
+            this.moveForWolfStaff((ServerLevel) this.level(), owner, 1.15D, false);
         }
     }
 
@@ -799,7 +1071,7 @@ public abstract class AbstractWolfismWolf extends Wolf {
             current = null;
         }
 
-        if (current == null && this.wolfStaffCommandScanCooldown <= 0) {
+        if (current == null && this.wolfStaffCommandScanCooldown <= 0 && this.isWolfismWorkTick(8)) {
             this.wolfStaffCommandScanCooldown = 8;
             LivingEntity target = this.findWolfStaffHostileAroundOwner(owner, 24.0D);
             if (target != null) {
@@ -812,14 +1084,10 @@ public abstract class AbstractWolfismWolf extends Wolf {
         LivingEntity best = null;
         double bestDistance = Double.MAX_VALUE;
 
-        for (LivingEntity candidate : this.level().getEntitiesOfClass(
-                LivingEntity.class,
-                owner.getBoundingBox().inflate(radius),
-                entity -> entity instanceof Enemy
-                        && entity.isAlive()
-                        && entity != owner
-                        && entity != this
-                        && !this.isAlliedTo(entity))) {
+        for (LivingEntity candidate : WolfStaffThreatCache.around((ServerLevel) this.level(), owner)) {
+            if (candidate == owner || candidate == this || this.isAlliedTo(candidate)
+                    || !this.isValidWolfismCombatTarget(candidate)
+                    || !owner.getBoundingBox().inflate(radius).intersects(candidate.getBoundingBox())) continue;
 
             double distance = this.distanceToSqr(candidate);
             if (distance < bestDistance) {
@@ -829,6 +1097,43 @@ public abstract class AbstractWolfismWolf extends Wolf {
         }
 
         return best;
+    }
+
+    private void clearHarmfulWolfStaffEffects() {
+        if (this.getActiveEffects().isEmpty()) return;
+        var harmful = this.getActiveEffects().stream()
+                .filter(effect -> effect.getEffect().value().getCategory() == MobEffectCategory.HARMFUL)
+                .map(effect -> effect.getEffect()).toList();
+        harmful.forEach(this::removeEffect);
+    }
+
+    private void moveForWolfStaff(ServerLevel level, LivingEntity owner, double speed, boolean recall) {
+        if (this.staffLastMovementSample != null
+                && this.position().distanceToSqr(this.staffLastMovementSample) < 0.04D) {
+            this.staffStuckTicks += 10;
+        } else {
+            this.staffStuckTicks = 0;
+        }
+        this.staffLastMovementSample = this.position();
+        // Stable spread around the owner reduces dozens of paths ending at one
+        // block. It changes navigation targets only; species movement stays intact.
+        double angle = Math.floorMod(this.getId(), 16) * Math.PI / 8.0D;
+        double radius = recall ? 2.0D : 2.5D + Math.floorMod(this.getId(), 3);
+        double x = owner.getX() + Math.cos(angle) * radius;
+        double z = owner.getZ() + Math.sin(angle) * radius;
+        if (!this.getNavigation().moveTo(x, owner.getY(), z, speed)) {
+            this.getNavigation().moveTo(owner, speed);
+        }
+        // Recall may rescue a wolf stuck closer than the normal 28-block teleport
+        // threshold. Ordinary follow leaves vanilla's established teleport policy.
+        if (recall && this.staffStuckTicks >= 60 && this.distanceToSqr(owner) > 6.0D * 6.0D) {
+            BlockPos destination = this.findSharedPortalFollowDestination(level, owner.blockPosition());
+            if (destination != null) {
+                this.teleportTo(destination.getX() + 0.5D, destination.getY(), destination.getZ() + 0.5D);
+                this.staffStuckTicks = 0;
+                this.getNavigation().stop();
+            }
+        }
     }
 
     private boolean isWolfStaffGuardThreat(LivingEntity target) {
@@ -869,21 +1174,23 @@ public abstract class AbstractWolfismWolf extends Wolf {
 
 
     public boolean beginFamilyDefense( LivingEntity attacker, LivingEntity protectedFamily ) {
-        if (!this.canParticipateInWolfismCombat()
+        if (!(this.level() instanceof ServerLevel)
                 || !this.isTame()
                 || this.isOrderedToSit()
                 || this.isInSittingPose()
-                || attacker == null
+                || this.isWolfStaffRecallActive()
                 || protectedFamily == null
-                || !attacker.isAlive()
-                || attacker == this
+                || protectedFamily.level() != this.level()
+                || !this.isValidWolfismCombatTarget(attacker)
                 || attacker == protectedFamily
-                || this.isAlliedTo(attacker)) {
+                || this.distanceToSqr(attacker)
+                > FAMILY_DEFENSE_MAX_PURSUIT_DISTANCE * FAMILY_DEFENSE_MAX_PURSUIT_DISTANCE
+                || this.canParticipateInWolfismCombat() && !this.canUseActiveWolfismAbility()) {
             return false;
         }
 
         LivingEntity owner = this.getOwner();
-        if (owner != null) {
+        if (owner != null && this.canParticipateInWolfismCombat()) {
             if (attacker == owner || !this.wantsToAttack(attacker, owner)) {
                 return false;
             }
@@ -894,15 +1201,18 @@ public abstract class AbstractWolfismWolf extends Wolf {
         this.familyDefenseTicks = FAMILY_DEFENSE_DURATION_TICKS;
         this.getNavigation().stop();
 
-        this.onFamilyDefenseStarted(attacker, protectedFamily);
-        this.setTarget(attacker);
+        if (this.canParticipateInWolfismCombat()) {
+            this.onFamilyDefenseStarted(attacker, protectedFamily);
+            this.setTarget(attacker);
+        } else {
+            this.setTarget(null);
+        }
         return true;
     }
 
     public boolean hasFamilyDefenseEmergency() {
         return this.familyDefenseTicks > 0
-                && this.familyDefenseTarget != null
-                && this.familyDefenseTarget.isAlive();
+                && this.isValidWolfismCombatTarget(this.familyDefenseTarget);
     }
 
     public LivingEntity getFamilyDefenseTarget() {
@@ -940,7 +1250,8 @@ public abstract class AbstractWolfismWolf extends Wolf {
 
     @Override
     public boolean wantsToAttack( LivingEntity target, LivingEntity owner ) {
-        if (!this.canParticipateInWolfismCombat()) {
+        if (!this.canParticipateInWolfismCombat()
+                || !this.isValidWolfismCombatTarget(target)) {
             return false;
         }
 
@@ -957,7 +1268,10 @@ public abstract class AbstractWolfismWolf extends Wolf {
 
     @Override
     public boolean canAttack( LivingEntity target ) {
-        if (!this.canParticipateInWolfismCombat()) {
+        if (!this.canParticipateInWolfismCombat()
+                || this.isOrderedToSit()
+                || this.isInSittingPose()
+                || !this.isValidWolfismCombatTarget(target)) {
             return false;
         }
 
@@ -998,6 +1312,8 @@ public abstract class AbstractWolfismWolf extends Wolf {
         this.wolfStaffFocusedTargetTicks = 0;
         this.wolfStaffRecallTicks = 0;
         this.wolfStaffCommandScanCooldown = 0;
+        this.staffStuckTicks = 0;
+        this.staffLastMovementSample = null;
     }
 
     /**

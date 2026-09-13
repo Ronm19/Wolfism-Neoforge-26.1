@@ -68,6 +68,12 @@ public final class WolfismClient {
         event.registerEntityRenderer(ModEntities.WITHER_WOLF.get(), WitherWolfRenderer::new);
         event.registerEntityRenderer(ModEntities.BLAZE_WOLF.get(), BlazeWolfRenderer::new);
         event.registerEntityRenderer(ModEntities.HALLOWEEN_WOLF.get(), HalloweenWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.CHRISTMAS_WOLF.get(), ChristmasWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.SAINT_PATRICKS_WOLF.get(), SaintPatricksWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.NEW_YEARS_WOLF.get(), NewYearsWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.VALENTINES_WOLF.get(), ValentinesWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.EASTER_WOLF.get(), EasterWolfRenderer::new);
+        event.registerEntityRenderer(ModEntities.FIREWORK_WOLF.get(), FireworkWolfRenderer::new);
         event.registerEntityRenderer(ModEntities.CREATOR_WOLF.get(), CreatorWolfRenderer::new);
 
 

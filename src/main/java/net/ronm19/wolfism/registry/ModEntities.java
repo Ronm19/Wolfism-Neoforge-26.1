@@ -584,6 +584,61 @@ public final class ModEntities {
 
 
 
+
+    public static final Supplier<EntityType<ChristmasWolf>> CHRISTMAS_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "christmas_wolf",
+                    ChristmasWolf::new,
+                    MobCategory.CREATURE,
+                    builder -> builder.sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(14));
+
+    public static final Supplier<EntityType<SaintPatricksWolf>> SAINT_PATRICKS_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "saint_patricks_wolf",
+                    SaintPatricksWolf::new,
+                    MobCategory.CREATURE,
+                    builder -> builder.sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(14));
+
+    public static final Supplier<EntityType<NewYearsWolf>> NEW_YEARS_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "new_years_wolf",
+                    NewYearsWolf::new,
+                    MobCategory.CREATURE,
+                    builder -> builder.sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(14));
+
+    public static final Supplier<EntityType<ValentinesWolf>> VALENTINES_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "valentines_wolf",
+                    ValentinesWolf::new,
+                    MobCategory.CREATURE,
+                    builder -> builder.sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(14));
+
+    public static final Supplier<EntityType<EasterWolf>> EASTER_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "easter_wolf",
+                    EasterWolf::new,
+                    MobCategory.CREATURE,
+                    builder -> builder.sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(14));
+
+    public static final Supplier<EntityType<FireworkWolf>> FIREWORK_WOLF =
+            ENTITY_TYPES.registerEntityType(
+                    "firework_wolf",
+                    FireworkWolf::new,
+                    MobCategory.CREATURE,
+                    builder -> builder.sized(0.60F, 0.85F)
+                            .eyeHeight(0.68F)
+                            .clientTrackingRange(16));
+
     private ModEntities() {
     }
 }

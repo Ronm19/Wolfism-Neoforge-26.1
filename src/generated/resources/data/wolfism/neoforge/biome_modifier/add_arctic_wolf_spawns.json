@@ -5,6 +5,6 @@
     "type": "wolfism:arctic_wolf",
     "maxCount": 4,
     "minCount": 2,
-    "weight": 7
+    "weight": 10
   }
 }

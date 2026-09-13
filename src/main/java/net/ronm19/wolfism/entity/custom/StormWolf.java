@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.Comparator;
 import java.util.List;
@@ -399,7 +401,7 @@ public final class StormWolf extends AbstractWolfismWolf {
                 ModMemoryModuleTypes.STORM_THUNDERSTORM_COOLDOWN.get(),
                 THUNDERSTORM_COOLDOWN_TICKS);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("storm_wolf", level,
                 ParticleTypes.ELECTRIC_SPARK,
                 this.getX(),
                 this.getY() + 0.45D,
@@ -436,7 +438,7 @@ public final class StormWolf extends AbstractWolfismWolf {
         }
 
         if (this.tickCount % 4 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("storm_wolf", level,
                     ParticleTypes.ELECTRIC_SPARK,
                     this.getX(),
                     this.getY() + 0.40D,
@@ -659,7 +661,7 @@ public final class StormWolf extends AbstractWolfismWolf {
     }
 
     private void sendSparkParticles(ServerLevel level, LivingEntity target, int count, double spread) {
-        level.sendParticles(
+        WolfVfx.sendParticles("storm_wolf", level,
                 ParticleTypes.ELECTRIC_SPARK,
                 target.getX(),
                 target.getY() + target.getBbHeight() * 0.50D,

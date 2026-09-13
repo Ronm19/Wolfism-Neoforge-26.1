@@ -1,42 +1,22 @@
 package net.ronm19.wolfism;
-
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.Item;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
-
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Neo's config APIs
-public class Config {
+/** Server-owned companion travel and habitat preferences. */
+public final class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
-
-    public static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
-            .comment("Whether to log the dirt block on common setup")
-            .define("logDirtBlock", true);
-
-    public static final ModConfigSpec.IntValue MAGIC_NUMBER = BUILDER
-            .comment("A magic number")
-            .defineInRange("magicNumber", 42, 0, Integer.MAX_VALUE);
-
-    public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
-            .comment("What you want the introduction message to be for the magic number")
-            .define("magicNumberIntroduction", "The magic number is... ");
-
-    // a list of strings that are treated as resource locations for items
-    public static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
-            .comment("A list of items to log on common setup.")
-            .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), () -> "", Config::validateItemName);
-
-    static final ModConfigSpec SPEC = BUILDER.build();
-
-    private static boolean validateItemName(final Object obj) {
-        return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(Identifier.parse(itemName));
-    }
+    public static final ModConfigSpec.BooleanValue WAYSTONES_COMPANIONS = BUILDER
+            .comment("Nearby standing companions travel with their owner through Waystones.",
+                    "Sitting, disabled-AI and recovering wolves stay behind. Leashes use Waystones rules.")
+            .define("waystonesCompanions", true);
+    public static final ModConfigSpec.IntValue WAYSTONES_COMPANION_RANGE = BUILDER
+            .comment("Maximum distance from the owner when preparing a trip. Only loaded companions are considered.")
+            .defineInRange("waystonesCompanionRange", 24, 4, 48);
+    public static final ModConfigSpec.BooleanValue HABITAT_REPLENISHMENT = BUILDER
+            .comment("Allow bounded natural wolf encounters in already-loaded habitats.",
+                    "Preserves biome weights, species spawn rules, seasonal systems and companion ownership.")
+            .define("habitatReplenishment", true);
+    public static final ModConfigSpec.IntValue HABITAT_WILD_CAP = BUILDER
+            .comment("Maximum nearby wild wolves for supplemental habitat encounters. Tamed companions do not count.")
+            .defineInRange("habitatWildCap", 12, 1, 32);
+    public static final ModConfigSpec SPEC = BUILDER.build();
+    private Config() {}
 }

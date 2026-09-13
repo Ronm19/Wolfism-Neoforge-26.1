@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -296,7 +298,7 @@ public final class WarWolf extends AbstractWolfismWolf {
 
         if (empoweredBite) {
             warBiteCooldownTicks = WAR_BITE_COOLDOWN_TICKS;
-            level.sendParticles(
+            WolfVfx.sendParticles("war_wolf", level,
                     ParticleTypes.POOF,
                     livingTarget.getX(),
                     livingTarget.getY() + livingTarget.getBbHeight() * 0.55D,
@@ -356,7 +358,7 @@ public final class WarWolf extends AbstractWolfismWolf {
         }
 
         if (changed) {
-            level.sendParticles(
+            WolfVfx.sendParticles("war_wolf", level,
                     ParticleTypes.ENCHANTED_HIT,
                     primary.getX(),
                     primary.getY() + primary.getBbHeight() * 0.70D,
@@ -602,7 +604,7 @@ public final class WarWolf extends AbstractWolfismWolf {
         rallyPackCooldownTicks = RALLY_PACK_COOLDOWN_TICKS;
         applyRallyPack(level);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("war_wolf", level,
                 ParticleTypes.POOF,
                 this.getX(),
                 this.getY() + 0.55D,
@@ -627,7 +629,7 @@ public final class WarWolf extends AbstractWolfismWolf {
             return;
         }
 
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
             applyRallyPack(level);
         }
 
@@ -743,7 +745,7 @@ public final class WarWolf extends AbstractWolfismWolf {
                 true,
                 false), this);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("war_wolf", level,
                 ParticleTypes.POOF,
                 this.getX(),
                 this.getY() + 0.35D,
@@ -821,7 +823,7 @@ public final class WarWolf extends AbstractWolfismWolf {
         if (distanceSqr < DUELIST_MIN_REPOSITION_RANGE * DUELIST_MIN_REPOSITION_RANGE
                 || distanceSqr > DUELIST_MAX_REPOSITION_RANGE * DUELIST_MAX_REPOSITION_RANGE
                 || !this.getSensing().hasLineOfSight(target)
-                || this.tickCount % 20 != 0) {
+                || !this.isWolfismWorkTick(20)) {
             return;
         }
 
@@ -898,7 +900,7 @@ public final class WarWolf extends AbstractWolfismWolf {
         callToWarTicks = CALL_TO_WAR_DURATION_TICKS;
         callToWarCooldownTicks = CALL_TO_WAR_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("war_wolf", level,
                 ParticleTypes.ENCHANTED_HIT,
                 this.getX(),
                 this.getY() + 0.65D,
@@ -919,7 +921,7 @@ public final class WarWolf extends AbstractWolfismWolf {
 
         --callToWarTicks;
 
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
             applyCallToWar(level);
         }
 
@@ -927,8 +929,8 @@ public final class WarWolf extends AbstractWolfismWolf {
             updateBattleCommand(level, true);
         }
 
-        if (this.tickCount % 20 == 0) {
-            level.sendParticles(
+        if (this.isWolfismWorkTick(20)) {
+            WolfVfx.sendParticles("war_wolf", level,
                     ParticleTypes.ENCHANTED_HIT,
                     this.getX(),
                     this.getY() + 0.45D,
@@ -1071,16 +1073,7 @@ public final class WarWolf extends AbstractWolfismWolf {
         if (entity == this) return true;
 
         if (this.isTame()) {
-            LivingEntity owner = this.getOwner();
-            if (entity == owner) return true;
-
-            if (entity instanceof Wolf wolf
-                    && wolf.isTame()
-                    && owner != null) {
-                return wolf.isOwnedBy(owner);
-            }
-
-            return false;
+            return this.isWolfismFamily(entity);
         }
 
         return entity instanceof WarWolf war && !war.isTame();

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -391,7 +393,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
          * Consequences refresh twice per second so the escalation is readable.
          * Actual radiation damage and decay are still gated to once per second.
          */
-        if (this.tickCount % 10 != 0) return;
+        if (!this.isWolfismWorkTick(10)) return;
 
         List<Integer> remove = new ArrayList<>();
 
@@ -406,7 +408,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
                 continue;
             }
 
-            if (this.tickCount % 20 == 0
+            if (this.isWolfismWorkTick(20)
                     && this.tickCount - record.lastTouchedTick
                     > EXPOSURE_DECAY_GRACE_TICKS) {
 
@@ -482,7 +484,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
          */
         if (target instanceof Mob mob
                 && exposure >= EXPOSURE_TIER_3
-                && this.tickCount % 20 == 0) {
+                && this.isWolfismWorkTick(20)) {
 
             float hesitationChance = exposure >= EXPOSURE_TIER_4
                     ? 0.60F
@@ -504,7 +506,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
          * twice per second, so Exposure remains obvious even when Minecraft's
          * normal hurt-invulnerability window rejects an occasional damage hit.
          */
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
             float radiationDamage;
 
             if (exposure >= EXPOSURE_TIER_4) {
@@ -545,7 +547,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
                 ? 7
                 : 4;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("toxic_wolf", level,
                 ParticleTypes.HAPPY_VILLAGER,
                 target.getX(),
                 target.getY() + target.getBbHeight() * 0.55D,
@@ -555,7 +557,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
                 0.01D);
 
         if (exposure >= EXPOSURE_TIER_3) {
-            level.sendParticles(
+            WolfVfx.sendParticles("toxic_wolf", level,
                     ParticleTypes.SMOKE,
                     target.getX(),
                     target.getY() + target.getBbHeight() * 0.45D,
@@ -592,7 +594,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
         radioactiveProjectileCooldownTicks =
                 RADIOACTIVE_PROJECTILE_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("toxic_wolf", level,
                 ParticleTypes.HAPPY_VILLAGER,
                 start.x, start.y, start.z,
                 12,
@@ -603,7 +605,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
         if (this.distanceToSqr(target)
                 > REACTIVE_EYE_BASE_RANGE * REACTIVE_EYE_BASE_RANGE) {
 
-            level.sendParticles(
+            WolfVfx.sendParticles("toxic_wolf", level,
                     ParticleTypes.HAPPY_VILLAGER,
                     this.getX(),
                     this.getEyeY(),
@@ -648,7 +650,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
             Vec3 step = delta.normalize().scale(PROJECTILE_SPEED);
             projectile.position = projectile.position.add(step);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("toxic_wolf", level,
                     ParticleTypes.HAPPY_VILLAGER,
                     projectile.position.x,
                     projectile.position.y,
@@ -658,7 +660,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
                     0.0D);
 
             if (projectile.life % 3 == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles("toxic_wolf", level,
                         ParticleTypes.SMOKE,
                         projectile.position.x,
                         projectile.position.y,
@@ -710,7 +712,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
 
         addExposure(target, PROJECTILE_EXPOSURE);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("toxic_wolf", level,
                 ParticleTypes.HAPPY_VILLAGER,
                 target.getX(),
                 target.getY() + target.getBbHeight() * 0.55D,
@@ -719,7 +721,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
                 0.42D, 0.38D, 0.42D,
                 0.025D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("toxic_wolf", level,
                 ParticleTypes.SMOKE,
                 target.getX(),
                 target.getY() + target.getBbHeight() * 0.45D,
@@ -756,7 +758,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
         radiationAreaTicks = RADIATION_AREA_DURATION_TICKS;
         radiationAreaCooldownTicks = RADIATION_AREA_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("toxic_wolf", level,
                 ParticleTypes.HAPPY_VILLAGER,
                 safeCenter.x,
                 safeCenter.y + 0.35D,
@@ -823,7 +825,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
         }
 
         if (radiationAreaTicks % 5 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("toxic_wolf", level,
                     ParticleTypes.SMOKE,
                     radiationAreaCenter.x,
                     radiationAreaCenter.y + 0.25D,
@@ -858,7 +860,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
             double x = radiationAreaCenter.x + Math.cos(angle) * radius;
             double z = radiationAreaCenter.z + Math.sin(angle) * radius;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("toxic_wolf", level,
                     ParticleTypes.HAPPY_VILLAGER,
                     x,
                     radiationAreaCenter.y + 0.12D,
@@ -883,7 +885,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
         radioactiveSurgeTicks = RADIOACTIVE_SURGE_DURATION_TICKS;
         radioactiveSurgeCooldownTicks = RADIOACTIVE_SURGE_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("toxic_wolf", level,
                 ParticleTypes.HAPPY_VILLAGER,
                 this.getX(),
                 this.getY() + 0.55D,
@@ -908,7 +910,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
                 false));
 
         if (radioactiveSurgeTicks % 4 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("toxic_wolf", level,
                     ParticleTypes.HAPPY_VILLAGER,
                     this.getX(),
                     this.getY() + 0.45D,
@@ -962,7 +964,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
         radioactiveRainTicks = RADIOACTIVE_RAIN_DURATION_TICKS;
         radioactiveRainCooldownTicks = RADIOACTIVE_RAIN_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("toxic_wolf", level,
                 ParticleTypes.HAPPY_VILLAGER,
                 this.getX(),
                 this.getY() + 0.60D,
@@ -1138,7 +1140,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
             double radius) {
 
         if (this.tickCount % 3 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("toxic_wolf", level,
                     ParticleTypes.SMOKE,
                     cloud.center.x,
                     cloud.center.y + 2.8D,
@@ -1151,7 +1153,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
         }
 
         if (this.tickCount % 4 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("toxic_wolf", level,
                     ParticleTypes.HAPPY_VILLAGER,
                     cloud.center.x,
                     cloud.center.y + 1.8D,
@@ -1492,18 +1494,7 @@ public final class ToxicWolf extends AbstractWolfismWolf {
         if (entity == this) return true;
 
         if (this.isTame()) {
-            LivingEntity owner = this.getOwner();
-
-            if (entity == owner) return true;
-
-            if (entity instanceof Wolf wolf
-                    && wolf.isTame()
-                    && owner != null) {
-
-                return wolf.isOwnedBy(owner);
-            }
-
-            return false;
+            return this.isWolfismFamily(entity);
         }
 
         return entity instanceof ToxicWolf toxic

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -43,6 +45,7 @@ import net.ronm19.wolfism.entity.ai.goal.EarthPupPlayGoal;
 import net.ronm19.wolfism.entity.ai.goal.EarthPupRetreatGoal;
 import net.ronm19.wolfism.entity.ai.goal.EarthShockwaveGoal;
 import net.ronm19.wolfism.entity.ai.sensor.EarthWolfPackSensor;
+import net.ronm19.wolfism.entity.ai.support.EarthTerrainState;
 import net.ronm19.wolfism.registry.ModEntities;
 import net.ronm19.wolfism.registry.ModMemoryModuleTypes;
 import net.ronm19.wolfism.registry.ModSensorTypes;
@@ -197,9 +200,8 @@ public final class EarthWolf extends AbstractWolfismWolf {
     @Override
     public void remove(RemovalReason reason) {
         if (this.level() instanceof ServerLevel level) {
-            // TerrainMove state is intentionally transient. Restore anything this
-            // wolf still owns before death, dimension transfer, despawn or chunk
-            // unload so temporary combat terrain cannot be stranded in the world.
+            // Restore loaded terrain immediately. The level's persistent journal
+            // retains any unloaded repairs after this entity is gone.
             this.cancelCharge();
             this.cancelDirtBlast(true);
             this.restoreAllOwnedTerrain(level);
@@ -403,7 +405,8 @@ public final class EarthWolf extends AbstractWolfismWolf {
         int moved = 0;
         for (int[] offset : destinations) {
             BlockPos destination = anchor.offset(offset[0], offset[1], offset[2]);
-            if (!level.getBlockState(destination).isAir()) {
+            if (!EarthTerrainState.loaded(level, destination) || this.isReservedTemporaryTerrain(destination)
+                    || !level.getBlockState(destination).isAir()) {
                 continue;
             }
 
@@ -521,11 +524,17 @@ public final class EarthWolf extends AbstractWolfismWolf {
             }
 
             BlockState candidateState = level.getBlockState(candidate);
+            EarthTerrainState terrain = EarthTerrainState.get(level);
+            if (!terrain.reserve(this.getUUID(), candidate, null, candidateState, level.getGameTime() + 60)) {
+                rejectedSources.add(candidate.immutable());
+                continue;
+            }
             if (this.extractTerrainBlock(level, candidate, candidateState)) {
                 source = candidate.immutable();
                 state = candidateState;
                 break;
             }
+            terrain.abandon(this.getUUID(), candidate);
             rejectedSources.add(candidate.immutable());
         }
 
@@ -634,6 +643,10 @@ public final class EarthWolf extends AbstractWolfismWolf {
         // structures. The source is safely restored because the travelling visual
         // never became a solid world block.
         BlockPos nextBlock = BlockPos.containing(next);
+        if (!EarthTerrainState.loaded(level, nextBlock)) {
+            this.cancelDirtBlast(true);
+            return;
+        }
         if (!level.getBlockState(nextBlock).isAir()
                 && !level.getBlockState(nextBlock).getCollisionShape(level, nextBlock).isEmpty()) {
             this.sendGroundBurst(level, nextBlock, 12, 0.45D);
@@ -661,7 +674,7 @@ public final class EarthWolf extends AbstractWolfismWolf {
             int particleCount,
             double spread) {
         BlockParticleOption particle = new BlockParticleOption(ParticleTypes.BLOCK, state);
-        level.sendParticles(
+        WolfVfx.sendParticles("earth_wolf", level,
                 particle,
                 position.x,
                 position.y,
@@ -678,7 +691,7 @@ public final class EarthWolf extends AbstractWolfismWolf {
         BlockParticleOption particle = new BlockParticleOption(ParticleTypes.BLOCK, state);
         for (int i = 1; i <= 3; ++i) {
             Vec3 trail = position.add(back.scale(i));
-            level.sendParticles(
+            WolfVfx.sendParticles("earth_wolf", level,
                     particle,
                     trail.x,
                     trail.y,
@@ -714,12 +727,10 @@ public final class EarthWolf extends AbstractWolfismWolf {
             return;
         }
 
-        // Dirt Blast no longer places solid blocks along its flight path. The
-        // extracted source is therefore the only world block we need to restore.
-        // If something else filled the source while the cast was active, never
-        // overwrite that change.
-        if (restoreSource && level.getBlockState(motion.source).isAir()) {
-            this.placeTerrainBlock(level, motion.source, motion.state);
+        if (restoreSource) {
+            EarthTerrainState.get(level).restore(level, this.getUUID(), motion.source);
+        } else {
+            EarthTerrainState.get(level).abandon(this.getUUID(), motion.source);
         }
     }
 
@@ -873,7 +884,8 @@ public final class EarthWolf extends AbstractWolfismWolf {
             for (int dz = -horizontalRadius; dz <= horizontalRadius; ++dz) {
                 for (int dy = verticalRadius; dy >= -verticalRadius; --dy) {
                     BlockPos pos = center.offset(dx, dy, dz);
-                    if (isManipulableEarthState(level.getBlockState(pos)) && level.getBlockState(pos.above()).isAir()) {
+                    if (EarthTerrainState.loaded(level, pos) && !this.isReservedTemporaryTerrain(pos)
+                            && isManipulableEarthState(level.getBlockState(pos)) && level.getBlockState(pos.above()).isAir()) {
                         return true;
                     }
                 }
@@ -891,7 +903,8 @@ public final class EarthWolf extends AbstractWolfismWolf {
         BlockPos remembered = this.getBrain()
                 .getMemory(ModMemoryModuleTypes.EARTH_NEAREST_TERRAIN.get())
                 .orElse(null);
-        if (remembered != null && !excluded.contains(remembered)) {
+        if (remembered != null && !excluded.contains(remembered)
+                && EarthTerrainState.loaded(level, remembered) && !this.isReservedTemporaryTerrain(remembered)) {
             int dx = Math.abs(remembered.getX() - center.getX());
             int dz = Math.abs(remembered.getZ() - center.getZ());
             int horizontalRadius = Math.max(dx, dz);
@@ -905,13 +918,8 @@ public final class EarthWolf extends AbstractWolfismWolf {
         return this.findTerrainSource(level, center, excluded, minRadius, maxRadius);
     }
 
-    private boolean isOwnedTemporaryTerrain(BlockPos pos) {
-        for (TerrainMove move : this.terrainMoves) {
-            if (move.destination().equals(pos)) {
-                return true;
-            }
-        }
-        return false;
+    private boolean isReservedTemporaryTerrain(BlockPos pos) {
+        return this.level() instanceof ServerLevel level && EarthTerrainState.get(level).reserved(pos);
     }
 
     private BlockPos findTerrainSource(
@@ -929,7 +937,8 @@ public final class EarthWolf extends AbstractWolfismWolf {
                     }
                     for (int dy = 5; dy >= -10; --dy) {
                         BlockPos pos = center.offset(dx, dy, dz);
-                        if (excluded.contains(pos) || this.isOwnedTemporaryTerrain(pos)) {
+                        if (excluded.contains(pos) || !EarthTerrainState.loaded(level, pos)
+                                || this.isReservedTemporaryTerrain(pos)) {
                             continue;
                         }
                         if (isManipulableEarthState(level.getBlockState(pos)) && level.getBlockState(pos.above()).isAir()) {
@@ -951,20 +960,24 @@ public final class EarthWolf extends AbstractWolfismWolf {
     }
 
     private boolean moveTerrainTemporarily(ServerLevel level, BlockPos source, BlockPos destination, int durationTicks) {
+        if (!EarthTerrainState.canUpdateTerrain(level, source)
+                || !EarthTerrainState.canUpdateTerrain(level, destination)) return false;
         BlockState state = level.getBlockState(source);
         if (!isManipulableEarthState(state) || !level.getBlockState(destination).isAir()) {
             return false;
         }
 
+        EarthTerrainState terrain = EarthTerrainState.get(level);
+        long deadline = level.getGameTime() + durationTicks;
+        // Reserve both ends across the whole level. Another Earth Wolf must not
+        // borrow a raised block or use the original hole as its destination.
+        if (!terrain.reserve(this.getUUID(), source, destination, state, deadline)) return false;
         if (!this.extractTerrainBlock(level, source, state)) {
+            terrain.abandon(this.getUUID(), source);
             return false;
         }
         if (!this.placeTerrainBlock(level, destination, state)) {
-            // The source was successfully extracted but the destination rejected
-            // placement. Roll back immediately rather than silently losing terrain.
-            if (level.getBlockState(source).isAir()) {
-                this.placeTerrainBlock(level, source, state);
-            }
+            terrain.rollbackUnplaced(level, this.getUUID(), source);
             return false;
         }
 
@@ -972,7 +985,7 @@ public final class EarthWolf extends AbstractWolfismWolf {
                 source.immutable(),
                 destination.immutable(),
                 state,
-                level.getGameTime() + durationTicks));
+                deadline));
         return true;
     }
 
@@ -982,7 +995,8 @@ public final class EarthWolf extends AbstractWolfismWolf {
      * block operation is only accepted after the world actually reflects it.
      */
     private boolean extractTerrainBlock(ServerLevel level, BlockPos source, BlockState expected) {
-        if (!isManipulableEarthState(expected) || !level.getBlockState(source).equals(expected)) {
+        if (!EarthTerrainState.canUpdateTerrain(level, source)
+                || !isManipulableEarthState(expected) || !level.getBlockState(source).equals(expected)) {
             return false;
         }
 
@@ -999,49 +1013,22 @@ public final class EarthWolf extends AbstractWolfismWolf {
 
     /** Places terrain and verifies that the requested state really exists there. */
     private boolean placeTerrainBlock(ServerLevel level, BlockPos destination, BlockState state) {
-        if (!level.getBlockState(destination).isAir()) {
+        if (!EarthTerrainState.canUpdateTerrain(level, destination) || !level.getBlockState(destination).isAir()) {
             return false;
         }
         level.setBlockAndUpdate(destination, state);
         return level.getBlockState(destination).equals(state);
     }
 
-    /** Removes only a temporary block still owned by this Earth Wolf. */
-    private boolean clearOwnedTerrainBlock(ServerLevel level, BlockPos pos, BlockState expected) {
-        if (!level.getBlockState(pos).equals(expected)) {
-            return false;
-        }
-        if (level.removeBlock(pos, false) && level.getBlockState(pos).isAir()) {
-            return true;
-        }
-        level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-        return level.getBlockState(pos).isAir();
-    }
-
     private void restoreTerrainMovesFrom(ServerLevel level, int startIndex) {
         for (int i = this.terrainMoves.size() - 1; i >= startIndex; --i) {
             TerrainMove move = this.terrainMoves.remove(i);
-            if (level.getBlockState(move.destination()).equals(move.state())) {
-                this.clearOwnedTerrainBlock(level, move.destination(), move.state());
-            }
-            if (level.getBlockState(move.source()).isAir()) {
-                this.placeTerrainBlock(level, move.source(), move.state());
-            }
+            EarthTerrainState.get(level).restore(level, this.getUUID(), move.source());
         }
     }
 
     private void restoreAllOwnedTerrain(ServerLevel level) {
-        for (int i = this.terrainMoves.size() - 1; i >= 0; --i) {
-            TerrainMove move = this.terrainMoves.remove(i);
-            if (!level.getBlockState(move.destination()).equals(move.state())) {
-                continue;
-            }
-
-            this.clearOwnedTerrainBlock(level, move.destination(), move.state());
-            if (level.getBlockState(move.source()).isAir()) {
-                this.placeTerrainBlock(level, move.source(), move.state());
-            }
-        }
+        this.restoreTerrainMovesFrom(level, 0);
     }
 
     private void tickTemporaryTerrain(ServerLevel level) {
@@ -1056,18 +1043,7 @@ public final class EarthWolf extends AbstractWolfismWolf {
                 continue;
             }
 
-            BlockState destinationState = level.getBlockState(move.destination());
-            boolean destinationStillOurs = destinationState.equals(move.state());
-            if (destinationStillOurs) {
-                boolean cleared = this.clearOwnedTerrainBlock(level, move.destination(), move.state());
-
-                // Restore only when the temporary block is still ours and was
-                // actually removed. If a player mined/replaced it, restoring the
-                // source would duplicate material. Never overwrite source changes.
-                if (cleared && level.getBlockState(move.source()).isAir()) {
-                    this.placeTerrainBlock(level, move.source(), move.state());
-                }
-            }
+            EarthTerrainState.get(level).restore(level, this.getUUID(), move.source());
             this.terrainMoves.remove(i);
         }
     }
@@ -1133,7 +1109,8 @@ public final class EarthWolf extends AbstractWolfismWolf {
             int maxRadius,
             int durationTicks,
             int maxAttempts) {
-        if (!level.getBlockState(destination).isAir()) {
+        if (!EarthTerrainState.loaded(level, destination) || this.isReservedTemporaryTerrain(destination)
+                || !level.getBlockState(destination).isAir()) {
             return false;
         }
 
@@ -1162,7 +1139,8 @@ public final class EarthWolf extends AbstractWolfismWolf {
             int maxRadius,
             int durationTicks,
             int maxAttempts) {
-        if (!level.getBlockState(destination).isAir()) {
+        if (!EarthTerrainState.loaded(level, destination) || this.isReservedTemporaryTerrain(destination)
+                || !level.getBlockState(destination).isAir()) {
             return false;
         }
 
@@ -1241,7 +1219,7 @@ public final class EarthWolf extends AbstractWolfismWolf {
     private BlockPos findSurfaceEarth(ServerLevel level, BlockPos probe) {
         for (int dy = 8; dy >= -16; --dy) {
             BlockPos pos = probe.offset(0, dy, 0);
-            if (!this.isOwnedTemporaryTerrain(pos)
+            if (EarthTerrainState.loaded(level, pos) && !this.isReservedTemporaryTerrain(pos)
                     && isManipulableEarthState(level.getBlockState(pos))
                     && level.getBlockState(pos.above()).isAir()) {
                 return pos.immutable();
@@ -1348,7 +1326,7 @@ public final class EarthWolf extends AbstractWolfismWolf {
         if (state.isAir()) {
             state = Blocks.DIRT.defaultBlockState();
         }
-        level.sendParticles(
+        WolfVfx.sendParticles("earth_wolf", level,
                 new BlockParticleOption(ParticleTypes.BLOCK, state),
                 center.getX() + 0.5D,
                 center.getY() + 0.15D,
@@ -1376,7 +1354,7 @@ public final class EarthWolf extends AbstractWolfismWolf {
                 double angle = Math.PI * 2.0D * i / points;
                 double x = this.getX() + Math.cos(angle) * ring;
                 double z = this.getZ() + Math.sin(angle) * ring;
-                level.sendParticles(
+                WolfVfx.sendParticles("earth_wolf", level,
                         new BlockParticleOption(ParticleTypes.BLOCK, state),
                         x,
                         this.getY() + 0.15D,

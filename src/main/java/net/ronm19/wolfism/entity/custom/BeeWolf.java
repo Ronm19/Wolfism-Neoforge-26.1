@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -374,11 +376,11 @@ public final class BeeWolf extends AbstractWolfismWolf implements FlyingAnimal {
             ++BeeWolf.this.pollinationHoverTicks;
 
             if (BeeWolf.this.pollinationHoverTicks % 4 == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles("bee_wolf", level,
                         ParticleTypes.FALLING_NECTAR,
                         BeeWolf.this.getX(), BeeWolf.this.getY(0.35D), BeeWolf.this.getZ(),
                         3, 0.16D, 0.10D, 0.16D, 0.01D);
-                level.sendParticles(
+                WolfVfx.sendParticles("bee_wolf", level,
                         ParticleTypes.HAPPY_VILLAGER,
                         crop.getX() + 0.5D, crop.getY() + 0.70D, crop.getZ() + 0.5D,
                         2, 0.18D, 0.18D, 0.18D, 0.01D);
@@ -760,7 +762,7 @@ public final class BeeWolf extends AbstractWolfismWolf implements FlyingAnimal {
             this.updateHoneyScent(level);
         }
 
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
             this.tickHoneyScentVisual(level);
         }
 
@@ -789,11 +791,11 @@ public final class BeeWolf extends AbstractWolfismWolf implements FlyingAnimal {
             if (protectingFamily) {
                 bee.setTarget(null);
                 bee.stopBeingAngry();
-                level.sendParticles(
+                WolfVfx.sendParticles("bee_wolf", level,
                         ParticleTypes.HEART,
                         bee.getX(), bee.getY(0.65D), bee.getZ(),
                         3, 0.18D, 0.18D, 0.18D, 0.02D);
-                level.sendParticles(
+                WolfVfx.sendParticles("bee_wolf", level,
                         ParticleTypes.FALLING_NECTAR,
                         bee.getX(), bee.getY(0.55D), bee.getZ(),
                         4, 0.20D, 0.16D, 0.20D, 0.01D);
@@ -993,11 +995,11 @@ public final class BeeWolf extends AbstractWolfismWolf implements FlyingAnimal {
         }
 
         bonemealable.performBonemeal(level, this.random, pos, state);
-        level.sendParticles(
+        WolfVfx.sendParticles("bee_wolf", level,
                 ParticleTypes.HAPPY_VILLAGER,
                 pos.getX() + 0.5D, pos.getY() + 0.65D, pos.getZ() + 0.5D,
                 10, 0.24D, 0.30D, 0.24D, 0.04D);
-        level.sendParticles(
+        WolfVfx.sendParticles("bee_wolf", level,
                 ParticleTypes.FALLING_NECTAR,
                 pos.getX() + 0.5D, pos.getY() + 0.90D, pos.getZ() + 0.5D,
                 8, 0.20D, 0.25D, 0.20D, 0.02D);
@@ -1060,7 +1062,7 @@ public final class BeeWolf extends AbstractWolfismWolf implements FlyingAnimal {
 
         for (LivingEntity ally : family) {
             ally.addEffect(new MobEffectInstance(MobEffects.HASTE, HASTE_DURATION_TICKS, 0, true, true), this);
-            level.sendParticles(
+            WolfVfx.sendParticles("bee_wolf", level,
                     ParticleTypes.WAX_ON,
                     ally.getX(), ally.getY(0.55D), ally.getZ(),
                     8, 0.24D, 0.28D, 0.24D, 0.03D);
@@ -1273,7 +1275,7 @@ public final class BeeWolf extends AbstractWolfismWolf implements FlyingAnimal {
         for (int i = 1; i <= points; ++i) {
             double step = length * i / points;
             Vec3 point = source.add(direction.scale(step));
-            level.sendParticles(particle, point.x, point.y, point.z, 1, 0.01D, 0.01D, 0.01D, 0.0D);
+            WolfVfx.sendParticles("bee_wolf", level, particle, point.x, point.y, point.z, 1, 0.01D, 0.01D, 0.01D, 0.0D);
         }
     }
 
@@ -1285,7 +1287,7 @@ public final class BeeWolf extends AbstractWolfismWolf implements FlyingAnimal {
             ParticleOptions particle) {
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
-            level.sendParticles(
+            WolfVfx.sendParticles("bee_wolf", level,
                     particle,
                     center.x + Math.cos(angle) * radius,
                     center.y + 0.25D,

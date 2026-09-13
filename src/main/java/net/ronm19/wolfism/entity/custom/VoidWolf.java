@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -486,10 +488,10 @@ public final class VoidWolf extends AbstractWolfismWolf {
             }
         }
 
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
             for (LivingEntity member : family) {
                 if (member != this && this.isNearDangerousDrop(level, member, 4)) {
-                    level.sendParticles(
+                    WolfVfx.sendParticles("void_wolf", level,
                             ParticleTypes.REVERSE_PORTAL,
                             member.getX(),
                             member.getY() + member.getBbHeight() * 0.55D,
@@ -652,7 +654,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
         this.recallCooldowns.put(member.getUUID(), VOID_RECALL_PER_MEMBER_COOLDOWN);
 
         this.sendVoidRecallLine(level, origin, destination);
-        level.sendParticles(
+        WolfVfx.sendParticles("void_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 destination.x,
                 destination.y + member.getBbHeight() * 0.45D,
@@ -669,7 +671,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
         int points = 18;
         for (int i = 0; i < points; ++i) {
             double t = i / (double) (points - 1);
-            level.sendParticles(
+            WolfVfx.sendParticles("void_wolf", level,
                     ParticleTypes.REVERSE_PORTAL,
                     from.x + (to.x - from.x) * t,
                     from.y + 0.6D + (to.y - from.y) * t,
@@ -811,7 +813,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
         this.voidCataclysmTicks = VOID_CATACLYSM_DURATION_TICKS;
         this.cataclysmDeflectedProjectiles.clear();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("void_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.getX(), this.getY() + 0.65D, this.getZ(),
                 58,
@@ -828,7 +830,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
         --this.voidCataclysmTicks;
 
         if (this.tickCount % 5 == 0) this.sendVoidCataclysmRing(level);
-        if (this.tickCount % 20 == 0) this.refreshCataclysmFamilyEffects(level);
+        if (this.isWolfismWorkTick(20)) this.refreshCataclysmFamilyEffects(level);
 
         this.deflectCataclysmProjectiles(level);
 
@@ -877,7 +879,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
             projectile.setDeltaMovement(velocity.scale(-0.72D).add(0.0D, 0.08D, 0.0D));
             this.cataclysmDeflectedProjectiles.add(projectile.getId());
 
-            level.sendParticles(
+            WolfVfx.sendParticles("void_wolf", level,
                     ParticleTypes.REVERSE_PORTAL,
                     projectile.getX(), projectile.getY(), projectile.getZ(),
                     10,
@@ -890,7 +892,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
         int points = 32;
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
-            level.sendParticles(
+            WolfVfx.sendParticles("void_wolf", level,
                     ParticleTypes.REVERSE_PORTAL,
                     this.getX() + Math.cos(angle) * VOID_CATACLYSM_RADIUS,
                     this.getY() + 0.12D,
@@ -1011,14 +1013,14 @@ public final class VoidWolf extends AbstractWolfismWolf {
         this.getLookControl().setLookAt(lookAt, 90.0F, 90.0F);
         this.blinkCooldownTicks = BLINK_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("void_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 origin.x, origin.y + 0.55D, origin.z,
                 24,
                 0.35D, 0.40D, 0.35D,
                 0.05D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("void_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 destination.x, destination.y + 0.55D, destination.z,
                 30,
@@ -1078,7 +1080,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
         this.quickVoidShotCooldownTicks =
                 QUICK_VOID_SHOT_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("void_wolf", level,
                 ParticleTypes.PORTAL,
                 start.x,
                 start.y,
@@ -1146,7 +1148,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
                         knock.z * 0.18D);
             }
 
-            level.sendParticles(
+            WolfVfx.sendParticles("void_wolf", level,
                     ParticleTypes.PORTAL,
                     target.getX(),
                     target.getY()
@@ -1178,7 +1180,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
 
         ++this.quickVoidShot.ticks;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("void_wolf", level,
                 ParticleTypes.PORTAL,
                 this.quickVoidShot.position.x,
                 this.quickVoidShot.position.y,
@@ -1190,7 +1192,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
                 0.0D);
 
         if (this.quickVoidShot.ticks % 3 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("void_wolf", level,
                     ParticleTypes.END_ROD,
                     this.quickVoidShot.position.x,
                     this.quickVoidShot.position.y,
@@ -1232,7 +1234,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
                  * Awareness only. Never Slow-Fall somebody toward their death;
                  * actual abyss failure is handled by Void Recall.
                  */
-                level.sendParticles(
+                WolfVfx.sendParticles("void_wolf", level,
                         ParticleTypes.REVERSE_PORTAL,
                         family.getX(),
                         family.getY()
@@ -1462,14 +1464,14 @@ public final class VoidWolf extends AbstractWolfismWolf {
         this.setDeltaMovement(
                 this.getDeltaMovement().multiply(0.40D, 0.0D, 0.40D).add(0.0D, 0.32D, 0.0D));
 
-        level.sendParticles(
+        WolfVfx.sendParticles("void_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.getX(), this.getY() + 0.75D, this.getZ(),
                 72,
                 1.05D, 0.95D, 1.05D,
                 0.075D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("void_wolf", level,
                 ParticleTypes.END_ROD,
                 this.getX(), this.getY() + 0.90D, this.getZ(),
                 24,
@@ -1496,7 +1498,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
         this.addEffect(new MobEffectInstance(MobEffects.SPEED, 30, 0, true, true));
         this.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 30, 0, true, true));
 
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
             this.shareEyeThreat(level);
             if (Level.END.equals(level.dimension())) this.tickAbyssalCommand(level);
             this.refreshEyeFamilyProtection(level);
@@ -1519,14 +1521,14 @@ public final class VoidWolf extends AbstractWolfismWolf {
             double z = this.getZ() + Math.sin(angle) * 1.45D;
             double y = this.getY() + 0.85D + Math.sin(time * 0.65D + i) * 0.22D;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("void_wolf", level,
                     ParticleTypes.REVERSE_PORTAL,
                     x, y, z,
                     3,
                     0.08D, 0.08D, 0.08D,
                     0.0D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("void_wolf", level,
                     ParticleTypes.END_ROD,
                     x, y, z,
                     1,
@@ -1581,7 +1583,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
         Vec3 start = this.getEyePosition().add(0.0D, 0.25D, 0.0D);
         this.voidShots.add(new VoidShot(start, target.getId()));
 
-        level.sendParticles(
+        WolfVfx.sendParticles("void_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 start.x, start.y, start.z,
                 18,
@@ -1709,7 +1711,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
                  * cancels damage, show a smaller fizzle and end the orb cleanly.
                  */
                 if (!damaged) {
-                    level.sendParticles(
+                    WolfVfx.sendParticles("void_wolf", level,
                             ParticleTypes.PORTAL,
                             targetPos.x,
                             targetPos.y,
@@ -1733,7 +1735,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
                     target.push(knock.x * 0.42D, 0.12D, knock.z * 0.42D);
                 }
 
-                level.sendParticles(
+                WolfVfx.sendParticles("void_wolf", level,
                         ParticleTypes.REVERSE_PORTAL,
                         target.getX(),
                         target.getY() + target.getBbHeight() * 0.55D,
@@ -1742,7 +1744,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
                         0.45D, 0.50D, 0.45D,
                         0.06D);
 
-                level.sendParticles(
+                WolfVfx.sendParticles("void_wolf", level,
                         ParticleTypes.END_ROD,
                         targetPos.x,
                         targetPos.y,
@@ -1767,7 +1769,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
             shot.position = shot.position.add(shot.velocity);
             ++shot.ticks;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("void_wolf", level,
                     ParticleTypes.REVERSE_PORTAL,
                     shot.position.x, shot.position.y, shot.position.z,
                     4,
@@ -1775,7 +1777,7 @@ public final class VoidWolf extends AbstractWolfismWolf {
                     0.0D);
 
             if (shot.ticks % 2 == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles("void_wolf", level,
                         ParticleTypes.END_ROD,
                         shot.position.x, shot.position.y, shot.position.z,
                         1,

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -604,7 +606,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
             target.igniteForSeconds(CURSE_BURN_SECONDS);
             this.cursedTargets.put(target.getUUID(), CURSE_MARK_TICKS);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("demon_wolf", level,
                     ParticleTypes.FLAME,
                     target.getX(),
                     target.getY(0.55D),
@@ -615,7 +617,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
                     0.30D,
                     0.035D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("demon_wolf", level,
                     ParticleTypes.SMOKE,
                     target.getX(),
                     target.getY(0.65D),
@@ -651,7 +653,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
 
             target.igniteForSeconds(DEMON_BITE_BURN_SECONDS);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("demon_wolf", level,
                     ParticleTypes.FLAME,
                     target.getX(),
                     target.getY(0.55D),
@@ -716,7 +718,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
                         true),
                 this);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("demon_wolf", level,
                 ParticleTypes.FLAME,
                 this.getX(),
                 this.getY(0.55D),
@@ -727,7 +729,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
                 0.35D,
                 0.035D);
 
-        this.playSound(SoundEvents.RAVAGER_ROAR, 1.0F, 0.65F);
+        this.playSound(this.getWolfismGrowlSound(), 1.0F, 0.65F);
         return true;
     }
 
@@ -756,7 +758,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
         this.getNavigation().moveTo(target, RUSH_NAVIGATION_SPEED);
 
         if (this.tickCount % 4 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("demon_wolf", level,
                     ParticleTypes.SMOKE,
                     this.getX(),
                     this.getY(0.35D),
@@ -855,7 +857,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
             mob.getNavigation().stop();
             mob.getLookControl().setLookAt(this, 30.0F, 30.0F);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("demon_wolf", level,
                     ParticleTypes.REVERSE_PORTAL,
                     mob.getX(),
                     mob.getY(0.72D),
@@ -866,7 +868,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
                     0.34D,
                     0.025D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("demon_wolf", level,
                     ParticleTypes.SMOKE,
                     this.getX(),
                     this.getY(0.70D),
@@ -878,7 +880,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
                     0.01D);
 
             this.playSound(
-                    SoundEvents.WARDEN_ROAR,
+                    this.getWolfismGrowlSound(),
                     0.85F,
                     0.58F);
         } else {
@@ -894,7 +896,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
                 this.setTarget(mob);
             }
 
-            level.sendParticles(
+            WolfVfx.sendParticles("demon_wolf", level,
                     ParticleTypes.ANGRY_VILLAGER,
                     mob.getX(),
                     mob.getY(0.80D),
@@ -905,7 +907,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
                     0.28D,
                     0.01D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("demon_wolf", level,
                     ParticleTypes.FLAME,
                     this.getX(),
                     this.getY(0.62D),
@@ -971,7 +973,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
                 mob.getLookControl().setLookAt(this, 30.0F, 30.0F);
 
                 if (elapsed % 4 == 0) {
-                    level.sendParticles(
+                    WolfVfx.sendParticles("demon_wolf", level,
                             ParticleTypes.REVERSE_PORTAL,
                             mob.getX(),
                             mob.getY(0.70D),
@@ -996,7 +998,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
             }
 
             if (elapsed % 20 == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles("demon_wolf", level,
                         ParticleTypes.SMOKE,
                         mob.getX(),
                         mob.getY(0.50D),
@@ -1087,7 +1089,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
         for (int i = 1; i <= 8; ++i) {
             double t = i / 9.0D;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("demon_wolf", level,
                     particle,
                     Mth.lerp(t, start.x, end.x),
                     Mth.lerp(t, start.y, end.y),
@@ -1144,7 +1146,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
 
         this.sendRing(level, this.hellCenter, 3.0D, 28, ParticleTypes.FLAME);
         this.sendRing(level, this.hellCenter, HELL_RADIUS, 56, ParticleTypes.SMOKE);
-        this.playSound(net.minecraft.sounds.SoundEvents.WITHER_AMBIENT, 0.70F, 0.62F);
+        this.playSound(this.getWolfismGrowlSound(), 0.70F, 0.62F);
         return true;
     }
 
@@ -1199,7 +1201,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
                                 true),
                         this);
 
-                level.sendParticles(
+                WolfVfx.sendParticles("demon_wolf", level,
                         ParticleTypes.FLAME,
                         target.getX(),
                         target.getY(0.35D),
@@ -1296,7 +1298,7 @@ public final class DemonWolf extends AbstractWolfismWolf {
             double x = center.x + Math.cos(angle) * radius;
             double z = center.z + Math.sin(angle) * radius;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("demon_wolf", level,
                     particle,
                     x,
                     center.y + 0.16D,

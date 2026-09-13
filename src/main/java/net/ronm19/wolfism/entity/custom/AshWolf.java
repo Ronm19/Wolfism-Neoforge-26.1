@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.Comparator;
@@ -156,7 +158,7 @@ public final class AshWolf extends AbstractWolfismWolf {
             double y = cinderstormCenter.y + 0.20D
                     + ((i & 1) == 0 ? 0.10D : 0.35D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("ash_wolf", level,
                     ParticleTypes.FLAME,
                     x, y, z,
                     1,
@@ -164,7 +166,7 @@ public final class AshWolf extends AbstractWolfismWolf {
                     0.004D);
 
             if (activation && i % 3 == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles("ash_wolf", level,
                         ParticleTypes.LAVA,
                         x, y + 0.05D, z,
                         1,
@@ -332,7 +334,7 @@ public final class AshWolf extends AbstractWolfismWolf {
         tickAshenMemory(level);
 
         if (this.tickCount % 15 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("ash_wolf", level,
                     ParticleTypes.ASH,
                     this.getX(), this.getY() + 0.55D, this.getZ(),
                     this.isBaby() ? 1 : 3,
@@ -606,15 +608,15 @@ public final class AshWolf extends AbstractWolfismWolf {
             double radius,
             boolean activation) {
 
-        if (activation || this.tickCount % 10 == 0) {
-            level.sendParticles(
+        if (activation || this.isWolfismWorkTick(10)) {
+            WolfVfx.sendParticles("ash_wolf", level,
                     ParticleTypes.ASH,
                     center.x, center.y + 0.55D, center.z,
                     activation ? 32 : 13,
                     radius * 0.55D, 0.75D, radius * 0.55D,
                     0.015D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("ash_wolf", level,
                     ParticleTypes.SMOKE,
                     center.x, center.y + 0.45D, center.z,
                     activation ? 20 : 8,
@@ -628,7 +630,7 @@ public final class AshWolf extends AbstractWolfismWolf {
             if (enemy instanceof Mob mob
                     && mob.getTarget() != null
                     && isAshFamilyMember(mob.getTarget())
-                    && this.tickCount % 10 == 0
+                    && this.isWolfismWorkTick(10)
                     && this.random.nextFloat() < 0.50F) {
                 disruptMobAction(mob, true);
             }
@@ -696,7 +698,7 @@ public final class AshWolf extends AbstractWolfismWolf {
         }
 
         if (this.tickCount % 2 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("ash_wolf", level,
                     ParticleTypes.SMOKE,
                     this.getX(), this.getY() + 0.35D, this.getZ(),
                     3,
@@ -721,7 +723,7 @@ public final class AshWolf extends AbstractWolfismWolf {
         smokeVeilTicks = SMOKE_VEIL_DURATION_TICKS;
         smokeVeilCooldownTicks = SMOKE_VEIL_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("ash_wolf", level,
                 ParticleTypes.ASH,
                 this.getX(), this.getY() + 0.45D, this.getZ(),
                 34,
@@ -737,8 +739,8 @@ public final class AshWolf extends AbstractWolfismWolf {
     private void pulseSmokeVeil(ServerLevel level) {
         if (!this.isTame()) return;
 
-        if (this.tickCount % 10 == 0) {
-            level.sendParticles(
+        if (this.isWolfismWorkTick(10)) {
+            WolfVfx.sendParticles("ash_wolf", level,
                     ParticleTypes.SMOKE,
                     this.getX(), this.getY() + 0.45D, this.getZ(),
                     10,
@@ -772,7 +774,7 @@ public final class AshWolf extends AbstractWolfismWolf {
                 }
             }
 
-            if (this.tickCount % 10 == 0
+            if (this.isWolfismWorkTick(10)
                     && this.random.nextFloat() < 0.65F) {
                 disruptMobAction(mob, true);
             }
@@ -799,7 +801,7 @@ public final class AshWolf extends AbstractWolfismWolf {
          * Ashes-to-Ashes cloud. Keep Ashes to Ashes gray/obscuring; make this
          * fixed-area control field visibly orange, hot, and ring-shaped.
          */
-        level.sendParticles(
+        WolfVfx.sendParticles("ash_wolf", level,
                 ParticleTypes.LAVA,
                 cinderstormCenter.x,
                 cinderstormCenter.y + 0.35D,
@@ -810,7 +812,7 @@ public final class AshWolf extends AbstractWolfismWolf {
                 CINDERSTORM_RADIUS * 0.42D,
                 0.0D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("ash_wolf", level,
                 ParticleTypes.FLAME,
                 cinderstormCenter.x,
                 cinderstormCenter.y + 0.60D,
@@ -829,10 +831,10 @@ public final class AshWolf extends AbstractWolfismWolf {
     private void pulseCinderstorm(ServerLevel level) {
         if (cinderstormCenter == null) return;
 
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
             sendCinderstormRing(level, false);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("ash_wolf", level,
                     ParticleTypes.FLAME,
                     cinderstormCenter.x,
                     cinderstormCenter.y + 0.55D,
@@ -852,7 +854,7 @@ public final class AshWolf extends AbstractWolfismWolf {
             applyPerceptionDebuffs(enemy, 30, true);
 
             boolean primed = enemy.isOnFire() || isAshen(enemy);
-            if (primed && this.tickCount % 20 == 0) {
+            if (primed && this.isWolfismWorkTick(20)) {
                 enemy.hurtServer(
                         level,
                         this.damageSources().mobAttack(this),
@@ -885,14 +887,14 @@ public final class AshWolf extends AbstractWolfismWolf {
         cinderstormTicks = 0;
         cinderstormCenter = null;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("ash_wolf", level,
                 ParticleTypes.ASH,
                 this.getX(), this.getY() + 0.70D, this.getZ(),
                 70,
                 7.0D, 1.40D, 7.0D,
                 0.035D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("ash_wolf", level,
                 ParticleTypes.SMOKE,
                 this.getX(), this.getY() + 0.55D, this.getZ(),
                 44,
@@ -905,8 +907,8 @@ public final class AshWolf extends AbstractWolfismWolf {
     }
 
     private void pulseAshesToAshes(ServerLevel level) {
-        if (this.tickCount % 10 == 0) {
-            level.sendParticles(
+        if (this.isWolfismWorkTick(10)) {
+            WolfVfx.sendParticles("ash_wolf", level,
                     ParticleTypes.ASH,
                     this.getX(), this.getY() + 0.65D, this.getZ(),
                     24,
@@ -924,7 +926,7 @@ public final class AshWolf extends AbstractWolfismWolf {
             if (enemy instanceof Mob mob
                     && mob.getTarget() != null
                     && isAshFamilyMember(mob.getTarget())
-                    && this.tickCount % 10 == 0) {
+                    && this.isWolfismWorkTick(10)) {
 
                 if (isRangedAshThreat(enemy)) {
                     disruptMobAction(mob, true);
@@ -933,7 +935,7 @@ public final class AshWolf extends AbstractWolfismWolf {
                 }
             }
 
-            if (enemy.isOnFire() && this.tickCount % 20 == 0) {
+            if (enemy.isOnFire() && this.isWolfismWorkTick(20)) {
                 enemy.hurtServer(
                         level,
                         this.damageSources().mobAttack(this),
@@ -945,7 +947,7 @@ public final class AshWolf extends AbstractWolfismWolf {
         /* If multiple mobs hard-focus Ash, she becomes much harder to pin down. */
         if (getFocusingCount() >= 2
                 && ashStepTicks <= 0
-                && this.tickCount % 20 == 0) {
+                && this.isWolfismWorkTick(20)) {
             LivingEntity priority = getPriorityThreat();
             if (priority != null) {
                 Vec3 away = this.position().subtract(priority.position());
@@ -1092,13 +1094,7 @@ public final class AshWolf extends AbstractWolfismWolf {
         if (entity == this) return true;
 
         if (this.isTame()) {
-            LivingEntity owner = this.getOwner();
-            if (entity == owner) return true;
-
-            return entity instanceof Wolf wolf
-                    && wolf.isTame()
-                    && owner != null
-                    && wolf.isOwnedBy(owner);
+            return this.isWolfismFamily(entity);
         }
 
         return entity instanceof AshWolf ash && !ash.isTame();
@@ -1274,7 +1270,7 @@ public final class AshWolf extends AbstractWolfismWolf {
             int count,
             ParticleOptions particle) {
 
-        level.sendParticles(
+        WolfVfx.sendParticles("ash_wolf", level,
                 particle,
                 center.getX(),
                 center.getY() + center.getBbHeight() * 0.55D,
@@ -1386,9 +1382,10 @@ public final class AshWolf extends AbstractWolfismWolf {
         /*
          * Wild Ash Wolves are rare solitary encounters.
          * Tamed Ash Wolves never suppress spawning.
+         * Use the supplied region's entity view during chunk generation.
          */
         boolean anotherWildAsh =
-                !serverLevel.getEntitiesOfClass(
+                !level.getEntitiesOfClass(
                                 AshWolf.class,
                                 new AABB(pos).inflate(48.0D, 24.0D, 48.0D),
                                 wolf -> wolf.isAlive() && !wolf.isTame())

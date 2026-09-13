@@ -14,7 +14,9 @@ import net.ronm19.wolfism.entity.custom.WaterWolf;
  * already in water instead chooses another submerged point and swims through the
  * water volume, preventing vanilla land-wolf wandering from immediately pulling
  * it back onto shore. Tamed wolves still obey higher-priority owner/combat goals;
- * they do not abandon an owner on land merely to find a pond.</p>
+ * they do not abandon an owner on land merely to find a pond. Patrol also yields
+ * at the shared aquatic follow distance, which is shorter than vanilla Wolf's
+ * land follow distance; otherwise patrol intent can starve underwater following.</p>
  */
 public final class WaterWolfWaterAffinityGoal extends Goal {
     private static final int LAND_WATER_SEARCH_RADIUS = 14;
@@ -42,7 +44,8 @@ public final class WaterWolfWaterAffinityGoal extends Goal {
         if (this.wolf.isOrderedToSit()
                 || this.wolf.isInSittingPose()
                 || this.wolf.getTarget() != null
-                || this.wolf.hasFamilyDefenseEmergency()) {
+                || this.wolf.hasFamilyDefenseEmergency()
+                || this.wolf.shouldPrioritizeAquaticOwnerFollowing()) {
             return false;
         }
 
@@ -67,6 +70,7 @@ public final class WaterWolfWaterAffinityGoal extends Goal {
                 || this.wolf.isOrderedToSit()
                 || this.wolf.getTarget() != null
                 || this.wolf.hasFamilyDefenseEmergency()
+                || this.wolf.shouldPrioritizeAquaticOwnerFollowing()
                 || this.lifeTicks >= 160) {
             return false;
         }

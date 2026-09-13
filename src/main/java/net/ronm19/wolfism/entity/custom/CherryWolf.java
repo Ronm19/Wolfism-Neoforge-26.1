@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -318,7 +320,7 @@ public final class CherryWolf extends AbstractWolfismWolf {
                 .getMemory(ModMemoryModuleTypes.CHERRY_INJURED_FAMILY.get())
                 .orElse(null);
         if (injured != null) {
-            level.sendParticles(
+            WolfVfx.sendParticles("cherry_wolf", level,
                     ParticleTypes.HEART,
                     injured.getX(), injured.getY() + injured.getBbHeight() * 0.75D, injured.getZ(),
                     2, 0.18D, 0.18D, 0.18D, 0.01D);
@@ -328,7 +330,7 @@ public final class CherryWolf extends AbstractWolfismWolf {
                 .getMemory(ModMemoryModuleTypes.CHERRY_BLOSSOM_POS.get())
                 .orElse(null);
         if (blossom != null) {
-            level.sendParticles(
+            WolfVfx.sendParticles("cherry_wolf", level,
                     ParticleTypes.CHERRY_LEAVES,
                     blossom.getX() + 0.5D, blossom.getY() + 1.05D, blossom.getZ() + 0.5D,
                     4, 0.28D, 0.18D, 0.28D, 0.01D);
@@ -361,7 +363,7 @@ public final class CherryWolf extends AbstractWolfismWolf {
         this.applyPackAbilityLockout(30);
 
         this.sendCherryRing(level, this.position(), 3.0D, 26, ParticleTypes.CHERRY_LEAVES);
-        level.sendParticles(
+        WolfVfx.sendParticles("cherry_wolf", level,
                 ParticleTypes.HEART,
                 this.getX(), this.getY() + 0.7D, this.getZ(),
                 8, 0.55D, 0.35D, 0.55D, 0.02D);
@@ -380,11 +382,11 @@ public final class CherryWolf extends AbstractWolfismWolf {
             for (LivingEntity member : this.findFamily(PETAL_AID_RADIUS)) {
                 if (member.getHealth() < member.getMaxHealth()) {
                     member.heal(1.0F);
-                    level.sendParticles(
+                    WolfVfx.sendParticles("cherry_wolf", level,
                             ParticleTypes.HEART,
                             member.getX(), member.getY() + member.getBbHeight() * 0.72D, member.getZ(),
                             2, 0.18D, 0.22D, 0.18D, 0.01D);
-                    level.sendParticles(
+                    WolfVfx.sendParticles("cherry_wolf", level,
                             ParticleTypes.CHERRY_LEAVES,
                             member.getX(), member.getY() + member.getBbHeight() * 0.55D, member.getZ(),
                             5, 0.28D, 0.35D, 0.28D, 0.015D);
@@ -440,7 +442,7 @@ public final class CherryWolf extends AbstractWolfismWolf {
         this.sendCherryRing(level, this.position(), 3.0D, 26, ParticleTypes.CHERRY_LEAVES);
         this.sendCherryRing(level, this.position(), 5.5D, 38, ParticleTypes.CHERRY_LEAVES);
         this.sendCherryRing(level, this.position(), CHERRY_BURST_RADIUS, 52, ParticleTypes.HAPPY_VILLAGER);
-        level.sendParticles(
+        WolfVfx.sendParticles("cherry_wolf", level,
                 ParticleTypes.SWEEP_ATTACK,
                 this.getX(), this.getY() + 0.55D, this.getZ(),
                 4, 0.8D, 0.25D, 0.8D, 0.0D);
@@ -470,7 +472,7 @@ public final class CherryWolf extends AbstractWolfismWolf {
         this.entityData.set(DATA_BLOOMING_PATH_ACTIVE, true);
         this.applyPackAbilityLockout(24);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("cherry_wolf", level,
                 ParticleTypes.CHERRY_LEAVES,
                 this.getX(), this.getY() + 0.35D, this.getZ(),
                 16, 0.45D, 0.22D, 0.45D, 0.025D);
@@ -512,7 +514,7 @@ public final class CherryWolf extends AbstractWolfismWolf {
             for (int i = Math.max(0, this.bloomingPathMarkers.size() - 10);
                     i < this.bloomingPathMarkers.size(); ++i) {
                 Vec3 marker = this.bloomingPathMarkers.get(i);
-                level.sendParticles(
+                WolfVfx.sendParticles("cherry_wolf", level,
                         ParticleTypes.CHERRY_LEAVES,
                         marker.x, marker.y + 0.12D, marker.z,
                         1, 0.12D, 0.04D, 0.12D, 0.0D);
@@ -588,7 +590,7 @@ public final class CherryWolf extends AbstractWolfismWolf {
         this.sendCherryRing(level, this.sanctuaryCenter, 4.0D, 32, ParticleTypes.CHERRY_LEAVES);
         this.sendCherryRing(level, this.sanctuaryCenter, 8.0D, 44, ParticleTypes.CHERRY_LEAVES);
         this.sendCherryRing(level, this.sanctuaryCenter, SAKURA_SANCTUARY_RADIUS, 60, ParticleTypes.HAPPY_VILLAGER);
-        level.sendParticles(
+        WolfVfx.sendParticles("cherry_wolf", level,
                 ParticleTypes.HEART,
                 this.sanctuaryCenter.x, this.sanctuaryCenter.y + 0.7D, this.sanctuaryCenter.z,
                 16, 1.3D, 0.7D, 1.3D, 0.03D);
@@ -624,7 +626,7 @@ public final class CherryWolf extends AbstractWolfismWolf {
                 }
                 member.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, 0, true, false));
                 member.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 50, 0, true, false));
-                level.sendParticles(
+                WolfVfx.sendParticles("cherry_wolf", level,
                         ParticleTypes.CHERRY_LEAVES,
                         member.getX(), member.getY() + member.getBbHeight() * 0.60D, member.getZ(),
                         3, 0.20D, 0.28D, 0.20D, 0.01D);
@@ -812,7 +814,7 @@ public final class CherryWolf extends AbstractWolfismWolf {
             net.minecraft.core.particles.ParticleOptions particle) {
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
-            level.sendParticles(
+            WolfVfx.sendParticles("cherry_wolf", level,
                     particle,
                     center.x + Math.cos(angle) * radius,
                     center.y + 0.14D,

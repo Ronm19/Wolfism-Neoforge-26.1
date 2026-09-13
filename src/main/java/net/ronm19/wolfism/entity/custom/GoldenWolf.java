@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.Comparator;
 import java.util.List;
@@ -174,7 +176,7 @@ public final class GoldenWolf extends AbstractWolfismWolf {
         if (this.tickCount % PASSIVE_LUCK_REFRESH_INTERVAL == 0) {
             this.refreshOwnerProsperity();
         }
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
             this.tickGoldenScentVisual(level);
         }
 
@@ -331,7 +333,7 @@ public final class GoldenWolf extends AbstractWolfismWolf {
         }
         direction = direction.normalize();
         Vec3 marker = this.position().add(direction.scale(1.15D)).add(0.0D, 0.55D, 0.0D);
-        level.sendParticles(ParticleTypes.TOTEM_OF_UNDYING,
+        WolfVfx.sendParticles("golden_wolf", level, ParticleTypes.TOTEM_OF_UNDYING,
                 marker.x, marker.y, marker.z, 2, 0.08D, 0.08D, 0.08D, 0.01D);
     }
 
@@ -342,13 +344,13 @@ public final class GoldenWolf extends AbstractWolfismWolf {
 
         int count = this.isBaby() ? 1 : (this.isBlessingOfWealthActive() ? 5 : 2);
         double spread = this.isBlessingOfWealthActive() ? 0.55D : 0.30D;
-        level.sendParticles(
+        WolfVfx.sendParticles("golden_wolf", level,
                 ParticleTypes.TOTEM_OF_UNDYING,
                 this.getX(), this.getY() + this.getBbHeight() * 0.58D, this.getZ(),
                 count, spread, 0.32D, spread, 0.01D);
 
         if (!this.isBaby() && (this.isRadiantShareActive() || this.isBlessingOfWealthActive())) {
-            level.sendParticles(
+            WolfVfx.sendParticles("golden_wolf", level,
                     ParticleTypes.END_ROD,
                     this.getX(), this.getY() + this.getBbHeight() * 0.72D, this.getZ(),
                     this.isBlessingOfWealthActive() ? 3 : 1,
@@ -408,12 +410,12 @@ public final class GoldenWolf extends AbstractWolfismWolf {
                 90.0F);
 
         if (this.tickCount % 5 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("golden_wolf", level,
                     ParticleTypes.POOF,
                     this.getX(), this.getY() + 0.08D, this.getZ(),
                     3, 0.30D, 0.05D, 0.30D, 0.01D);
         }
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
             this.sendResourceBreadcrumb(level, this.fortuneDigTarget);
         }
     }
@@ -430,7 +432,7 @@ public final class GoldenWolf extends AbstractWolfismWolf {
         int points = Math.max(4, (int) (length * 2.0D));
         for (int i = 1; i <= points; ++i) {
             Vec3 point = start.add(direction.scale((length * i) / points));
-            level.sendParticles(
+            WolfVfx.sendParticles("golden_wolf", level,
                     i % 3 == 0 ? ParticleTypes.END_ROD : ParticleTypes.TOTEM_OF_UNDYING,
                     point.x, point.y, point.z,
                     1, 0.015D, 0.015D, 0.015D, 0.0D);
@@ -486,7 +488,7 @@ public final class GoldenWolf extends AbstractWolfismWolf {
     }
 
     private void tickRadiantShare(ServerLevel level) {
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
             this.sendGoldenRing(level, this.position(), 2.4D, 16, ParticleTypes.TOTEM_OF_UNDYING);
         }
     }
@@ -508,20 +510,20 @@ public final class GoldenWolf extends AbstractWolfismWolf {
         this.refreshOwnerProsperity();
         this.sendGoldenRing(level, this.position(), 4.0D, 32, ParticleTypes.TOTEM_OF_UNDYING);
         this.sendGoldenRing(level, this.position(), 7.0D, 44, ParticleTypes.END_ROD);
-        level.sendParticles(
+        WolfVfx.sendParticles("golden_wolf", level,
                 ParticleTypes.TOTEM_OF_UNDYING,
                 this.getX(), this.getY() + 1.0D, this.getZ(),
                 45, 1.0D, 1.0D, 1.0D, 0.08D);
     }
 
     private void tickBlessingOfWealth(ServerLevel level) {
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
             this.refreshOwnerProsperity();
             this.sendGoldenRing(level, this.position(), 4.5D, 24, ParticleTypes.TOTEM_OF_UNDYING);
         }
         if (this.tickCount % 4 == 0) {
             double y = this.getY() + 0.25D + this.random.nextDouble() * 2.8D;
-            level.sendParticles(
+            WolfVfx.sendParticles("golden_wolf", level,
                     this.tickCount % 8 == 0 ? ParticleTypes.END_ROD : ParticleTypes.TOTEM_OF_UNDYING,
                     this.getX(), y, this.getZ(),
                     2, 0.45D, 0.05D, 0.45D, 0.01D);
@@ -540,12 +542,12 @@ public final class GoldenWolf extends AbstractWolfismWolf {
 
     public void emitResourceBonusVisual(ServerLevel level, BlockPos pos) {
         Vec3 center = Vec3.atCenterOf(pos);
-        level.sendParticles(
+        WolfVfx.sendParticles("golden_wolf", level,
                 ParticleTypes.TOTEM_OF_UNDYING,
                 center.x, center.y + 0.20D, center.z,
                 this.isBlessingOfWealthActive() ? 18 : 10,
                 0.35D, 0.35D, 0.35D, 0.04D);
-        level.sendParticles(
+        WolfVfx.sendParticles("golden_wolf", level,
                 ParticleTypes.END_ROD,
                 center.x, center.y + 0.25D, center.z,
                 this.isBlessingOfWealthActive() ? 6 : 3,
@@ -747,7 +749,7 @@ public final class GoldenWolf extends AbstractWolfismWolf {
             net.minecraft.core.particles.ParticleOptions particle) {
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
-            level.sendParticles(
+            WolfVfx.sendParticles("golden_wolf", level,
                     particle,
                     center.x + Math.cos(angle) * radius,
                     center.y + 0.16D,

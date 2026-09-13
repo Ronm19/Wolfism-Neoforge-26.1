@@ -4,6 +4,8 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.ronm19.wolfism.datagen.ModDataGenerators;
@@ -20,6 +22,7 @@ public final class Wolfism {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public Wolfism(IEventBus modEventBus, ModContainer modContainer) {
+        modContainer.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
         ModGameRules.GAME_RULES.register(modEventBus);
         ModMemoryModuleTypes.MEMORY_MODULE_TYPES.register(modEventBus);
         ModSensorTypes.SENSOR_TYPES.register(modEventBus);
@@ -40,6 +43,9 @@ public final class Wolfism {
     ) {
 
         event.enqueueWork(() -> {
+            if (ModList.get().isLoaded("waystones")) {
+                net.ronm19.wolfism.compat.WaystonesCompatibility.register();
+            }
 
             Regions.register(
                     new SculkPlainsRegion(

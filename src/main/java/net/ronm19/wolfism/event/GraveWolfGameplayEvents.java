@@ -3,12 +3,14 @@ package net.ronm19.wolfism.event;
 import java.util.Comparator;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.ronm19.wolfism.Wolfism;
 import net.ronm19.wolfism.entity.custom.GraveWolf;
 
@@ -17,7 +19,7 @@ import net.ronm19.wolfism.entity.custom.GraveWolf;
  *
  * <ul>
  *     <li>Soul Collector needs the authoritative death event.</li>
- *     <li>Death Interception must see/cancel a genuinely lethal incoming hit
+ *     <li>Death Interception must resolve a lethal hit after damage mitigation
  *         before Minecraft applies it.</li>
  * </ul>
  */
@@ -72,22 +74,23 @@ public final class GraveWolfGameplayEvents {
     // Death Interception
     // ---------------------------------------------------------------------
 
-    @SubscribeEvent
-    public static void onIncomingDamage(
-            LivingIncomingDamageEvent event) {
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onDamagePre(
+            LivingDamageEvent.Pre event) {
 
         LivingEntity victim = event.getEntity();
 
         if (!(victim.level() instanceof ServerLevel level)
                 || victim.isDeadOrDying()
-                || event.getAmount() <= 0.0F) {
+                || event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)
+                || event.getNewDamage() <= 0.0F) {
             return;
         }
 
         float projectedHealth =
                 victim.getHealth()
                         + victim.getAbsorptionAmount()
-                        - event.getAmount();
+                        - event.getNewDamage();
 
         if (projectedHealth > 0.0F) {
             return;
@@ -107,19 +110,8 @@ public final class GraveWolfGameplayEvents {
             return;
         }
 
-        /*
-         * Cancel first so the lethal hit never reaches normal health resolution.
-         * The entity method then pays the souls/health cost and establishes the
-         * rescued state.
-         */
-        event.setCanceled(true);
-
-        if (!grave.performDeathInterception(level, victim)) {
-            /*
-             * This should only happen if state changed during the same event.
-             * Restore the original hit rather than granting a free save.
-             */
-            event.setCanceled(false);
-        }
+        // Armor and resistance have resolved; absorption is applied after this hook.
+        // Only suppress health damage once the rescue has successfully paid its cost.
+        if (grave.performDeathInterception(level, victim)) event.setNewDamage(0.0F);
     }
 }

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -465,7 +467,7 @@ public final class PrimordialWolf extends AbstractWolfismWolf {
         refreshPrimalStateAttributes();
         this.setSprinting(true);
 
-        level.sendParticles(ParticleTypes.CRIT,
+        WolfVfx.sendParticles("primordial_wolf", level, ParticleTypes.CRIT,
                 this.getX(), this.getY(0.55D), this.getZ(),
                 9, 0.38D, 0.22D, 0.38D, 0.03D);
         return true;
@@ -550,7 +552,7 @@ public final class PrimordialWolf extends AbstractWolfismWolf {
             member.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, FIRST_PACK_DURATION_TICKS, 0, false, true), this);
 
             // Every affected family member visibly answers the call.
-            level.sendParticles(ParticleTypes.CRIT,
+            WolfVfx.sendParticles("primordial_wolf", level, ParticleTypes.CRIT,
                     member.getX(), member.getY(0.55D), member.getZ(),
                     8, 0.30D, 0.22D, 0.30D, 0.035D);
         }
@@ -561,9 +563,8 @@ public final class PrimordialWolf extends AbstractWolfismWolf {
         }
 
         /*
-         * One registered SoundEvent owns all Primordial howl variants.
-         * Gameplay NEVER selects howl_1/howl_2/howl_3 directly; sounds.json/datagen
-         * owns that random variation exactly like Wolf King's howl pipeline.
+         * Primordial's species event owns its combined ancestral recording;
+         * gameplay keeps this First Pack howl's original timing and volume.
          */
         this.playSound(
                 ModSounds.PRIMORDIAL_WOLF_HOWL.value(),
@@ -572,10 +573,10 @@ public final class PrimordialWolf extends AbstractWolfismWolf {
 
         // Clear gameplay feedback: this is intentionally obvious so the player
         // can verify that Call of the First Pack actually fired.
-        level.sendParticles(ParticleTypes.POOF,
+        WolfVfx.sendParticles("primordial_wolf", level, ParticleTypes.POOF,
                 this.getX(), this.getY(0.55D), this.getZ(),
                 34, 1.25D, 0.35D, 1.25D, 0.055D);
-        level.sendParticles(ParticleTypes.CRIT,
+        WolfVfx.sendParticles("primordial_wolf", level, ParticleTypes.CRIT,
                 this.getX(), this.getY(0.75D), this.getZ(),
                 24, 0.90D, 0.45D, 0.90D, 0.075D);
         return true;

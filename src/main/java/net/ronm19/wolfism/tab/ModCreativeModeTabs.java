@@ -103,6 +103,12 @@ public final class ModCreativeModeTabs {
                         output.accept(ModItems.WITHER_WOLF_SPAWN_EGG.get());
                         output.accept(ModItems.BLAZE_WOLF_SPAWN_EGG.get());
                         output.accept(ModItems.HALLOWEEN_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.CHRISTMAS_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.SAINT_PATRICKS_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.NEW_YEARS_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.VALENTINES_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.EASTER_WOLF_SPAWN_EGG.get());
+                        output.accept(ModItems.FIREWORK_WOLF_SPAWN_EGG.get());
                         output.accept(ModItems.CREATOR_WOLF_SPAWN_EGG.get());
 
 

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.Comparator;
 import java.util.List;
@@ -285,7 +287,7 @@ public final class ShadowWolf extends AbstractWolfismWolf {
             return;
         }
 
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
             this.addEffect(new MobEffectInstance(MobEffects.SPEED, 30, 0, true, false));
             this.removeEffect(MobEffects.DARKNESS);
         }
@@ -293,11 +295,11 @@ public final class ShadowWolf extends AbstractWolfismWolf {
         Vec3 velocity = this.getDeltaMovement();
         double horizontalSpeedSqr = velocity.x * velocity.x + velocity.z * velocity.z;
         if (horizontalSpeedSqr > 0.0025D && this.tickCount % 4 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("shadow_wolf", level,
                     ParticleTypes.REVERSE_PORTAL,
                     this.getX(), this.getY() + 0.30D, this.getZ(),
                     2, 0.18D, 0.12D, 0.18D, 0.01D);
-            level.sendParticles(
+            WolfVfx.sendParticles("shadow_wolf", level,
                     ParticleTypes.SMOKE,
                     this.getX(), this.getY() + 0.18D, this.getZ(),
                     1, 0.12D, 0.05D, 0.12D, 0.005D);
@@ -354,11 +356,11 @@ public final class ShadowWolf extends AbstractWolfismWolf {
         }
 
         this.sendDashTrail(level, origin, safe);
-        level.sendParticles(ParticleTypes.REVERSE_PORTAL, origin.x, origin.y + 0.45D, origin.z,
+        WolfVfx.sendParticles("shadow_wolf", level, ParticleTypes.REVERSE_PORTAL, origin.x, origin.y + 0.45D, origin.z,
                 20, 0.30D, 0.35D, 0.30D, 0.05D);
-        level.sendParticles(ParticleTypes.REVERSE_PORTAL, safe.x, safe.y + 0.45D, safe.z,
+        WolfVfx.sendParticles("shadow_wolf", level, ParticleTypes.REVERSE_PORTAL, safe.x, safe.y + 0.45D, safe.z,
                 24, 0.30D, 0.35D, 0.30D, 0.06D);
-        level.sendParticles(ParticleTypes.SWEEP_ATTACK, target.getX(), target.getY() + target.getBbHeight() * 0.55D,
+        WolfVfx.sendParticles("shadow_wolf", level, ParticleTypes.SWEEP_ATTACK, target.getX(), target.getY() + target.getBbHeight() * 0.55D,
                 target.getZ(), 2, 0.20D, 0.20D, 0.20D, 0.0D);
 
         this.dashVisualTicks = DASH_VISUAL_TICKS;
@@ -388,7 +390,7 @@ public final class ShadowWolf extends AbstractWolfismWolf {
         this.entityData.set(DATA_BLADES_ACTIVE, true);
         this.abilityLockoutTicks = 20;
 
-        level.sendParticles(ParticleTypes.WITCH, this.getX(), this.getY() + 0.55D, this.getZ(),
+        WolfVfx.sendParticles("shadow_wolf", level, ParticleTypes.WITCH, this.getX(), this.getY() + 0.55D, this.getZ(),
                 24, 0.55D, 0.40D, 0.55D, 0.03D);
         return true;
     }
@@ -407,7 +409,7 @@ public final class ShadowWolf extends AbstractWolfismWolf {
                                 level,
                                 this.damageSources().mobAttack(this),
                                 SHADOW_BLADES_PULSE_DAMAGE * this.getShadowPowerMultiplier())) {
-                            level.sendParticles(
+                            WolfVfx.sendParticles("shadow_wolf", level,
                                     ParticleTypes.SWEEP_ATTACK,
                                     target.getX(), target.getY() + target.getBbHeight() * 0.55D, target.getZ(),
                                     2, 0.18D, 0.18D, 0.18D, 0.0D);
@@ -507,7 +509,7 @@ public final class ShadowWolf extends AbstractWolfismWolf {
 
         this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, SHADOW_ASSASSIN_DURATION_TICKS + 5, 0, true, false));
         this.addEffect(new MobEffectInstance(MobEffects.SPEED, SHADOW_ASSASSIN_DURATION_TICKS + 5, 1, true, false));
-        level.sendParticles(ParticleTypes.REVERSE_PORTAL, this.getX(), this.getY() + 0.55D, this.getZ(),
+        WolfVfx.sendParticles("shadow_wolf", level, ParticleTypes.REVERSE_PORTAL, this.getX(), this.getY() + 0.55D, this.getZ(),
                 45, 0.75D, 0.65D, 0.75D, 0.08D);
         this.sendShadowRing(level, this.position(), 3.5D, 32, ParticleTypes.WITCH);
         return true;
@@ -517,7 +519,7 @@ public final class ShadowWolf extends AbstractWolfismWolf {
         --this.shadowAssassinTicks;
 
         if (this.shadowAssassinTicks % 3 == 0) {
-            level.sendParticles(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.35D, this.getZ(),
+            WolfVfx.sendParticles("shadow_wolf", level, ParticleTypes.SMOKE, this.getX(), this.getY() + 0.35D, this.getZ(),
                     2, 0.20D, 0.20D, 0.20D, 0.01D);
         }
 
@@ -530,7 +532,7 @@ public final class ShadowWolf extends AbstractWolfismWolf {
             this.entityData.set(DATA_ASSASSIN_ACTIVE, false);
             this.lastAssassinTargetId = -1;
             this.abilityLockoutTicks = Math.max(this.abilityLockoutTicks, 24);
-            level.sendParticles(ParticleTypes.REVERSE_PORTAL, this.getX(), this.getY() + 0.50D, this.getZ(),
+            WolfVfx.sendParticles("shadow_wolf", level, ParticleTypes.REVERSE_PORTAL, this.getX(), this.getY() + 0.50D, this.getZ(),
                     24, 0.45D, 0.45D, 0.45D, 0.05D);
         }
     }
@@ -578,9 +580,9 @@ public final class ShadowWolf extends AbstractWolfismWolf {
         }
 
         this.sendDashTrail(level, origin, safe);
-        level.sendParticles(ParticleTypes.SWEEP_ATTACK, target.getX(), target.getY() + target.getBbHeight() * 0.55D,
+        WolfVfx.sendParticles("shadow_wolf", level, ParticleTypes.SWEEP_ATTACK, target.getX(), target.getY() + target.getBbHeight() * 0.55D,
                 target.getZ(), 3, 0.24D, 0.24D, 0.24D, 0.0D);
-        level.sendParticles(ParticleTypes.REVERSE_PORTAL, safe.x, safe.y + 0.40D, safe.z,
+        WolfVfx.sendParticles("shadow_wolf", level, ParticleTypes.REVERSE_PORTAL, safe.x, safe.y + 0.40D, safe.z,
                 16, 0.28D, 0.28D, 0.28D, 0.05D);
     }
 
@@ -753,7 +755,7 @@ public final class ShadowWolf extends AbstractWolfismWolf {
         for (int i = 1; i <= 10; ++i) {
             double t = i / 11.0D;
             Vec3 point = start.lerp(end, t);
-            level.sendParticles(
+            WolfVfx.sendParticles("shadow_wolf", level,
                     i % 2 == 0 ? ParticleTypes.REVERSE_PORTAL : ParticleTypes.SMOKE,
                     point.x, point.y + 0.38D, point.z,
                     1, 0.02D, 0.02D, 0.02D, 0.0D);
@@ -771,9 +773,9 @@ public final class ShadowWolf extends AbstractWolfismWolf {
             double x = this.getX() + Math.cos(angle) * radius;
             double z = this.getZ() + Math.sin(angle) * radius;
             double y = this.getY() + 0.55D + Math.sin(angle * 2.0D) * 0.18D;
-            level.sendParticles(ParticleTypes.WITCH, x, y, z, 1, 0.01D, 0.01D, 0.01D, 0.0D);
+            WolfVfx.sendParticles("shadow_wolf", level, ParticleTypes.WITCH, x, y, z, 1, 0.01D, 0.01D, 0.01D, 0.0D);
             if (this.tickCount % 8 == 0) {
-                level.sendParticles(ParticleTypes.SWEEP_ATTACK, x, y, z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                WolfVfx.sendParticles("shadow_wolf", level, ParticleTypes.SWEEP_ATTACK, x, y, z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
             }
         }
     }
@@ -786,7 +788,7 @@ public final class ShadowWolf extends AbstractWolfismWolf {
             net.minecraft.core.particles.ParticleOptions particle) {
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
-            level.sendParticles(
+            WolfVfx.sendParticles("shadow_wolf", level,
                     particle,
                     center.x + Math.cos(angle) * radius,
                     center.y + 0.16D,

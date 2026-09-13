@@ -1,0 +1,105 @@
+{
+  "retrieved": "2026-09-12",
+  "licenses_and_sources": [
+    {
+      "source_url": "https://raw.githubusercontent.com/Low-Drag-MC/Photon/8ceb79e680ba977f9b38cfa660b9053d073935fa/LICENSE",
+      "sha256": "8fa724ea1ce876d1cb854657187dcafca377f9c5d7e4dec1afdefa1733c9c234",
+      "jar_entry": "META-INF/licenses/wolfism-runtime/Photon-LICENSE.txt"
+    },
+    {
+      "source_url": "https://raw.githubusercontent.com/Low-Drag-MC/LDLib2/3f7fc21e033498b5f03a45ca26f9e254fe3889f9/LICENSE",
+      "sha256": "b9e90671bf0ce37f013533e0e0782e1b9a0eaacff66f2e18cb6478fe0e3f8c90",
+      "jar_entry": "META-INF/licenses/wolfism-runtime/LDLib2-LGPL-3.0.txt"
+    },
+    {
+      "source_url": "https://raw.githubusercontent.com/Glitchfiend/TerraBlender/f0992b3939d9617b0d6a5bc8d0a4be8660003d02/LICENSE",
+      "sha256": "a5681bf9b05db14d86776930017c647ad9e6e56ff6bbcfdf21e5848288dfaf1b",
+      "jar_entry": "META-INF/licenses/wolfism-runtime/TerraBlender-LGPL-3.0.txt"
+    },
+    {
+      "source_url": "https://raw.githubusercontent.com/Low-Drag-MC/KilaGraph/26.1/LICENSE",
+      "sha256": "539458568b82f20d1ec727e404d2a509961d3ee87a1ddaf9aa78a8cd55965f0e",
+      "jar_entry": "META-INF/licenses/wolfism-runtime/KilaGraph-MIT.txt"
+    },
+    {
+      "source_url": "https://www.gnu.org/licenses/gpl-3.0.txt",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "jar_entry": "META-INF/licenses/wolfism-runtime/GPL-3.0.txt"
+    },
+    {
+      "source_url": "https://codeload.github.com/Low-Drag-MC/LDLib2/zip/3f7fc21e033498b5f03a45ca26f9e254fe3889f9",
+      "git_commit": "3f7fc21e033498b5f03a45ca26f9e254fe3889f9",
+      "sha256": "98f3f861ca503a70a89d552b2dee4d49848138dca5b84e21176a6c74590e0e63",
+      "jar_entry": "META-INF/third-party-sources/LowDragLib2-26.1.2.39-source.zip"
+    },
+    {
+      "source_url": "https://codeload.github.com/Glitchfiend/TerraBlender/zip/f0992b3939d9617b0d6a5bc8d0a4be8660003d02",
+      "git_commit": "f0992b3939d9617b0d6a5bc8d0a4be8660003d02",
+      "sha256": "dbe0ac91f3e99df41d2da5caae1c05fd22d4fc27ca39a204e574615ddb35582e",
+      "jar_entry": "META-INF/third-party-sources/TerraBlender-26.1.0.2-source.zip"
+    },
+    {
+      "jar_entry": "META-INF/licenses/wolfism-runtime/Kotlin-Apache-2.0.txt",
+      "source_url": "https://raw.githubusercontent.com/JetBrains/kotlin/v2.1.20/license/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "jar_entry": "META-INF/licenses/wolfism-runtime/Kotlin-NOTICE.txt",
+      "source_url": "https://raw.githubusercontent.com/JetBrains/kotlin/v2.1.20/license/NOTICE.txt",
+      "sha256": "0b09a83d3ef7795c7dec65e815866597c066c53898f2852a76599b8f5552941a"
+    },
+    {
+      "jar_entry": "META-INF/licenses/wolfism-runtime/Taffy-Java-MIT.txt",
+      "source_url": "https://raw.githubusercontent.com/vfyjxf/taffy-java/main/LICENSE",
+      "sha256": "7fa7de21af9473e04ec7b5453e15e38fc69e7895550ee74e5d20dba51cbb634b"
+    },
+    {
+      "jar_entry": "META-INF/licenses/wolfism-runtime/Taffy-original-MIT.txt",
+      "source_url": "https://raw.githubusercontent.com/DioxusLabs/taffy/main/LICENSE",
+      "sha256": "f97daf1a0124413dccf399a4e6626b4b74acd05282f80b6d64ac82225650b77a"
+    }
+  ],
+  "unmodified_runtime_artifacts": [
+    {
+      "filename": "ldlib2-neoforge-26.1-26.1.2.39.jar",
+      "sha256": "917f82c09c80c609d6db93f2999a2b590db974b232565211ee20597a0ed06e7e",
+      "modified": false
+    },
+    {
+      "filename": "kotlin-stdlib-2.1.20.jar",
+      "sha256": "1bcc74e8ce84e2c25eaafde10f1248349cce3062b6e36978cbeec610db1e930a",
+      "modified": false,
+      "nested_in": "ldlib2-neoforge-26.1-26.1.2.39.jar"
+    },
+    {
+      "filename": "taffy-1.1.4.jar",
+      "sha256": "3ae3b857cbb4392ccb3245778c9b7192522238cf66bd5ac413ead4613fa80425",
+      "modified": false,
+      "nested_in": "ldlib2-neoforge-26.1-26.1.2.39.jar"
+    },
+    {
+      "filename": "photon-neoforge-26.1-26.1.2.2.jar",
+      "sha256": "9c21d21c5d06b551bba1a7c012fd94e8d5d3cf01daa02e649414d208eaac73bb",
+      "modified": false
+    },
+    {
+      "filename": "kilagraph-neoforge-26.1-26.1.0.14.jar",
+      "sha256": "2f83dda9419bfb1ddc2bbb90ea2c93d3537b375aadcf8001eed634767f4fec05",
+      "modified": false,
+      "nested_in": "photon-neoforge-26.1-26.1.2.2.jar"
+    },
+    {
+      "filename": "terrablender-neoforge-940057-7834071.jar",
+      "sha256": "6a802b85290265b70716615791bc70d8fbe507e083dd247a6c151bfa70825595",
+      "modified": false,
+      "jarjar_identity": {
+        "group": "com.github.glitchfiend",
+        "artifact": "TerraBlender-neoforge",
+        "version": "26.1-26.1.0.2"
+      },
+      "official_maven_pom": "https://maven.minecraftforge.net/com/github/glitchfiend/TerraBlender-neoforge/26.1-26.1.0.2/TerraBlender-neoforge-26.1-26.1.0.2.pom",
+      "identity_verification": "All ZIP entry contents match the official Maven JAR except the manifest build timestamps. The pinned CurseMaven binary is preserved unchanged.",
+      "official_maven_comparison_sha256": "11e16c485eb2b6e1da778c79b58bc55826597b8bcc8f69d18fae6565e00119f6"
+    }
+  ]
+}

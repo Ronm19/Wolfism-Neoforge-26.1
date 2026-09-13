@@ -5,6 +5,6 @@
     "type": "wolfism:lunar_wolf",
     "maxCount": 2,
     "minCount": 1,
-    "weight": 4
+    "weight": 8
   }
 }

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -41,6 +44,7 @@ import net.minecraft.world.entity.projectile.arrow.Arrow;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.storage.ValueInput;
@@ -157,7 +161,6 @@ public final class IllagerWolf extends AbstractWolfismWolf {
     // Natural spawning
     // =====================================================================
 
-    private static final int OUTPOST_SEARCH_RADIUS_CHUNKS = 6;
     private static final double OUTPOST_SPAWN_RADIUS = 96.0D;
 
     // =====================================================================
@@ -326,7 +329,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
         tickDancingArrows(level);
         tickRainOfArrows(level);
 
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
 
             tickIllagersCharm(level);
             cleanRaiderMemories();
@@ -513,7 +516,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
 
         this.getNavigation().stop();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("illager_wolf", level,
                 ParticleTypes.CRIT,
                 this.getX(),
                 this.getY() + 0.45D,
@@ -633,7 +636,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
             return;
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("illager_wolf", level,
                 ParticleTypes.CRIT,
                 this.getX(),
                 this.getY() + 0.38D,
@@ -717,7 +720,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
                 dx,
                 dz);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("illager_wolf", level,
                 ParticleTypes.CRIT,
                 target.getX(),
                 target.getY()
@@ -730,7 +733,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
                 0.48D,
                 0.10D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("illager_wolf", level,
                 ParticleTypes.POOF,
                 target.getX(),
                 target.getY()
@@ -879,7 +882,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
                     i);
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("illager_wolf", level,
                 ParticleTypes.CRIT,
                 this.getX(),
                 this.getY() + 0.65D,
@@ -1067,7 +1070,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
                         ArrowMode.DANCING_FLIGHT,
                         target.getId()));
 
-        level.sendParticles(
+        WolfVfx.sendParticles("illager_wolf", level,
                 ParticleTypes.CRIT,
                 orbitArrow.getX(),
                 orbitArrow.getY(),
@@ -1114,7 +1117,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
         /*
          * Much clearer ultimate startup visual.
          */
-        level.sendParticles(
+        WolfVfx.sendParticles("illager_wolf", level,
                 ParticleTypes.CRIT,
                 this.getX(),
                 this.getY() + 0.75D,
@@ -1125,7 +1128,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
                 1.75D,
                 0.10D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("illager_wolf", level,
                 ParticleTypes.POOF,
                 this.getX(),
                 this.getY() + 0.45D,
@@ -1157,9 +1160,9 @@ public final class IllagerWolf extends AbstractWolfismWolf {
                     RAIN_BARRAGE_INTERVAL;
         }
 
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
 
-            level.sendParticles(
+            WolfVfx.sendParticles("illager_wolf", level,
                     ParticleTypes.CRIT,
                     this.getX(),
                     this.getY() + 0.75D,
@@ -1302,7 +1305,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
         /*
          * Spawn marker makes each barrage readable.
          */
-        level.sendParticles(
+        WolfVfx.sendParticles("illager_wolf", level,
                 ParticleTypes.CRIT,
                 start.x,
                 start.y,
@@ -1528,7 +1531,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
                     == ArrowMode.RAIN_FLIGHT
                     && state.age % 2 == 0) {
 
-                level.sendParticles(
+                WolfVfx.sendParticles("illager_wolf", level,
                         ParticleTypes.CRIT,
                         arrow.getX(),
                         arrow.getY(),
@@ -1642,7 +1645,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
          */
         if (this.tickCount % 8 == 0) {
 
-            level.sendParticles(
+            WolfVfx.sendParticles("illager_wolf", level,
                     ParticleTypes.CRIT,
                     arrow.getX(),
                     arrow.getY(),
@@ -1709,7 +1712,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
                                 this),
                 damage);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("illager_wolf", level,
                 ParticleTypes.CRIT,
                 target.getX(),
                 target.getY()
@@ -1964,7 +1967,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
                     this.tickCount
                             + CHARM_DURATION_TICKS);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("illager_wolf", level,
                     ParticleTypes.SMOKE,
                     raider.getX(),
                     raider.getY()
@@ -2167,22 +2170,7 @@ public final class IllagerWolf extends AbstractWolfismWolf {
         }
 
         if (this.isTame()) {
-
-            LivingEntity owner =
-                    this.getOwner();
-
-            if (entity == owner) {
-                return true;
-            }
-
-            if (entity instanceof Wolf wolf
-                    && wolf.isTame()
-                    && owner != null) {
-
-                return wolf.isOwnedBy(owner);
-            }
-
-            return false;
+            return this.isWolfismFamily(entity);
         }
 
         return entity
@@ -2396,41 +2384,9 @@ public final class IllagerWolf extends AbstractWolfismWolf {
                             && raid.isActive()
                             && !raid.isOver();
 
-            /*
-             * Pillager Outpost association.
-             */
-            BlockPos outpost =
-                    serverLevel
-                            .findNearestMapStructure(
-                                    ModStructureTags
-                                            .ILLAGER_WOLF_OUTPOSTS,
-                                    pos,
-                                    OUTPOST_SEARCH_RADIUS_CHUNKS,
-                                    false);
-
-            boolean nearOutpost =
-                    false;
-
-            if (outpost != null) {
-
-                double dx =
-                        pos.getX()
-                                - outpost.getX();
-
-                double dz =
-                        pos.getZ()
-                                - outpost.getZ();
-
-                nearOutpost =
-                        dx * dx
-                                + dz * dz
-                                <= OUTPOST_SPAWN_RADIUS
-                                * OUTPOST_SPAWN_RADIUS;
-            }
-
-            if (!activeRaid
-                    && !nearOutpost) {
-
+            // A natural spawn check must not run a map-locate search, which
+            // can synchronously generate remote structure chunks.
+            if (!activeRaid && !hasNearbyLoadedOutpost(serverLevel, pos)) {
                 return false;
             }
 
@@ -2455,6 +2411,36 @@ public final class IllagerWolf extends AbstractWolfismWolf {
         }
 
         return true;
+    }
+
+    private static boolean hasNearbyLoadedOutpost(ServerLevel level, BlockPos pos) {
+        var structures = level.registryAccess().lookupOrThrow(Registries.STRUCTURE);
+        var generatorState = level.getChunkSource().getGeneratorState();
+        int radius = (int) OUTPOST_SPAWN_RADIUS;
+        for (var structure : structures.getTagOrEmpty(ModStructureTags.ILLAGER_WOLF_OUTPOSTS)) {
+            for (var placement : generatorState.getPlacementsForStructure(structure)) {
+                // Use the same placement anchor as /locate, including datapack
+                // offsets. Only the 96-block horizontal neighborhood matters.
+                BlockPos offset = placement.getLocatePos(new ChunkPos(0, 0));
+                int minChunkX = (pos.getX() - radius - offset.getX()) >> 4;
+                int maxChunkX = (pos.getX() + radius - offset.getX()) >> 4;
+                int minChunkZ = (pos.getZ() - radius - offset.getZ()) >> 4;
+                int maxChunkZ = (pos.getZ() + radius - offset.getZ()) >> 4;
+                for (int chunkX = minChunkX; chunkX <= maxChunkX; chunkX++) {
+                    for (int chunkZ = minChunkZ; chunkZ <= maxChunkZ; chunkZ++) {
+                        var chunk = level.getChunkSource().getChunkNow(chunkX, chunkZ);
+                        if (chunk == null) continue;
+                        var start = chunk.getStartForStructure(structure.value());
+                        if (start == null || !start.isValid()) continue;
+                        BlockPos anchor = placement.getLocatePos(start.getChunkPos());
+                        double dx = pos.getX() - anchor.getX();
+                        double dz = pos.getZ() - anchor.getZ();
+                        if (dx * dx + dz * dz <= OUTPOST_SPAWN_RADIUS * OUTPOST_SPAWN_RADIUS) return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     // =====================================================================

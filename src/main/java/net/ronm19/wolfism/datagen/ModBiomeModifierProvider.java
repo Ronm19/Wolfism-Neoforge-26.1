@@ -20,6 +20,12 @@ import net.ronm19.wolfism.worldgen.feature.ModConfiguredFeatures;
 import net.ronm19.wolfism.worldgen.feature.ModPlacedFeatures;
 
 public final class ModBiomeModifierProvider {
+    public static final ResourceKey<BiomeModifier> ADD_WOLF_KING_SPAWNS = ResourceKey.create(
+            NeoForgeRegistries.Keys.BIOME_MODIFIERS,
+            Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_wolf_king_spawns"));
+    public static final ResourceKey<BiomeModifier> ADD_PRIMORDIAL_WOLF_SPAWNS = ResourceKey.create(
+            NeoForgeRegistries.Keys.BIOME_MODIFIERS,
+            Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_primordial_wolf_spawns"));
     public static final ResourceKey<BiomeModifier> ADD_TIMBER_WOLF_SPAWNS = ResourceKey.create(
             NeoForgeRegistries.Keys.BIOME_MODIFIERS,
             Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_timber_wolf_spawns"));
@@ -213,6 +219,31 @@ public final class ModBiomeModifierProvider {
                     Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_halloween_wolf_spawns"));
 
 
+
+    public static final ResourceKey<BiomeModifier> ADD_CHRISTMAS_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_christmas_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_SAINT_PATRICKS_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_saint_patricks_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_NEW_YEARS_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_new_years_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_VALENTINES_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_valentines_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_EASTER_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_easter_wolf_spawns"));
+
+    public static final ResourceKey<BiomeModifier> ADD_FIREWORK_WOLF_SPAWNS =
+            ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "add_firework_wolf_spawns"));
+
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures ::bootstrap)
             .add(Registries.PLACED_FEATURE, ModPlacedFeatures ::bootstrap)
@@ -229,7 +260,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.TIMBER_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.TIMBER_WOLF.get(), 2, 4),
-                                8
+                                10
                         )
                 )
         );
@@ -240,7 +271,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.ARCTIC_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.ARCTIC_WOLF.get(), 2, 4),
-                                7
+                                10
                         )
                 )
         );
@@ -251,7 +282,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.BLACK_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.BLACK_WOLF.get(), 1, 3),
-                                6
+                                10
                         )
                 )
         );
@@ -262,7 +293,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.SAND_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.SAND_WOLF.get(), 2, 4),
-                                8
+                                10
                         )
                 )
         );
@@ -274,7 +305,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.DIRE_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.DIRE_WOLF.get(), 1, 2),
-                                3
+                                6
                         )
                 )
         );
@@ -285,7 +316,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.FIRE_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.FIRE_WOLF.get(), 1, 3),
-                                5
+                                9
                         )
                 )
         );
@@ -296,7 +327,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.FROST_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.FROST_WOLF.get(), 1, 3),
-                                5
+                                9
                         )
                 )
         );
@@ -307,7 +338,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.STORM_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.STORM_WOLF.get(), 1, 2),
-                                6
+                                10
                         )
                 )
         );
@@ -318,7 +349,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.WATER_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.WATER_WOLF.get(), 1, 2),
-                                4
+                                8
                         )
                 )
         );
@@ -329,7 +360,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.EARTH_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.EARTH_WOLF.get(), 1, 2),
-                                5
+                                9
                         )
                 )
         );
@@ -340,7 +371,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.SOLAR_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.SOLAR_WOLF.get(), 1, 2),
-                                4
+                                8
                         )
                 )
         );
@@ -351,14 +382,23 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.LUNAR_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.LUNAR_WOLF.get(), 1, 2),
-                                4
+                                8
                         )
                 )
         );
 
+        // The species' documented solitary taiga/grove encounter was missing
+        // its actual biome-table registration.
+        context.register(ADD_WOLF_KING_SPAWNS, AddSpawnsBiomeModifier.singleSpawn(
+                biomes.getOrThrow(ModBiomeTags.WOLF_KING_SPAWNS),
+                new Weighted<>(new SpawnerData(ModEntities.WOLF_KING.get(), 1, 1), 5)));
+        context.register(ADD_PRIMORDIAL_WOLF_SPAWNS, AddSpawnsBiomeModifier.singleSpawn(
+                biomes.getOrThrow(ModBiomeTags.PRIMORDIAL_WOLF_SPAWNS),
+                new Weighted<>(new SpawnerData(ModEntities.PRIMORDIAL_WOLF.get(), 1, 1), 3)));
+
         context.register(ADD_SPIRIT_WOLF_SPAWNS, AddSpawnsBiomeModifier.singleSpawn(
                 biomes.getOrThrow(ModBiomeTags.SPIRIT_WOLF_SPAWNS),
-                new Weighted<>(new SpawnerData(ModEntities.SPIRIT_WOLF.get(), 1, 2), 3)));
+                new Weighted<>(new SpawnerData(ModEntities.SPIRIT_WOLF.get(), 1, 2), 6)));
 
         context.register(
                 ADD_SHADOW_WOLF_SPAWNS,
@@ -366,7 +406,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.SHADOW_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.SHADOW_WOLF.get(), 1, 2),
-                                3
+                                6
                         )
                 )
         );
@@ -377,7 +417,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.GOLDEN_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.GOLDEN_WOLF.get(), 1, 2),
-                                4
+                                8
                         )
                 )
         );
@@ -388,7 +428,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.CHERRY_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.CHERRY_WOLF.get(), 1, 2),
-                                5
+                                12
                         )
                 )
         );
@@ -399,7 +439,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.VIOLET_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.VIOLET_WOLF.get(), 1, 2),
-                                4
+                                8
                         )
                 )
         );
@@ -410,7 +450,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.GEM_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.GEM_WOLF.get(), 1, 2),
-                                3
+                                6
                         )
                 )
         );
@@ -421,7 +461,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.MUSHROOM_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.MUSHROOM_WOLF.get(), 1, 2),
-                                4
+                                8
                         )
                 )
         );
@@ -432,7 +472,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.BEE_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.BEE_WOLF.get(), 1, 2),
-                                4
+                                8
                         )
                 )
         );
@@ -443,7 +483,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.ZOMBIE_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.ZOMBIE_WOLF.get(), 1, 2),
-                                4
+                                8
                         )
                 )
         );
@@ -455,7 +495,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.SKELETON_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.SKELETON_WOLF.get(), 1, 2),
-                                3
+                                6
                         )
                 )
         );
@@ -467,7 +507,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.HUSK_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.HUSK_WOLF.get(), 1, 2),
-                                3
+                                6
                         )
                 )
         );
@@ -479,7 +519,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.DROWNED_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.DROWNED_WOLF.get(), 1, 2),
-                                3
+                                6
                         )
                 )
         );
@@ -490,7 +530,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.PHANTOM_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.PHANTOM_WOLF.get(), 1, 2),
-                                4
+                                8
                         )
                 )
         );
@@ -501,7 +541,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.BLOOD_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.BLOOD_WOLF.get(), 1, 2),
-                                5
+                                9
                         )));
 
         context.register(
@@ -510,7 +550,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.END_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.END_WOLF.get(), 1, 2),
-                                4
+                                8
                         )
                 )
         );
@@ -524,7 +564,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.INFERNAL_WOLF.get(),
                                         1,
                                         2),
-                                3
+                                5
                         )
                 )
         );
@@ -538,7 +578,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.OMEN_WOLF.get(),
                                         1,
                                         2),
-                                2
+                                4
                         )
                 )
         );
@@ -553,7 +593,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.ASTRAL_WOLF.get(),
                                         1,
                                         2),
-                                2
+                                4
                         )
                 )
         );
@@ -564,7 +604,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.ANGEL_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.ANGEL_WOLF.get(), 1, 2),
-                                4
+                                8
                         )
                 )
         );
@@ -575,7 +615,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.ANGEL_WOLF_HIGHLAND_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.ANGEL_WOLF.get(), 1, 2),
-                                3
+                                6
                         )
                 )
         );
@@ -586,7 +626,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.DEMON_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.DEMON_WOLF.get(), 1, 1),
-                                3
+                                4
                         )
                 )
         );
@@ -597,7 +637,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.GRAVE_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.GRAVE_WOLF.get(), 1, 2),
-                                3
+                                5
                         )
                 )
         );
@@ -612,7 +652,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.RIFT_WOLF.get(),
                                         1,
                                         1),
-                                3
+                                5
                         )
                 )
         );
@@ -627,7 +667,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.VOID_WOLF.get(),
                                         1,
                                         1),
-                                2
+                                4
                         )
                 )
         );
@@ -642,7 +682,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.SALVA_WOLF.get(),
                                         1,
                                         2),
-                                2
+                                4
                         )
                 )
         );
@@ -653,7 +693,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.MAGMA_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.MAGMA_WOLF.get(), 1, 1),
-                                4
+                                6
                         )
                 )
         );
@@ -664,7 +704,7 @@ public final class ModBiomeModifierProvider {
                         biomes.getOrThrow(ModBiomeTags.VAMPIRE_WOLF_SPAWNS),
                         new Weighted<>(
                                 new SpawnerData(ModEntities.VAMPIRE_WOLF.get(), 1, 1),
-                                3
+                                5
                         )
                 )
         );
@@ -676,7 +716,7 @@ public final class ModBiomeModifierProvider {
                             new Weighted<>(
                                     new SpawnerData(
                                             ModEntities.SPECTRAL_WOLF.get(), 1, 1),
-                                    3
+                                    5
                             )
                     )
         );
@@ -688,7 +728,7 @@ public final class ModBiomeModifierProvider {
                         new Weighted<>(
                                 new SpawnerData(
                                         ModEntities.TOXIC_WOLF.get(), 1, 1),
-                                3
+                                5
                         )
                 )
         );
@@ -703,7 +743,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.WAR_WOLF.get(),
                                         1,
                                         1),
-                                3
+                                5
                         )
                 )
         );
@@ -718,7 +758,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.ILLAGER_WOLF.get(),
                                         1,
                                         1),
-                                2
+                                4
                         )
                 )
         );
@@ -733,7 +773,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.ANCIENT_WOLF.get(),
                                         1,
                                         1),
-                                4
+                                6
                         )
                 )
         );
@@ -748,7 +788,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.BLADE_WOLF.get(),
                                         1,
                                         1),
-                                4
+                                6
                         )
                 )
         );
@@ -763,7 +803,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.RAVEN_WOLF.get(),
                                         1,
                                         1),
-                                3
+                                5
                         )
                 )
         );
@@ -778,7 +818,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.COMMAND_WOLF.get(),
                                         1,
                                         1),
-                                4
+                                6
                         )
                 )
         );
@@ -793,7 +833,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.ASH_WOLF.get(),
                                         1,
                                         1),
-                                2
+                                4
                         )
                 )
         );
@@ -809,7 +849,7 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.WITHER_WOLF.get(),
                                         1,
                                         1),
-                                3
+                                5
                         )
                 )
         );
@@ -823,7 +863,95 @@ public final class ModBiomeModifierProvider {
                                         ModEntities.BLAZE_WOLF.get(),
                                         1,
                                         1),
-                                3
+                                5
+                        )
+                )
+        );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        context.register(
+                ADD_CHRISTMAS_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(ModBiomeTags.CHRISTMAS_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(ModEntities.CHRISTMAS_WOLF.get(), 1, 3),
+                                16
+                        )
+                )
+        );
+
+        context.register(
+                ADD_SAINT_PATRICKS_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(ModBiomeTags.SAINT_PATRICKS_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(ModEntities.SAINT_PATRICKS_WOLF.get(), 1, 3),
+                                16
+                        )
+                )
+        );
+
+        context.register(
+                ADD_NEW_YEARS_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(ModBiomeTags.NEW_YEARS_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(ModEntities.NEW_YEARS_WOLF.get(), 1, 3),
+                                16
+                        )
+                )
+        );
+
+        context.register(
+                ADD_VALENTINES_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(ModBiomeTags.VALENTINES_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(ModEntities.VALENTINES_WOLF.get(), 1, 3),
+                                16
+                        )
+                )
+        );
+
+        context.register(
+                ADD_EASTER_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(ModBiomeTags.EASTER_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(ModEntities.EASTER_WOLF.get(), 1, 3),
+                                16
+                        )
+                )
+        );
+
+        context.register(
+                ADD_FIREWORK_WOLF_SPAWNS,
+                AddSpawnsBiomeModifier.singleSpawn(
+                        biomes.getOrThrow(ModBiomeTags.FIREWORK_WOLF_SPAWNS),
+                        new Weighted<>(
+                                new SpawnerData(ModEntities.FIREWORK_WOLF.get(), 1, 3),
+                                16
                         )
                 )
         );

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.EnumSet;
@@ -938,7 +940,7 @@ public final class RavenWolf extends AbstractWolfismWolf {
     }
 
     private void selectNormalLandingPoint() {
-        if (landingPoint == null || this.tickCount % 20 == 0
+        if (landingPoint == null || this.isWolfismWorkTick(20)
                 && !isClearFlightPosition(landingPoint.add(0.0D, 0.10D, 0.0D))) {
             landingPoint = findLandingPoint();
             this.flyingNavigation.stop();
@@ -1050,7 +1052,7 @@ public final class RavenWolf extends AbstractWolfismWolf {
                 this.flyingNavigation.moveTo(moveTargetPoint.x, moveTargetPoint.y, moveTargetPoint.z, 1.0D);
             }
         }
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
             if (this.position().distanceToSqr(flightProgressPosition) < 0.16D && !touchingFlightTarget()) {
                 flightStallTicks += 20;
             } else flightStallTicks = 0;
@@ -1148,9 +1150,9 @@ public final class RavenWolf extends AbstractWolfismWolf {
         requestFlightTo(
                 destination);
 
-        if (this.tickCount % 40 == 0) {
+        if (this.isWolfismWorkTick(40)) {
 
-            level.sendParticles(
+            WolfVfx.sendParticles("raven_wolf", level,
                     ParticleTypes.ENCHANTED_HIT,
                     this.getX(),
                     this.getY()
@@ -1197,7 +1199,7 @@ public final class RavenWolf extends AbstractWolfismWolf {
         abilityLockoutTicks =
                 8;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("raven_wolf", level,
                 ParticleTypes.ENCHANTED_HIT,
                 this.getX(),
                 this.getY()
@@ -1226,7 +1228,7 @@ public final class RavenWolf extends AbstractWolfismWolf {
 
         if (eyeOfRavenTicks % 20 == 0) {
 
-            level.sendParticles(
+            WolfVfx.sendParticles("raven_wolf", level,
                     ParticleTypes.ENCHANTED_HIT,
                     this.getX(),
                     this.getY()
@@ -1496,7 +1498,7 @@ public final class RavenWolf extends AbstractWolfismWolf {
         if (bestSlot < 0
                 || bestScore <= 0.0D) {
 
-            level.sendParticles(
+            WolfVfx.sendParticles("raven_wolf", level,
                     ParticleTypes.SMOKE,
                     this.getX(),
                     this.getY() + 0.45D,
@@ -1537,7 +1539,7 @@ public final class RavenWolf extends AbstractWolfismWolf {
         carriedLoot =
                 stolen;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("raven_wolf", level,
                 ParticleTypes.HAPPY_VILLAGER,
                 this.getX(),
                 this.getY() + 0.55D,
@@ -1731,7 +1733,7 @@ public final class RavenWolf extends AbstractWolfismWolf {
         }
         carriedLoot = ItemStack.EMPTY;
         abilityLockoutTicks = 8;
-        level.sendParticles(ParticleTypes.HAPPY_VILLAGER,
+        WolfVfx.sendParticles("raven_wolf", level, ParticleTypes.HAPPY_VILLAGER,
                 player.getX(), player.getY() + player.getBbHeight() * 0.55D, player.getZ(),
                 10, 0.35D, 0.35D, 0.35D, 0.035D);
         requestNormalLanding();
@@ -1807,7 +1809,7 @@ public final class RavenWolf extends AbstractWolfismWolf {
     private void pruneCheckedContainers(
             long now) {
 
-        if (this.tickCount % 100 != 0
+        if (!this.isWolfismWorkTick(100)
                 || checkedContainers.isEmpty()) {
 
             return;
@@ -2296,7 +2298,7 @@ public final class RavenWolf extends AbstractWolfismWolf {
         this.getBrain().setMemoryWithExpiry(
                 ModMemoryModuleTypes.RAVEN_REPORTED_THREAT.get(), observed, 20L * 4L);
         shareReportWithRavens(level, observed);
-        level.sendParticles(ParticleTypes.ENCHANTED_HIT,
+        WolfVfx.sendParticles("raven_wolf", level, ParticleTypes.ENCHANTED_HIT,
                 this.getX(), this.getY() + this.getBbHeight() * 0.70D, this.getZ(),
                 6, 0.25D, 0.20D, 0.25D, 0.02D);
         this.getBrain().eraseMemory(ModMemoryModuleTypes.RAVEN_OBSERVED_THREAT.get());
@@ -2374,10 +2376,10 @@ public final class RavenWolf extends AbstractWolfismWolf {
         clearTheftTarget();
         this.getBrain().eraseMemory(ModMemoryModuleTypes.RAVEN_OBSERVED_THREAT.get());
         requestFlightTo(combatApproachPoint(priority));
-        level.sendParticles(ParticleTypes.SMOKE,
+        WolfVfx.sendParticles("raven_wolf", level, ParticleTypes.SMOKE,
                 this.getX(), this.getY() + this.getBbHeight() * 0.65D, this.getZ(),
                 28, 0.70D, 0.45D, 0.70D, 0.04D);
-        level.sendParticles(ParticleTypes.ENCHANTED_HIT,
+        WolfVfx.sendParticles("raven_wolf", level, ParticleTypes.ENCHANTED_HIT,
                 this.getX(), this.getY() + this.getBbHeight() * 0.68D, this.getZ(),
                 20, 0.55D, 0.35D, 0.55D, 0.04D);
     }
@@ -2410,7 +2412,7 @@ public final class RavenWolf extends AbstractWolfismWolf {
             return;
         }
         tickRageHarassment(level, target);
-        if (countCoordinatedRavens(level, target) >= 2 && this.tickCount % 20 == 0) {
+        if (countCoordinatedRavens(level, target) >= 2 && this.isWolfismWorkTick(20)) {
             target.addEffect(new MobEffectInstance(
                     MobEffects.SLOWNESS, RAGE_PRESSURE_EFFECT_TICKS, 0, true, true), this);
             target.addEffect(new MobEffectInstance(
@@ -2441,7 +2443,7 @@ public final class RavenWolf extends AbstractWolfismWolf {
                 && this.doHurtTarget(level, target)) {
             rageHarassHitCooldownTicks = RAGE_HARASS_HIT_COOLDOWN;
             requestFlightTo(rageRetreatPoint);
-            level.sendParticles(ParticleTypes.CRIT, target.getX(),
+            WolfVfx.sendParticles("raven_wolf", level, ParticleTypes.CRIT, target.getX(),
                     target.getY() + target.getBbHeight() * 0.50D, target.getZ(),
                     8, 0.25D, 0.20D, 0.25D, 0.04D);
         }

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -448,7 +450,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
     // ---------------------------------------------------------------------
 
     private void tickInfernalAwareness(ServerLevel level) {
-        if (this.tickCount % 10 != 0
+        if (!this.isWolfismWorkTick(10)
                 || level.dimension() != Level.NETHER) {
             return;
         }
@@ -482,7 +484,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
         // visible "this route is safer" cue without UI spam.
         if (this.isTame()
                 && this.getTarget() == null
-                && this.tickCount % 20 == 0) {
+                && this.isWolfismWorkTick(20)) {
 
             BlockPos safePos = this.getBrain()
                     .getMemory(ModMemoryModuleTypes.INFERNAL_SAFE_POS.get())
@@ -502,7 +504,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
                             owner.getY(),
                             owner.getZ()) <= 7.0D * 7.0D) {
 
-                level.sendParticles(
+                WolfVfx.sendParticles("infernal_wolf", level,
                         ParticleTypes.SOUL_FIRE_FLAME,
                         safePos.getX() + 0.5D,
                         safePos.getY() + 0.15D,
@@ -581,7 +583,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
         if (familyNearby) {
             this.arenaTicks = ARENA_DURATION_TICKS;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("infernal_wolf", level,
                     ParticleTypes.SOUL_FIRE_FLAME,
                     this.getX(),
                     this.getY() + 0.55D,
@@ -621,7 +623,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
                         0));
             }
 
-            level.sendParticles(
+            WolfVfx.sendParticles("infernal_wolf", level,
                     ParticleTypes.FLAME,
                     this.getX(),
                     this.getY() + 0.35D,
@@ -668,7 +670,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
         this.rageTicks = RAGE_DURATION_TICKS;
         this.refreshInfernalCombatModifiers();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("infernal_wolf", level,
                 ParticleTypes.LAVA,
                 this.getX(),
                 this.getY() + 0.45D,
@@ -686,7 +688,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
         --this.rageTicks;
 
         if (this.tickCount % 5 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("infernal_wolf", level,
                     ParticleTypes.FLAME,
                     this.getX(),
                     this.getY() + 0.45D,
@@ -784,7 +786,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
 
         this.faceStrikeDirection();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("infernal_wolf", level,
                 ParticleTypes.FLAME,
                 this.getX() - this.strikeDirection.x * 0.45D,
                 this.getY() + 0.30D,
@@ -812,7 +814,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
                 target.knockback(STRIKE_KNOCKBACK, dx, dz);
                 target.push(0.0D, 0.30D, 0.0D);
 
-                level.sendParticles(
+                WolfVfx.sendParticles("infernal_wolf", level,
                         ParticleTypes.EXPLOSION,
                         target.getX(),
                         target.getY() + target.getBbHeight() * 0.5D,
@@ -821,7 +823,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
                         0.18D, 0.18D, 0.18D,
                         0.0D);
 
-                level.sendParticles(
+                WolfVfx.sendParticles("infernal_wolf", level,
                         ParticleTypes.LAVA,
                         target.getX(),
                         target.getY() + 0.35D,
@@ -940,7 +942,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
         this.soulsTicks = SOULS_BASE_DURATION_TICKS;
         this.soulStacks = 0;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("infernal_wolf", level,
                 ParticleTypes.SOUL,
                 this.getX(),
                 this.getY() + 0.55D,
@@ -960,7 +962,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
         if (this.tickCount % 8 == 0) {
             int count = Math.max(2, 2 + this.soulStacks);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("infernal_wolf", level,
                     ParticleTypes.SOUL,
                     this.getX(),
                     this.getY() + 0.65D,
@@ -1001,7 +1003,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
 
         this.refreshInfernalCombatModifiers();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("infernal_wolf", level,
                 ParticleTypes.SOUL_FIRE_FLAME,
                 victim.getX(),
                 victim.getY() + victim.getBbHeight() * 0.55D,
@@ -1010,7 +1012,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
                 0.35D, 0.35D, 0.35D,
                 0.03D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("infernal_wolf", level,
                 ParticleTypes.SOUL,
                 this.getX(),
                 this.getY() + 0.65D,
@@ -1062,7 +1064,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
 
         this.meteorShowerTicks = METEOR_SHOWER_DURATION_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("infernal_wolf", level,
                 ParticleTypes.SOUL_FIRE_FLAME,
                 this.getX(),
                 this.getY() + 1.0D,
@@ -1140,7 +1142,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
             double fallingY =
                     marker.impact.y + Math.max(1, marker.ticks) * 1.65D;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("infernal_wolf", level,
                     marker.kind == MeteorKind.MAGMA_BOMB
                             ? ParticleTypes.LAVA
                             : ParticleTypes.FLAME,
@@ -1194,7 +1196,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
             }
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("infernal_wolf", level,
                 ParticleTypes.EXPLOSION,
                 marker.impact.x,
                 marker.impact.y + 0.4D,
@@ -1203,7 +1205,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
                 0.35D, 0.22D, 0.35D,
                 0.0D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("infernal_wolf", level,
                 ParticleTypes.LAVA,
                 marker.impact.x,
                 marker.impact.y + 0.25D,
@@ -1549,7 +1551,7 @@ public final class InfernalWolf extends AbstractWolfismWolf {
 
             this.arenaTicks = ARENA_DURATION_TICKS;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("infernal_wolf", level,
                     ParticleTypes.SOUL_FIRE_FLAME,
                     this.getX(),
                     this.getY() + 0.55D,

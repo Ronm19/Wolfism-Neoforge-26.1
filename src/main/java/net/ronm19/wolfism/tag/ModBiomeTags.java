@@ -7,6 +7,10 @@ import net.minecraft.world.level.biome.Biome;
 import net.ronm19.wolfism.Wolfism;
 
 public final class ModBiomeTags {
+    public static final TagKey<Biome> WOLF_KING_SPAWNS = TagKey.create(
+            Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/wolf_king"));
+    public static final TagKey<Biome> PRIMORDIAL_WOLF_SPAWNS = TagKey.create(
+            Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/primordial_wolf"));
     public static final TagKey<Biome> TIMBER_WOLF_SPAWNS = TagKey.create(
             Registries.BIOME,
             Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/timber_wolf"));
@@ -220,6 +224,31 @@ public final class ModBiomeTags {
 
     public static final TagKey<Biome> HALLOWEEN_WOLF_SPAWNS =
             TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/halloween_wolf"));
+
+
+    public static final TagKey<Biome> CHRISTMAS_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/christmas_wolf"));
+
+    public static final TagKey<Biome> SAINT_PATRICKS_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/saint_patricks_wolf"));
+
+    public static final TagKey<Biome> NEW_YEARS_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/new_years_wolf"));
+
+    public static final TagKey<Biome> VALENTINES_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/valentines_wolf"));
+
+    public static final TagKey<Biome> EASTER_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/easter_wolf"));
+
+    public static final TagKey<Biome> FIREWORK_WOLF_SPAWNS =
+            TagKey.create(Registries.BIOME,
+                    Identifier.fromNamespaceAndPath(Wolfism.MOD_ID, "spawns/firework_wolf"));
 
     private ModBiomeTags() {
     }

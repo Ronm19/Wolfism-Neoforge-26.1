@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.Comparator;
 import java.util.List;
@@ -12,6 +14,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -27,6 +30,8 @@ import net.minecraft.world.entity.monster.skeleton.Skeleton;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.ronm19.wolfism.entity.AbstractWolfismWolf;
 import net.ronm19.wolfism.entity.ai.sensor.SpiritWolfPackSensor;
@@ -44,6 +49,7 @@ public final class SpiritWolf extends AbstractWolfismWolf {
 
     private static final int SENSE_INTERVAL = 20;
     private static final int LINK_INTERVAL = 40;
+    private static final String NEXT_SPIRIT_LINK_HEAL = "WolfismNextSpiritLinkHeal";
     private static final int MEND_SUPPORT_LOCKOUT = 20 * 2;
     private static final int GUARD_SUPPORT_LOCKOUT = 20 * 3;
     private static final int GUARDIAN_SUPPORT_LOCKOUT = 20 * 6;
@@ -69,6 +75,28 @@ public final class SpiritWolf extends AbstractWolfismWolf {
     @SuppressWarnings("unchecked") @Override public Brain<SpiritWolf> getBrain() { return (Brain<SpiritWolf>) super.getBrain(); }
 
     @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        // The three ability cooldowns are serialized by Brain using their codecs.
+        output.putInt("SpiritSupportLockoutTicks", this.supportLockoutTicks);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.supportLockoutTicks = Mth.clamp(input.getIntOr("SpiritSupportLockoutTicks", 0), 0, GUARDIAN_SUPPORT_LOCKOUT);
+        clampLoadedCooldown(ModMemoryModuleTypes.SPIRIT_MEND_COOLDOWN.get(), SPIRIT_MEND_COOLDOWN_TICKS);
+        clampLoadedCooldown(ModMemoryModuleTypes.SPIRIT_SOUL_GUARD_COOLDOWN.get(), SOUL_GUARD_COOLDOWN_TICKS);
+        clampLoadedCooldown(ModMemoryModuleTypes.SPIRIT_GUARDIAN_COOLDOWN.get(), GUARDIAN_OF_SOULS_COOLDOWN_TICKS);
+    }
+
+    private void clampLoadedCooldown(MemoryModuleType<Integer> memory, int maximum) {
+        int remaining = Mth.clamp(this.getBrain().getMemory(memory).orElse(0), 0, maximum);
+        if (remaining == 0) this.getBrain().eraseMemory(memory);
+        else this.getBrain().setMemory(memory, remaining);
+    }
+
+    @Override
     protected void customServerAiStep(ServerLevel level) {
         LivingEntity current = this.getTarget();
         if (current instanceof SpiritWolf spirit && this.isSpiritPackmate(spirit)) this.setTarget(null);
@@ -89,7 +117,7 @@ public final class SpiritWolf extends AbstractWolfismWolf {
         if (supportLockoutTicks > 0) --supportLockoutTicks;
         if (this.isBaby()) return;
         if (tickCount % SENSE_INTERVAL == 0) tickSpiritSense(level);
-        if (tickCount % 10 == 0) tickEmergencySupport(level);
+        if (this.isWolfismWorkTick(10)) tickEmergencySupport(level);
         if (tickCount % LINK_INTERVAL == 0 && supportLockoutTicks == 0) tickSpiritLink(level);
     }
 
@@ -129,9 +157,9 @@ public final class SpiritWolf extends AbstractWolfismWolf {
     private void tickSpiritSense(ServerLevel level) {
         LivingEntity injured = getBrain().getMemory(ModMemoryModuleTypes.SPIRIT_INJURED_FAMILY.get()).orElse(null);
         LivingEntity threat = getBrain().getMemory(ModMemoryModuleTypes.SPIRIT_SUPERNATURAL_THREAT.get()).orElse(null);
-        if (injured != null) level.sendParticles(ParticleTypes.SOUL, injured.getX(), injured.getY() + injured.getBbHeight() * 0.65D, injured.getZ(), 2, .2, .2, .2, .01);
+        if (injured != null) WolfVfx.sendParticles("spirit_wolf", level, ParticleTypes.SOUL, injured.getX(), injured.getY() + injured.getBbHeight() * 0.65D, injured.getZ(), 2, .2, .2, .2, .01);
         if (threat != null && level.isDarkOutside()) {
-            level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, threat.getX(), threat.getY() + threat.getBbHeight() * .65D, threat.getZ(), 3, .2, .3, .2, .01);
+            WolfVfx.sendParticles("spirit_wolf", level, ParticleTypes.SOUL_FIRE_FLAME, threat.getX(), threat.getY() + threat.getBbHeight() * .65D, threat.getZ(), 3, .2, .3, .2, .01);
             threat.addEffect(new MobEffectInstance(MobEffects.GLOWING, 35, 0, true, false));
             if (this.getTarget() == null && !this.isTame()) this.setTarget(threat);
         }
@@ -143,25 +171,29 @@ public final class SpiritWolf extends AbstractWolfismWolf {
      * member receives half of it, visually "sharing" the healing through the link.
      */
     private void tickSpiritLink(ServerLevel level) {
+        long now = level.getGameTime();
         List<LivingEntity> injured = findFamily(SUPPORT_RADIUS).stream()
                 .filter(member -> member.getHealth() < member.getMaxHealth())
+                .filter(member -> member.getPersistentData().getLongOr(NEXT_SPIRIT_LINK_HEAL, 0L) <= now)
                 .sorted(Comparator.comparingDouble(member -> member.getHealth() / member.getMaxHealth()))
                 .toList();
         if (injured.isEmpty()) return;
 
         LivingEntity primary = injured.getFirst();
+        primary.getPersistentData().putLong(NEXT_SPIRIT_LINK_HEAL, now + LINK_INTERVAL);
         primary.heal(0.8F);
         spiritLinkParticles(level, this, primary, 7);
 
         if (injured.size() > 1) {
             LivingEntity secondary = injured.get(1);
+            secondary.getPersistentData().putLong(NEXT_SPIRIT_LINK_HEAL, now + LINK_INTERVAL);
             secondary.heal(0.4F);
             spiritLinkParticles(level, primary, secondary, 5);
         }
     }
 
     private void tickEmergencySupport(ServerLevel level) {
-        if (supportLockoutTicks > 0) return;
+        if (!this.canUseActiveWolfismAbility() || supportLockoutTicks > 0) return;
         LivingEntity critical = getBrain().getMemory(ModMemoryModuleTypes.SPIRIT_CRITICAL_FAMILY.get()).orElse(null);
         int threats = countImmediateThreats(GUARDIAN_RADIUS);
         if (critical != null && threats >= 3 && !cooling(ModMemoryModuleTypes.SPIRIT_GUARDIAN_COOLDOWN.get())) {
@@ -176,12 +208,13 @@ public final class SpiritWolf extends AbstractWolfismWolf {
     }
 
     public void performSpiritMend(ServerLevel level) {
+        if (!this.canUseActiveWolfismAbility()) return;
         for (LivingEntity member : findFamily(SUPPORT_RADIUS)) {
             if (member.getHealth() >= member.getMaxHealth()) continue;
             member.heal(4.0F);
             member.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 5, 0));
-            level.sendParticles(ParticleTypes.WITCH, member.getX(), member.getY() + member.getBbHeight() * .55D, member.getZ(), 7, .28, .32, .28, .02);
-            level.sendParticles(ParticleTypes.END_ROD, member.getX(), member.getY() + member.getBbHeight() * .7D, member.getZ(), 2, .18, .22, .18, .01);
+            WolfVfx.sendParticles("spirit_wolf", level, ParticleTypes.WITCH, member.getX(), member.getY() + member.getBbHeight() * .55D, member.getZ(), 7, .28, .32, .28, .02);
+            WolfVfx.sendParticles("spirit_wolf", level, ParticleTypes.END_ROD, member.getX(), member.getY() + member.getBbHeight() * .7D, member.getZ(), 2, .18, .22, .18, .01);
         }
         getBrain().setMemory(ModMemoryModuleTypes.SPIRIT_MEND_COOLDOWN.get(), SPIRIT_MEND_COOLDOWN_TICKS);
         applyPackSupportLockout(MEND_SUPPORT_LOCKOUT);
@@ -190,13 +223,14 @@ public final class SpiritWolf extends AbstractWolfismWolf {
     }
 
     public void performSoulGuard(ServerLevel level, LivingEntity critical) {
+        if (!this.canUseActiveWolfismAbility()) return;
         for (LivingEntity member : findFamily(SUPPORT_RADIUS)) {
             if (member == critical || member.getHealth() <= member.getMaxHealth() * .45F) {
                 // Soul Guard is intentionally defensive, not a second healing pulse.
                 member.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 20 * 8, 1));
                 member.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 10, 1));
-                level.sendParticles(ParticleTypes.PORTAL, member.getX(), member.getY() + member.getBbHeight() * .55D, member.getZ(), 18, .38, .48, .38, .12);
-                level.sendParticles(ParticleTypes.END_ROD, member.getX(), member.getY() + member.getBbHeight() * .8D, member.getZ(), 4, .22, .3, .22, .015);
+                WolfVfx.sendParticles("spirit_wolf", level, ParticleTypes.PORTAL, member.getX(), member.getY() + member.getBbHeight() * .55D, member.getZ(), 18, .38, .48, .38, .12);
+                WolfVfx.sendParticles("spirit_wolf", level, ParticleTypes.END_ROD, member.getX(), member.getY() + member.getBbHeight() * .8D, member.getZ(), 4, .22, .3, .22, .015);
             }
         }
         getBrain().setMemory(ModMemoryModuleTypes.SPIRIT_SOUL_GUARD_COOLDOWN.get(), SOUL_GUARD_COOLDOWN_TICKS);
@@ -206,6 +240,7 @@ public final class SpiritWolf extends AbstractWolfismWolf {
     }
 
     public void performGuardianOfSouls(ServerLevel level) {
+        if (!this.canUseActiveWolfismAbility()) return;
         for (LivingEntity member : findFamily(GUARDIAN_RADIUS)) {
             member.heal(7.0F);
             member.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 10, 1));
@@ -222,8 +257,8 @@ public final class SpiritWolf extends AbstractWolfismWolf {
         applyPackSupportLockout(GUARDIAN_SUPPORT_LOCKOUT);
         guardianVisualTicks = 36; entityData.set(DATA_GUARDIAN_ACTIVE, true);
         soulRing(level, 5D, 32); soulRing(level, 9D, 44); soulRing(level, 12.5D, 56);
-        level.sendParticles(ParticleTypes.TOTEM_OF_UNDYING, getX(), getY()+.9, getZ(), 45,1.1,.8,1.1,.06);
-        level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, getX(), getY()+.5, getZ(), 32,1.2,.4,1.2,.025);
+        WolfVfx.sendParticles("spirit_wolf", level, ParticleTypes.TOTEM_OF_UNDYING, getX(), getY()+.9, getZ(), 45,1.1,.8,1.1,.06);
+        WolfVfx.sendParticles("spirit_wolf", level, ParticleTypes.SOUL_FIRE_FLAME, getX(), getY()+.5, getZ(), 32,1.2,.4,1.2,.025);
     }
 
     private List<LivingEntity> findFamily(double radius) {
@@ -255,7 +290,7 @@ public final class SpiritWolf extends AbstractWolfismWolf {
         int c=getBrain().getMemory(memory).orElse(0); if(c>1)getBrain().setMemory(memory,c-1); else if(c==1)getBrain().eraseMemory(memory);
     }
     private void soulRing(ServerLevel level, double radius, int points) {
-        for(int i=0;i<points;i++){ double a=Math.PI*2*i/points; level.sendParticles(ParticleTypes.SOUL,
+        for(int i=0;i<points;i++){ double a=Math.PI*2*i/points; WolfVfx.sendParticles("spirit_wolf", level, ParticleTypes.SOUL,
                 getX()+Math.cos(a)*radius,getY()+.16,getZ()+Math.sin(a)*radius,1,.01,.02,.01,0); }
     }
 
@@ -277,14 +312,14 @@ public final class SpiritWolf extends AbstractWolfismWolf {
         for (int i = 1; i <= points; i++) {
             double t = i / (double) (points + 1);
             Vec3 p = start.lerp(end, t);
-            level.sendParticles(i % 2 == 0 ? ParticleTypes.END_ROD : ParticleTypes.SOUL, p.x, p.y, p.z, 1, .01, .01, .01, 0);
+            WolfVfx.sendParticles("spirit_wolf", level, i % 2 == 0 ? ParticleTypes.END_ROD : ParticleTypes.SOUL, p.x, p.y, p.z, 1, .01, .01, .01, 0);
         }
     }
 
     private void soulRingAt(ServerLevel level, Vec3 center, double radius, int points, net.minecraft.core.particles.ParticleOptions particle) {
         for (int i = 0; i < points; i++) {
             double a = Math.PI * 2 * i / points;
-            level.sendParticles(particle, center.x + Math.cos(a) * radius, center.y + .16D, center.z + Math.sin(a) * radius, 1, .01, .02, .01, 0);
+            WolfVfx.sendParticles("spirit_wolf", level, particle, center.x + Math.cos(a) * radius, center.y + .16D, center.z + Math.sin(a) * radius, 1, .01, .02, .01, 0);
         }
     }
 

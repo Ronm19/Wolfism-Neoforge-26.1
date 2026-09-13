@@ -245,6 +245,31 @@ public final class ModSensorTypes {
                     "halloween_awareness",
                     () -> new SensorType<>(HalloweenWolfAwarenessSensor::new));
 
+
+    public static final Supplier<SensorType<ChristmasWolfAwarenessSensor>> CHRISTMAS_AWARENESS =
+            SENSOR_TYPES.register("christmas_awareness",
+                    () -> new SensorType<>(ChristmasWolfAwarenessSensor::new));
+
+    public static final Supplier<SensorType<SaintPatricksWolfAwarenessSensor>> SAINT_PATRICKS_AWARENESS =
+            SENSOR_TYPES.register("saint_patricks_awareness",
+                    () -> new SensorType<>(SaintPatricksWolfAwarenessSensor::new));
+
+    public static final Supplier<SensorType<NewYearsWolfAwarenessSensor>> NEW_YEARS_AWARENESS =
+            SENSOR_TYPES.register("new_years_awareness",
+                    () -> new SensorType<>(NewYearsWolfAwarenessSensor::new));
+
+    public static final Supplier<SensorType<ValentinesWolfAwarenessSensor>> VALENTINES_AWARENESS =
+            SENSOR_TYPES.register("valentines_awareness",
+                    () -> new SensorType<>(ValentinesWolfAwarenessSensor::new));
+
+    public static final Supplier<SensorType<EasterWolfAwarenessSensor>> EASTER_AWARENESS =
+            SENSOR_TYPES.register("easter_awareness",
+                    () -> new SensorType<>(EasterWolfAwarenessSensor::new));
+
+    public static final Supplier<SensorType<FireworkWolfAwarenessSensor>> FIREWORK_AWARENESS =
+            SENSOR_TYPES.register("firework_awareness",
+                    () -> new SensorType<>(FireworkWolfAwarenessSensor::new));
+
     private ModSensorTypes() {
     }
 }

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.EnumSet;
 import java.util.Comparator;
@@ -387,7 +389,7 @@ public final class PhantomWolf extends AbstractWolfismWolf {
         if (this.skyHunterTicks > 0) {
             --this.skyHunterTicks;
             if (this.tickCount % 6 == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles("phantom_wolf", level,
                         ParticleTypes.PORTAL,
                         this.getX(),
                         this.getY() + this.getBbHeight() * 0.70D,
@@ -1008,7 +1010,7 @@ public final class PhantomWolf extends AbstractWolfismWolf {
         // exactly which threat the airborne scout has identified.
         if (this.tickCount % 40 == Math.floorMod(this.getId(), 40)) {
             for (int i = 0; i < 7; ++i) {
-                level.sendParticles(
+                WolfVfx.sendParticles("phantom_wolf", level,
                         ParticleTypes.END_ROD,
                         recon.getX(),
                         recon.getY() + recon.getBbHeight() + 0.25D + i * 0.28D,
@@ -1056,7 +1058,7 @@ public final class PhantomWolf extends AbstractWolfismWolf {
         this.abilityLockoutTicks = Math.max(this.abilityLockoutTicks, 20);
 
         this.playSound(
-                SoundEvents.PHANTOM_HURT,
+                this.getWolfismHowlSound(),
                 2.2F,
                 0.65F + this.random.nextFloat() * 0.08F);
 
@@ -1084,7 +1086,7 @@ public final class PhantomWolf extends AbstractWolfismWolf {
                 threat.hurtMarked = true;
             }
 
-            level.sendParticles(
+            WolfVfx.sendParticles("phantom_wolf", level,
                     ParticleTypes.PORTAL,
                     threat.getX(),
                     threat.getY() + threat.getBbHeight() * 0.60D,
@@ -1124,11 +1126,11 @@ public final class PhantomWolf extends AbstractWolfismWolf {
         this.abilityLockoutTicks = Math.max(this.abilityLockoutTicks, 12);
 
         this.playSound(
-                SoundEvents.PHANTOM_AMBIENT,
+                this.getWolfismGrowlSound(),
                 1.6F,
                 0.72F + this.random.nextFloat() * 0.10F);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("phantom_wolf", level,
                 ParticleTypes.PORTAL,
                 this.getX(),
                 this.getY() + this.getBbHeight() * 0.55D,
@@ -1198,7 +1200,7 @@ public final class PhantomWolf extends AbstractWolfismWolf {
         }
 
         if (apexPreyBonus > 0.0F) {
-            level.sendParticles(
+            WolfVfx.sendParticles("phantom_wolf", level,
                     ParticleTypes.PORTAL,
                     target.getX(),
                     target.getY() + target.getBbHeight() * 0.72D,
@@ -1244,7 +1246,7 @@ public final class PhantomWolf extends AbstractWolfismWolf {
             target.hurtMarked = true;
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("phantom_wolf", level,
                 ParticleTypes.POOF,
                 target.getX(),
                 target.getY() + target.getBbHeight() * 0.45D,
@@ -1252,7 +1254,7 @@ public final class PhantomWolf extends AbstractWolfismWolf {
                 16,
                 0.32D, 0.24D, 0.32D,
                 0.05D);
-        level.sendParticles(
+        WolfVfx.sendParticles("phantom_wolf", level,
                 ParticleTypes.PORTAL,
                 target.getX(),
                 target.getY() + target.getBbHeight() * 0.55D,
@@ -1300,7 +1302,7 @@ public final class PhantomWolf extends AbstractWolfismWolf {
         this.sendRing(level, center, 1.35D, 22, ParticleTypes.MYCELIUM);
         this.sendRing(level, center, 2.05D, 30, ParticleTypes.PORTAL);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("phantom_wolf", level,
                 ParticleTypes.MYCELIUM,
                 center.x,
                 center.y,
@@ -1308,7 +1310,7 @@ public final class PhantomWolf extends AbstractWolfismWolf {
                 30,
                 0.38D, 0.42D, 0.38D,
                 0.055D);
-        level.sendParticles(
+        WolfVfx.sendParticles("phantom_wolf", level,
                 ParticleTypes.PORTAL,
                 center.x,
                 center.y,
@@ -1357,7 +1359,7 @@ public final class PhantomWolf extends AbstractWolfismWolf {
                 victim.hurtMarked = true;
             }
 
-            level.sendParticles(
+            WolfVfx.sendParticles("phantom_wolf", level,
                     ParticleTypes.MYCELIUM,
                     victim.getX(),
                     victim.getY() + victim.getBbHeight() * 0.45D,
@@ -1403,7 +1405,7 @@ public final class PhantomWolf extends AbstractWolfismWolf {
             net.minecraft.core.particles.ParticleOptions particle) {
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
-            level.sendParticles(
+            WolfVfx.sendParticles("phantom_wolf", level,
                     particle,
                     center.x + Math.cos(angle) * radius,
                     center.y,

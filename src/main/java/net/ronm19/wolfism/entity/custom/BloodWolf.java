@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -511,8 +513,8 @@ public final class BloodWolf extends AbstractWolfismWolf {
                 this.bloodFrenzyActive = true;
                 this.frenzyCalmTicks = 0;
                 this.syncBloodCombatVisualState();
-                this.playSound(SoundEvents.RAVAGER_ROAR, 1.0F, 0.72F);
-                level.sendParticles(
+                this.playSound(this.getWolfismGrowlSound(), 1.0F, 0.72F);
+                WolfVfx.sendParticles("blood_wolf", level,
                         ParticleTypes.CRIT,
                         this.getX(), this.getY(0.45D), this.getZ(),
                         8, 0.30D, 0.22D, 0.30D, 0.10D);
@@ -623,8 +625,8 @@ public final class BloodWolf extends AbstractWolfismWolf {
 
     private void startBloodShield(ServerLevel level) {
         this.bloodShieldTicks = BLOOD_SHIELD_DURATION_TICKS;
-        this.playSound(SoundEvents.RAVAGER_ROAR, 0.75F, 0.62F);
-        level.sendParticles(
+        this.playSound(this.getWolfismGrowlSound(), 0.75F, 0.62F);
+        WolfVfx.sendParticles("blood_wolf", level,
                 ParticleTypes.CRIT,
                 this.getX(), this.getY(0.35D), this.getZ(),
                 12, 0.38D, 0.20D, 0.38D, 0.08D);
@@ -644,7 +646,7 @@ public final class BloodWolf extends AbstractWolfismWolf {
                 || this.bloodModeTicks > 0
                 || this.bloodModeCooldownTicks > 0
                 || !this.canUseBloodCombatSystems()
-                || this.tickCount % 10 != 0) {
+                || !this.isWolfismWorkTick(10)) {
             return;
         }
 
@@ -660,7 +662,7 @@ public final class BloodWolf extends AbstractWolfismWolf {
 
         this.bloodModeTicks = BLOOD_MODE_DURATION_TICKS;
         this.resetBloodChain();
-        this.playSound(SoundEvents.WARDEN_ROAR, 0.85F, 0.82F);
+        this.playSound(this.getWolfismGrowlSound(), 0.85F, 0.82F);
     }
 
     private void continueBloodModeChain(ServerLevel level, LivingEntity victim) {
@@ -698,7 +700,7 @@ public final class BloodWolf extends AbstractWolfismWolf {
         this.getNavigation().moveTo(next, this.getBloodPursuitSpeedModifier(next) + 0.12D);
         this.performPhysicalChainLunge(next);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blood_wolf", level,
                 ParticleTypes.SWEEP_ATTACK,
                 victim.getX(), victim.getY(0.50D), victim.getZ(),
                 1, 0.0D, 0.0D, 0.0D, 0.0D);
@@ -774,7 +776,7 @@ public final class BloodWolf extends AbstractWolfismWolf {
                     this.bloodBerserkerTicks + BLOOD_BERSERKER_KILL_EXTENSION_TICKS);
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blood_wolf", level,
                 ParticleTypes.CRIT,
                 killed.getX(), killed.getY(0.55D), killed.getZ(),
                 10, 0.28D, 0.30D, 0.28D, 0.10D);
@@ -798,7 +800,7 @@ public final class BloodWolf extends AbstractWolfismWolf {
         if (this.isBloodBerserkerActive()
                 || this.bloodBerserkerCooldownTicks > 0
                 || !this.canUseBloodCombatSystems()
-                || this.tickCount % 10 != 0) {
+                || !this.isWolfismWorkTick(10)) {
             return;
         }
 
@@ -829,8 +831,8 @@ public final class BloodWolf extends AbstractWolfismWolf {
         this.resetBloodChain();
         this.syncBloodCombatVisualState();
 
-        this.playSound(SoundEvents.RAVAGER_ROAR, 1.35F, 0.52F);
-        level.sendParticles(
+        this.playSound(this.getWolfismGrowlSound(), 1.35F, 0.52F);
+        WolfVfx.sendParticles("blood_wolf", level,
                 ParticleTypes.CRIT,
                 this.getX(), this.getY(0.48D), this.getZ(),
                 28, 0.55D, 0.38D, 0.55D, 0.16D);

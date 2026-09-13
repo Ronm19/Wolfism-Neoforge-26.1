@@ -1,70 +1,2282 @@
 {
+  "entity.ancient_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/ancient_wolf/ambient1",
+      "wolfism:entity/ancient_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.ancient_wolf.ambient"
+  },
+  "entity.ancient_wolf.death": {
+    "sounds": [
+      "wolfism:entity/ancient_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.ancient_wolf.death"
+  },
+  "entity.ancient_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/ancient_wolf/growl1",
+      "wolfism:entity/ancient_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.ancient_wolf.growl"
+  },
+  "entity.ancient_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/ancient_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.ancient_wolf.howl"
+  },
+  "entity.ancient_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/ancient_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.ancient_wolf.hurt"
+  },
+  "entity.ancient_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/ancient_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.ancient_wolf.whine"
+  },
+  "entity.angel_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/angel_wolf/ambient1",
+      "wolfism:entity/angel_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.angel_wolf.ambient"
+  },
+  "entity.angel_wolf.death": {
+    "sounds": [
+      "wolfism:entity/angel_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.angel_wolf.death"
+  },
+  "entity.angel_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/angel_wolf/growl1",
+      "wolfism:entity/angel_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.angel_wolf.growl"
+  },
+  "entity.angel_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/angel_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.angel_wolf.howl"
+  },
+  "entity.angel_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/angel_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.angel_wolf.hurt"
+  },
+  "entity.angel_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/angel_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.angel_wolf.whine"
+  },
+  "entity.arctic_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/arctic_wolf/ambient1",
+      "wolfism:entity/arctic_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.arctic_wolf.ambient"
+  },
+  "entity.arctic_wolf.death": {
+    "sounds": [
+      "wolfism:entity/arctic_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.arctic_wolf.death"
+  },
+  "entity.arctic_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/arctic_wolf/growl1",
+      "wolfism:entity/arctic_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.arctic_wolf.growl"
+  },
+  "entity.arctic_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/arctic_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.arctic_wolf.howl"
+  },
+  "entity.arctic_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/arctic_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.arctic_wolf.hurt"
+  },
+  "entity.arctic_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/arctic_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.arctic_wolf.whine"
+  },
+  "entity.ash_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/ash_wolf/ambient1",
+      "wolfism:entity/ash_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.ash_wolf.ambient"
+  },
+  "entity.ash_wolf.death": {
+    "sounds": [
+      "wolfism:entity/ash_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.ash_wolf.death"
+  },
+  "entity.ash_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/ash_wolf/growl1",
+      "wolfism:entity/ash_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.ash_wolf.growl"
+  },
+  "entity.ash_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/ash_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.ash_wolf.howl"
+  },
+  "entity.ash_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/ash_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.ash_wolf.hurt"
+  },
+  "entity.ash_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/ash_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.ash_wolf.whine"
+  },
+  "entity.astral_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/astral_wolf/ambient1",
+      "wolfism:entity/astral_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.astral_wolf.ambient"
+  },
+  "entity.astral_wolf.death": {
+    "sounds": [
+      "wolfism:entity/astral_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.astral_wolf.death"
+  },
+  "entity.astral_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/astral_wolf/growl1",
+      "wolfism:entity/astral_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.astral_wolf.growl"
+  },
+  "entity.astral_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/astral_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.astral_wolf.howl"
+  },
+  "entity.astral_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/astral_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.astral_wolf.hurt"
+  },
+  "entity.astral_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/astral_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.astral_wolf.whine"
+  },
+  "entity.bee_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/bee_wolf/ambient1",
+      "wolfism:entity/bee_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.bee_wolf.ambient"
+  },
+  "entity.bee_wolf.death": {
+    "sounds": [
+      "wolfism:entity/bee_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.bee_wolf.death"
+  },
+  "entity.bee_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/bee_wolf/growl1",
+      "wolfism:entity/bee_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.bee_wolf.growl"
+  },
+  "entity.bee_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/bee_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.bee_wolf.howl"
+  },
+  "entity.bee_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/bee_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.bee_wolf.hurt"
+  },
+  "entity.bee_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/bee_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.bee_wolf.whine"
+  },
+  "entity.black_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/black_wolf/ambient1",
+      "wolfism:entity/black_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.black_wolf.ambient"
+  },
+  "entity.black_wolf.death": {
+    "sounds": [
+      "wolfism:entity/black_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.black_wolf.death"
+  },
+  "entity.black_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/black_wolf/growl1",
+      "wolfism:entity/black_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.black_wolf.growl"
+  },
+  "entity.black_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/black_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.black_wolf.howl"
+  },
+  "entity.black_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/black_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.black_wolf.hurt"
+  },
+  "entity.black_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/black_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.black_wolf.whine"
+  },
+  "entity.blade_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/blade_wolf/ambient1",
+      "wolfism:entity/blade_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.blade_wolf.ambient"
+  },
+  "entity.blade_wolf.death": {
+    "sounds": [
+      "wolfism:entity/blade_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.blade_wolf.death"
+  },
+  "entity.blade_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/blade_wolf/growl1",
+      "wolfism:entity/blade_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.blade_wolf.growl"
+  },
+  "entity.blade_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/blade_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.blade_wolf.howl"
+  },
+  "entity.blade_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/blade_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.blade_wolf.hurt"
+  },
+  "entity.blade_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/blade_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.blade_wolf.whine"
+  },
+  "entity.blaze_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/blaze_wolf/ambient1",
+      "wolfism:entity/blaze_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.blaze_wolf.ambient"
+  },
+  "entity.blaze_wolf.death": {
+    "sounds": [
+      "wolfism:entity/blaze_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.blaze_wolf.death"
+  },
+  "entity.blaze_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/blaze_wolf/growl1",
+      "wolfism:entity/blaze_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.blaze_wolf.growl"
+  },
+  "entity.blaze_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/blaze_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.blaze_wolf.howl"
+  },
+  "entity.blaze_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/blaze_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.blaze_wolf.hurt"
+  },
+  "entity.blaze_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/blaze_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.blaze_wolf.whine"
+  },
+  "entity.blood_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/blood_wolf/ambient1",
+      "wolfism:entity/blood_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.blood_wolf.ambient"
+  },
+  "entity.blood_wolf.death": {
+    "sounds": [
+      "wolfism:entity/blood_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.blood_wolf.death"
+  },
+  "entity.blood_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/blood_wolf/growl1",
+      "wolfism:entity/blood_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.blood_wolf.growl"
+  },
+  "entity.blood_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/blood_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.blood_wolf.howl"
+  },
+  "entity.blood_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/blood_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.blood_wolf.hurt"
+  },
+  "entity.blood_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/blood_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.blood_wolf.whine"
+  },
+  "entity.cherry_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/cherry_wolf/ambient1",
+      "wolfism:entity/cherry_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.cherry_wolf.ambient"
+  },
+  "entity.cherry_wolf.death": {
+    "sounds": [
+      "wolfism:entity/cherry_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.cherry_wolf.death"
+  },
+  "entity.cherry_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/cherry_wolf/growl1",
+      "wolfism:entity/cherry_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.cherry_wolf.growl"
+  },
+  "entity.cherry_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/cherry_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.cherry_wolf.howl"
+  },
+  "entity.cherry_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/cherry_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.cherry_wolf.hurt"
+  },
+  "entity.cherry_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/cherry_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.cherry_wolf.whine"
+  },
+  "entity.christmas_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/christmas_wolf/ambient1",
+      "wolfism:entity/christmas_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.christmas_wolf.ambient"
+  },
+  "entity.christmas_wolf.death": {
+    "sounds": [
+      "wolfism:entity/christmas_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.christmas_wolf.death"
+  },
+  "entity.christmas_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/christmas_wolf/growl1",
+      "wolfism:entity/christmas_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.christmas_wolf.growl"
+  },
+  "entity.christmas_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/christmas_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.christmas_wolf.howl"
+  },
+  "entity.christmas_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/christmas_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.christmas_wolf.hurt"
+  },
+  "entity.christmas_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/christmas_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.christmas_wolf.whine"
+  },
+  "entity.command_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/command_wolf/ambient1",
+      "wolfism:entity/command_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.command_wolf.ambient"
+  },
+  "entity.command_wolf.death": {
+    "sounds": [
+      "wolfism:entity/command_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.command_wolf.death"
+  },
+  "entity.command_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/command_wolf/growl1",
+      "wolfism:entity/command_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.command_wolf.growl"
+  },
+  "entity.command_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/command_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.command_wolf.howl"
+  },
+  "entity.command_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/command_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.command_wolf.hurt"
+  },
+  "entity.command_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/command_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.command_wolf.whine"
+  },
+  "entity.creator_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/creator_wolf/ambient1",
+      "wolfism:entity/creator_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.creator_wolf.ambient"
+  },
+  "entity.creator_wolf.death": {
+    "sounds": [
+      "wolfism:entity/creator_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.creator_wolf.death"
+  },
   "entity.creator_wolf.growl": {
     "sounds": [
-      {
-        "name": "wolfism:entity/creator_wolf/growl_1",
-        "weight": 3
-      },
-      {
-        "name": "wolfism:entity/creator_wolf/growl_2",
-        "weight": 2
-      },
-      {
-        "name": "wolfism:entity/creator_wolf/growl_3",
-        "weight": 2
-      }
+      "wolfism:entity/creator_wolf/growl1",
+      "wolfism:entity/creator_wolf/growl2"
     ],
     "subtitle": "subtitles.wolfism.creator_wolf.growl"
   },
   "entity.creator_wolf.howl": {
     "sounds": [
-      {
-        "name": "wolfism:entity/creator_wolf/howl_1",
-        "weight": 3
-      },
-      {
-        "name": "wolfism:entity/creator_wolf/howl_2",
-        "weight": 2
-      },
-      {
-        "name": "wolfism:entity/creator_wolf/howl_3",
-        "weight": 2
-      }
+      "wolfism:entity/creator_wolf/howl1"
     ],
     "subtitle": "subtitles.wolfism.creator_wolf.howl"
   },
+  "entity.creator_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/creator_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.creator_wolf.hurt"
+  },
+  "entity.creator_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/creator_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.creator_wolf.whine"
+  },
+  "entity.demon_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/demon_wolf/ambient1",
+      "wolfism:entity/demon_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.demon_wolf.ambient"
+  },
+  "entity.demon_wolf.death": {
+    "sounds": [
+      "wolfism:entity/demon_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.demon_wolf.death"
+  },
+  "entity.demon_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/demon_wolf/growl1",
+      "wolfism:entity/demon_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.demon_wolf.growl"
+  },
+  "entity.demon_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/demon_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.demon_wolf.howl"
+  },
+  "entity.demon_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/demon_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.demon_wolf.hurt"
+  },
+  "entity.demon_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/demon_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.demon_wolf.whine"
+  },
+  "entity.dire_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/dire_wolf/ambient1",
+      "wolfism:entity/dire_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.dire_wolf.ambient"
+  },
+  "entity.dire_wolf.death": {
+    "sounds": [
+      "wolfism:entity/dire_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.dire_wolf.death"
+  },
+  "entity.dire_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/dire_wolf/growl1",
+      "wolfism:entity/dire_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.dire_wolf.growl"
+  },
+  "entity.dire_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/dire_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.dire_wolf.howl"
+  },
+  "entity.dire_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/dire_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.dire_wolf.hurt"
+  },
+  "entity.dire_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/dire_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.dire_wolf.whine"
+  },
+  "entity.drowned_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/drowned_wolf/ambient1",
+      "wolfism:entity/drowned_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.drowned_wolf.ambient"
+  },
+  "entity.drowned_wolf.death": {
+    "sounds": [
+      "wolfism:entity/drowned_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.drowned_wolf.death"
+  },
+  "entity.drowned_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/drowned_wolf/growl1",
+      "wolfism:entity/drowned_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.drowned_wolf.growl"
+  },
+  "entity.drowned_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/drowned_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.drowned_wolf.howl"
+  },
+  "entity.drowned_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/drowned_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.drowned_wolf.hurt"
+  },
+  "entity.drowned_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/drowned_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.drowned_wolf.whine"
+  },
+  "entity.earth_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/earth_wolf/ambient1",
+      "wolfism:entity/earth_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.earth_wolf.ambient"
+  },
+  "entity.earth_wolf.death": {
+    "sounds": [
+      "wolfism:entity/earth_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.earth_wolf.death"
+  },
+  "entity.earth_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/earth_wolf/growl1",
+      "wolfism:entity/earth_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.earth_wolf.growl"
+  },
+  "entity.earth_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/earth_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.earth_wolf.howl"
+  },
+  "entity.earth_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/earth_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.earth_wolf.hurt"
+  },
+  "entity.earth_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/earth_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.earth_wolf.whine"
+  },
+  "entity.easter_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/easter_wolf/ambient1",
+      "wolfism:entity/easter_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.easter_wolf.ambient"
+  },
+  "entity.easter_wolf.death": {
+    "sounds": [
+      "wolfism:entity/easter_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.easter_wolf.death"
+  },
+  "entity.easter_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/easter_wolf/growl1",
+      "wolfism:entity/easter_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.easter_wolf.growl"
+  },
+  "entity.easter_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/easter_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.easter_wolf.howl"
+  },
+  "entity.easter_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/easter_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.easter_wolf.hurt"
+  },
+  "entity.easter_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/easter_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.easter_wolf.whine"
+  },
+  "entity.end_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/end_wolf/ambient1",
+      "wolfism:entity/end_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.end_wolf.ambient"
+  },
+  "entity.end_wolf.death": {
+    "sounds": [
+      "wolfism:entity/end_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.end_wolf.death"
+  },
+  "entity.end_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/end_wolf/growl1",
+      "wolfism:entity/end_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.end_wolf.growl"
+  },
+  "entity.end_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/end_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.end_wolf.howl"
+  },
+  "entity.end_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/end_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.end_wolf.hurt"
+  },
+  "entity.end_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/end_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.end_wolf.whine"
+  },
+  "entity.fire_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/fire_wolf/ambient1",
+      "wolfism:entity/fire_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.fire_wolf.ambient"
+  },
+  "entity.fire_wolf.death": {
+    "sounds": [
+      "wolfism:entity/fire_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.fire_wolf.death"
+  },
+  "entity.fire_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/fire_wolf/growl1",
+      "wolfism:entity/fire_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.fire_wolf.growl"
+  },
+  "entity.fire_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/fire_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.fire_wolf.howl"
+  },
+  "entity.fire_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/fire_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.fire_wolf.hurt"
+  },
+  "entity.fire_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/fire_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.fire_wolf.whine"
+  },
+  "entity.firework_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/firework_wolf/ambient1",
+      "wolfism:entity/firework_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.firework_wolf.ambient"
+  },
+  "entity.firework_wolf.death": {
+    "sounds": [
+      "wolfism:entity/firework_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.firework_wolf.death"
+  },
+  "entity.firework_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/firework_wolf/growl1",
+      "wolfism:entity/firework_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.firework_wolf.growl"
+  },
+  "entity.firework_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/firework_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.firework_wolf.howl"
+  },
+  "entity.firework_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/firework_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.firework_wolf.hurt"
+  },
+  "entity.firework_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/firework_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.firework_wolf.whine"
+  },
+  "entity.frost_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/frost_wolf/ambient1",
+      "wolfism:entity/frost_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.frost_wolf.ambient"
+  },
+  "entity.frost_wolf.death": {
+    "sounds": [
+      "wolfism:entity/frost_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.frost_wolf.death"
+  },
+  "entity.frost_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/frost_wolf/growl1",
+      "wolfism:entity/frost_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.frost_wolf.growl"
+  },
+  "entity.frost_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/frost_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.frost_wolf.howl"
+  },
+  "entity.frost_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/frost_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.frost_wolf.hurt"
+  },
+  "entity.frost_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/frost_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.frost_wolf.whine"
+  },
+  "entity.gem_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/gem_wolf/ambient1",
+      "wolfism:entity/gem_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.gem_wolf.ambient"
+  },
+  "entity.gem_wolf.death": {
+    "sounds": [
+      "wolfism:entity/gem_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.gem_wolf.death"
+  },
+  "entity.gem_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/gem_wolf/growl1",
+      "wolfism:entity/gem_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.gem_wolf.growl"
+  },
+  "entity.gem_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/gem_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.gem_wolf.howl"
+  },
+  "entity.gem_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/gem_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.gem_wolf.hurt"
+  },
+  "entity.gem_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/gem_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.gem_wolf.whine"
+  },
+  "entity.golden_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/golden_wolf/ambient1",
+      "wolfism:entity/golden_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.golden_wolf.ambient"
+  },
+  "entity.golden_wolf.death": {
+    "sounds": [
+      "wolfism:entity/golden_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.golden_wolf.death"
+  },
+  "entity.golden_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/golden_wolf/growl1",
+      "wolfism:entity/golden_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.golden_wolf.growl"
+  },
+  "entity.golden_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/golden_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.golden_wolf.howl"
+  },
+  "entity.golden_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/golden_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.golden_wolf.hurt"
+  },
+  "entity.golden_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/golden_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.golden_wolf.whine"
+  },
+  "entity.grave_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/grave_wolf/ambient1",
+      "wolfism:entity/grave_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.grave_wolf.ambient"
+  },
+  "entity.grave_wolf.death": {
+    "sounds": [
+      "wolfism:entity/grave_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.grave_wolf.death"
+  },
+  "entity.grave_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/grave_wolf/growl1",
+      "wolfism:entity/grave_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.grave_wolf.growl"
+  },
+  "entity.grave_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/grave_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.grave_wolf.howl"
+  },
+  "entity.grave_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/grave_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.grave_wolf.hurt"
+  },
+  "entity.grave_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/grave_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.grave_wolf.whine"
+  },
+  "entity.halloween_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/halloween_wolf/ambient1",
+      "wolfism:entity/halloween_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.halloween_wolf.ambient"
+  },
+  "entity.halloween_wolf.death": {
+    "sounds": [
+      "wolfism:entity/halloween_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.halloween_wolf.death"
+  },
+  "entity.halloween_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/halloween_wolf/growl1",
+      "wolfism:entity/halloween_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.halloween_wolf.growl"
+  },
+  "entity.halloween_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/halloween_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.halloween_wolf.howl"
+  },
+  "entity.halloween_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/halloween_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.halloween_wolf.hurt"
+  },
+  "entity.halloween_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/halloween_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.halloween_wolf.whine"
+  },
+  "entity.husk_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/husk_wolf/ambient1",
+      "wolfism:entity/husk_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.husk_wolf.ambient"
+  },
+  "entity.husk_wolf.death": {
+    "sounds": [
+      "wolfism:entity/husk_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.husk_wolf.death"
+  },
+  "entity.husk_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/husk_wolf/growl1",
+      "wolfism:entity/husk_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.husk_wolf.growl"
+  },
+  "entity.husk_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/husk_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.husk_wolf.howl"
+  },
+  "entity.husk_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/husk_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.husk_wolf.hurt"
+  },
+  "entity.husk_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/husk_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.husk_wolf.whine"
+  },
+  "entity.illager_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/illager_wolf/ambient1",
+      "wolfism:entity/illager_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.illager_wolf.ambient"
+  },
+  "entity.illager_wolf.death": {
+    "sounds": [
+      "wolfism:entity/illager_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.illager_wolf.death"
+  },
+  "entity.illager_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/illager_wolf/growl1",
+      "wolfism:entity/illager_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.illager_wolf.growl"
+  },
+  "entity.illager_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/illager_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.illager_wolf.howl"
+  },
+  "entity.illager_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/illager_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.illager_wolf.hurt"
+  },
+  "entity.illager_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/illager_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.illager_wolf.whine"
+  },
+  "entity.infernal_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/infernal_wolf/ambient1",
+      "wolfism:entity/infernal_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.infernal_wolf.ambient"
+  },
+  "entity.infernal_wolf.death": {
+    "sounds": [
+      "wolfism:entity/infernal_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.infernal_wolf.death"
+  },
+  "entity.infernal_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/infernal_wolf/growl1",
+      "wolfism:entity/infernal_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.infernal_wolf.growl"
+  },
+  "entity.infernal_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/infernal_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.infernal_wolf.howl"
+  },
+  "entity.infernal_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/infernal_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.infernal_wolf.hurt"
+  },
+  "entity.infernal_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/infernal_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.infernal_wolf.whine"
+  },
+  "entity.lunar_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/lunar_wolf/ambient1",
+      "wolfism:entity/lunar_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.lunar_wolf.ambient"
+  },
+  "entity.lunar_wolf.death": {
+    "sounds": [
+      "wolfism:entity/lunar_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.lunar_wolf.death"
+  },
+  "entity.lunar_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/lunar_wolf/growl1",
+      "wolfism:entity/lunar_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.lunar_wolf.growl"
+  },
+  "entity.lunar_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/lunar_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.lunar_wolf.howl"
+  },
+  "entity.lunar_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/lunar_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.lunar_wolf.hurt"
+  },
+  "entity.lunar_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/lunar_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.lunar_wolf.whine"
+  },
+  "entity.magma_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/magma_wolf/ambient1",
+      "wolfism:entity/magma_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.magma_wolf.ambient"
+  },
+  "entity.magma_wolf.death": {
+    "sounds": [
+      "wolfism:entity/magma_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.magma_wolf.death"
+  },
+  "entity.magma_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/magma_wolf/growl1",
+      "wolfism:entity/magma_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.magma_wolf.growl"
+  },
+  "entity.magma_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/magma_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.magma_wolf.howl"
+  },
+  "entity.magma_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/magma_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.magma_wolf.hurt"
+  },
+  "entity.magma_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/magma_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.magma_wolf.whine"
+  },
+  "entity.mushroom_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/mushroom_wolf/ambient1",
+      "wolfism:entity/mushroom_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.mushroom_wolf.ambient"
+  },
+  "entity.mushroom_wolf.death": {
+    "sounds": [
+      "wolfism:entity/mushroom_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.mushroom_wolf.death"
+  },
+  "entity.mushroom_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/mushroom_wolf/growl1",
+      "wolfism:entity/mushroom_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.mushroom_wolf.growl"
+  },
+  "entity.mushroom_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/mushroom_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.mushroom_wolf.howl"
+  },
+  "entity.mushroom_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/mushroom_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.mushroom_wolf.hurt"
+  },
+  "entity.mushroom_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/mushroom_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.mushroom_wolf.whine"
+  },
+  "entity.new_years_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/new_years_wolf/ambient1",
+      "wolfism:entity/new_years_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.new_years_wolf.ambient"
+  },
+  "entity.new_years_wolf.death": {
+    "sounds": [
+      "wolfism:entity/new_years_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.new_years_wolf.death"
+  },
+  "entity.new_years_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/new_years_wolf/growl1",
+      "wolfism:entity/new_years_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.new_years_wolf.growl"
+  },
+  "entity.new_years_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/new_years_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.new_years_wolf.howl"
+  },
+  "entity.new_years_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/new_years_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.new_years_wolf.hurt"
+  },
+  "entity.new_years_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/new_years_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.new_years_wolf.whine"
+  },
+  "entity.omen_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/omen_wolf/ambient1",
+      "wolfism:entity/omen_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.omen_wolf.ambient"
+  },
+  "entity.omen_wolf.death": {
+    "sounds": [
+      "wolfism:entity/omen_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.omen_wolf.death"
+  },
+  "entity.omen_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/omen_wolf/growl1",
+      "wolfism:entity/omen_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.omen_wolf.growl"
+  },
+  "entity.omen_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/omen_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.omen_wolf.howl"
+  },
+  "entity.omen_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/omen_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.omen_wolf.hurt"
+  },
+  "entity.omen_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/omen_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.omen_wolf.whine"
+  },
+  "entity.phantom_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/phantom_wolf/ambient1",
+      "wolfism:entity/phantom_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.phantom_wolf.ambient"
+  },
+  "entity.phantom_wolf.death": {
+    "sounds": [
+      "wolfism:entity/phantom_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.phantom_wolf.death"
+  },
+  "entity.phantom_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/phantom_wolf/growl1",
+      "wolfism:entity/phantom_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.phantom_wolf.growl"
+  },
+  "entity.phantom_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/phantom_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.phantom_wolf.howl"
+  },
+  "entity.phantom_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/phantom_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.phantom_wolf.hurt"
+  },
+  "entity.phantom_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/phantom_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.phantom_wolf.whine"
+  },
+  "entity.primordial_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/primordial_wolf/ambient1",
+      "wolfism:entity/primordial_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.primordial_wolf.ambient"
+  },
+  "entity.primordial_wolf.death": {
+    "sounds": [
+      "wolfism:entity/primordial_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.primordial_wolf.death"
+  },
+  "entity.primordial_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/primordial_wolf/growl1",
+      "wolfism:entity/primordial_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.primordial_wolf.growl"
+  },
   "entity.primordial_wolf.howl": {
     "sounds": [
-      {
-        "name": "wolfism:entity/primordial_wolf/howl_1",
-        "weight": 3
-      },
-      {
-        "name": "wolfism:entity/primordial_wolf/howl_2",
-        "weight": 2
-      },
-      {
-        "name": "wolfism:entity/primordial_wolf/howl_3",
-        "weight": 2
-      }
+      "wolfism:entity/primordial_wolf/howl1"
     ],
     "subtitle": "subtitles.wolfism.primordial_wolf.howl"
   },
+  "entity.primordial_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/primordial_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.primordial_wolf.hurt"
+  },
+  "entity.primordial_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/primordial_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.primordial_wolf.whine"
+  },
+  "entity.raven_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/raven_wolf/ambient1",
+      "wolfism:entity/raven_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.raven_wolf.ambient"
+  },
+  "entity.raven_wolf.death": {
+    "sounds": [
+      "wolfism:entity/raven_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.raven_wolf.death"
+  },
+  "entity.raven_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/raven_wolf/growl1",
+      "wolfism:entity/raven_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.raven_wolf.growl"
+  },
+  "entity.raven_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/raven_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.raven_wolf.howl"
+  },
+  "entity.raven_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/raven_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.raven_wolf.hurt"
+  },
+  "entity.raven_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/raven_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.raven_wolf.whine"
+  },
+  "entity.rift_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/rift_wolf/ambient1",
+      "wolfism:entity/rift_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.rift_wolf.ambient"
+  },
+  "entity.rift_wolf.death": {
+    "sounds": [
+      "wolfism:entity/rift_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.rift_wolf.death"
+  },
+  "entity.rift_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/rift_wolf/growl1",
+      "wolfism:entity/rift_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.rift_wolf.growl"
+  },
+  "entity.rift_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/rift_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.rift_wolf.howl"
+  },
+  "entity.rift_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/rift_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.rift_wolf.hurt"
+  },
+  "entity.rift_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/rift_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.rift_wolf.whine"
+  },
+  "entity.saint_patricks_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/saint_patricks_wolf/ambient1",
+      "wolfism:entity/saint_patricks_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.saint_patricks_wolf.ambient"
+  },
+  "entity.saint_patricks_wolf.death": {
+    "sounds": [
+      "wolfism:entity/saint_patricks_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.saint_patricks_wolf.death"
+  },
+  "entity.saint_patricks_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/saint_patricks_wolf/growl1",
+      "wolfism:entity/saint_patricks_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.saint_patricks_wolf.growl"
+  },
+  "entity.saint_patricks_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/saint_patricks_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.saint_patricks_wolf.howl"
+  },
+  "entity.saint_patricks_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/saint_patricks_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.saint_patricks_wolf.hurt"
+  },
+  "entity.saint_patricks_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/saint_patricks_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.saint_patricks_wolf.whine"
+  },
+  "entity.salva_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/salva_wolf/ambient1",
+      "wolfism:entity/salva_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.salva_wolf.ambient"
+  },
+  "entity.salva_wolf.death": {
+    "sounds": [
+      "wolfism:entity/salva_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.salva_wolf.death"
+  },
+  "entity.salva_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/salva_wolf/growl1",
+      "wolfism:entity/salva_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.salva_wolf.growl"
+  },
+  "entity.salva_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/salva_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.salva_wolf.howl"
+  },
+  "entity.salva_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/salva_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.salva_wolf.hurt"
+  },
+  "entity.salva_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/salva_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.salva_wolf.whine"
+  },
+  "entity.sand_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/sand_wolf/ambient1",
+      "wolfism:entity/sand_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.sand_wolf.ambient"
+  },
+  "entity.sand_wolf.death": {
+    "sounds": [
+      "wolfism:entity/sand_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.sand_wolf.death"
+  },
+  "entity.sand_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/sand_wolf/growl1",
+      "wolfism:entity/sand_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.sand_wolf.growl"
+  },
+  "entity.sand_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/sand_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.sand_wolf.howl"
+  },
+  "entity.sand_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/sand_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.sand_wolf.hurt"
+  },
+  "entity.sand_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/sand_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.sand_wolf.whine"
+  },
+  "entity.sculk_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/sculk_wolf/ambient1",
+      "wolfism:entity/sculk_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.sculk_wolf.ambient"
+  },
+  "entity.sculk_wolf.death": {
+    "sounds": [
+      "wolfism:entity/sculk_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.sculk_wolf.death"
+  },
+  "entity.sculk_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/sculk_wolf/growl1",
+      "wolfism:entity/sculk_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.sculk_wolf.growl"
+  },
+  "entity.sculk_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/sculk_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.sculk_wolf.howl"
+  },
+  "entity.sculk_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/sculk_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.sculk_wolf.hurt"
+  },
+  "entity.sculk_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/sculk_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.sculk_wolf.whine"
+  },
+  "entity.shadow_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/shadow_wolf/ambient1",
+      "wolfism:entity/shadow_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.shadow_wolf.ambient"
+  },
+  "entity.shadow_wolf.death": {
+    "sounds": [
+      "wolfism:entity/shadow_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.shadow_wolf.death"
+  },
+  "entity.shadow_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/shadow_wolf/growl1",
+      "wolfism:entity/shadow_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.shadow_wolf.growl"
+  },
+  "entity.shadow_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/shadow_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.shadow_wolf.howl"
+  },
+  "entity.shadow_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/shadow_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.shadow_wolf.hurt"
+  },
+  "entity.shadow_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/shadow_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.shadow_wolf.whine"
+  },
+  "entity.skeleton_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/skeleton_wolf/ambient1",
+      "wolfism:entity/skeleton_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.skeleton_wolf.ambient"
+  },
+  "entity.skeleton_wolf.death": {
+    "sounds": [
+      "wolfism:entity/skeleton_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.skeleton_wolf.death"
+  },
+  "entity.skeleton_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/skeleton_wolf/growl1",
+      "wolfism:entity/skeleton_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.skeleton_wolf.growl"
+  },
+  "entity.skeleton_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/skeleton_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.skeleton_wolf.howl"
+  },
+  "entity.skeleton_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/skeleton_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.skeleton_wolf.hurt"
+  },
+  "entity.skeleton_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/skeleton_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.skeleton_wolf.whine"
+  },
+  "entity.solar_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/solar_wolf/ambient1",
+      "wolfism:entity/solar_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.solar_wolf.ambient"
+  },
+  "entity.solar_wolf.death": {
+    "sounds": [
+      "wolfism:entity/solar_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.solar_wolf.death"
+  },
+  "entity.solar_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/solar_wolf/growl1",
+      "wolfism:entity/solar_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.solar_wolf.growl"
+  },
+  "entity.solar_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/solar_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.solar_wolf.howl"
+  },
+  "entity.solar_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/solar_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.solar_wolf.hurt"
+  },
+  "entity.solar_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/solar_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.solar_wolf.whine"
+  },
+  "entity.spectral_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/spectral_wolf/ambient1",
+      "wolfism:entity/spectral_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.spectral_wolf.ambient"
+  },
+  "entity.spectral_wolf.death": {
+    "sounds": [
+      "wolfism:entity/spectral_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.spectral_wolf.death"
+  },
+  "entity.spectral_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/spectral_wolf/growl1",
+      "wolfism:entity/spectral_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.spectral_wolf.growl"
+  },
+  "entity.spectral_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/spectral_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.spectral_wolf.howl"
+  },
+  "entity.spectral_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/spectral_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.spectral_wolf.hurt"
+  },
+  "entity.spectral_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/spectral_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.spectral_wolf.whine"
+  },
+  "entity.spirit_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/spirit_wolf/ambient1",
+      "wolfism:entity/spirit_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.spirit_wolf.ambient"
+  },
+  "entity.spirit_wolf.death": {
+    "sounds": [
+      "wolfism:entity/spirit_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.spirit_wolf.death"
+  },
+  "entity.spirit_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/spirit_wolf/growl1",
+      "wolfism:entity/spirit_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.spirit_wolf.growl"
+  },
+  "entity.spirit_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/spirit_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.spirit_wolf.howl"
+  },
+  "entity.spirit_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/spirit_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.spirit_wolf.hurt"
+  },
+  "entity.spirit_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/spirit_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.spirit_wolf.whine"
+  },
+  "entity.storm_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/storm_wolf/ambient1",
+      "wolfism:entity/storm_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.storm_wolf.ambient"
+  },
+  "entity.storm_wolf.death": {
+    "sounds": [
+      "wolfism:entity/storm_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.storm_wolf.death"
+  },
+  "entity.storm_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/storm_wolf/growl1",
+      "wolfism:entity/storm_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.storm_wolf.growl"
+  },
+  "entity.storm_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/storm_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.storm_wolf.howl"
+  },
+  "entity.storm_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/storm_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.storm_wolf.hurt"
+  },
+  "entity.storm_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/storm_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.storm_wolf.whine"
+  },
+  "entity.timber_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/timber_wolf/ambient1",
+      "wolfism:entity/timber_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.timber_wolf.ambient"
+  },
+  "entity.timber_wolf.death": {
+    "sounds": [
+      "wolfism:entity/timber_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.timber_wolf.death"
+  },
+  "entity.timber_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/timber_wolf/growl1",
+      "wolfism:entity/timber_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.timber_wolf.growl"
+  },
+  "entity.timber_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/timber_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.timber_wolf.howl"
+  },
+  "entity.timber_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/timber_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.timber_wolf.hurt"
+  },
+  "entity.timber_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/timber_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.timber_wolf.whine"
+  },
+  "entity.toxic_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/toxic_wolf/ambient1",
+      "wolfism:entity/toxic_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.toxic_wolf.ambient"
+  },
+  "entity.toxic_wolf.death": {
+    "sounds": [
+      "wolfism:entity/toxic_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.toxic_wolf.death"
+  },
+  "entity.toxic_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/toxic_wolf/growl1",
+      "wolfism:entity/toxic_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.toxic_wolf.growl"
+  },
+  "entity.toxic_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/toxic_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.toxic_wolf.howl"
+  },
+  "entity.toxic_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/toxic_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.toxic_wolf.hurt"
+  },
+  "entity.toxic_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/toxic_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.toxic_wolf.whine"
+  },
+  "entity.valentines_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/valentines_wolf/ambient1",
+      "wolfism:entity/valentines_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.valentines_wolf.ambient"
+  },
+  "entity.valentines_wolf.death": {
+    "sounds": [
+      "wolfism:entity/valentines_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.valentines_wolf.death"
+  },
+  "entity.valentines_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/valentines_wolf/growl1",
+      "wolfism:entity/valentines_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.valentines_wolf.growl"
+  },
+  "entity.valentines_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/valentines_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.valentines_wolf.howl"
+  },
+  "entity.valentines_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/valentines_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.valentines_wolf.hurt"
+  },
+  "entity.valentines_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/valentines_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.valentines_wolf.whine"
+  },
+  "entity.vampire_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/vampire_wolf/ambient1",
+      "wolfism:entity/vampire_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.vampire_wolf.ambient"
+  },
+  "entity.vampire_wolf.death": {
+    "sounds": [
+      "wolfism:entity/vampire_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.vampire_wolf.death"
+  },
+  "entity.vampire_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/vampire_wolf/growl1",
+      "wolfism:entity/vampire_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.vampire_wolf.growl"
+  },
+  "entity.vampire_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/vampire_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.vampire_wolf.howl"
+  },
+  "entity.vampire_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/vampire_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.vampire_wolf.hurt"
+  },
+  "entity.vampire_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/vampire_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.vampire_wolf.whine"
+  },
+  "entity.violet_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/violet_wolf/ambient1",
+      "wolfism:entity/violet_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.violet_wolf.ambient"
+  },
+  "entity.violet_wolf.death": {
+    "sounds": [
+      "wolfism:entity/violet_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.violet_wolf.death"
+  },
+  "entity.violet_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/violet_wolf/growl1",
+      "wolfism:entity/violet_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.violet_wolf.growl"
+  },
+  "entity.violet_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/violet_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.violet_wolf.howl"
+  },
+  "entity.violet_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/violet_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.violet_wolf.hurt"
+  },
+  "entity.violet_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/violet_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.violet_wolf.whine"
+  },
+  "entity.void_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/void_wolf/ambient1",
+      "wolfism:entity/void_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.void_wolf.ambient"
+  },
+  "entity.void_wolf.death": {
+    "sounds": [
+      "wolfism:entity/void_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.void_wolf.death"
+  },
+  "entity.void_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/void_wolf/growl1",
+      "wolfism:entity/void_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.void_wolf.growl"
+  },
+  "entity.void_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/void_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.void_wolf.howl"
+  },
+  "entity.void_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/void_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.void_wolf.hurt"
+  },
+  "entity.void_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/void_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.void_wolf.whine"
+  },
+  "entity.war_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/war_wolf/ambient1",
+      "wolfism:entity/war_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.war_wolf.ambient"
+  },
+  "entity.war_wolf.death": {
+    "sounds": [
+      "wolfism:entity/war_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.war_wolf.death"
+  },
+  "entity.war_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/war_wolf/growl1",
+      "wolfism:entity/war_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.war_wolf.growl"
+  },
+  "entity.war_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/war_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.war_wolf.howl"
+  },
+  "entity.war_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/war_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.war_wolf.hurt"
+  },
+  "entity.war_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/war_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.war_wolf.whine"
+  },
+  "entity.water_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/water_wolf/ambient1",
+      "wolfism:entity/water_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.water_wolf.ambient"
+  },
+  "entity.water_wolf.death": {
+    "sounds": [
+      "wolfism:entity/water_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.water_wolf.death"
+  },
+  "entity.water_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/water_wolf/growl1",
+      "wolfism:entity/water_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.water_wolf.growl"
+  },
+  "entity.water_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/water_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.water_wolf.howl"
+  },
+  "entity.water_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/water_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.water_wolf.hurt"
+  },
+  "entity.water_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/water_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.water_wolf.whine"
+  },
+  "entity.wither_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/wither_wolf/ambient1",
+      "wolfism:entity/wither_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.wither_wolf.ambient"
+  },
+  "entity.wither_wolf.death": {
+    "sounds": [
+      "wolfism:entity/wither_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.wither_wolf.death"
+  },
+  "entity.wither_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/wither_wolf/growl1",
+      "wolfism:entity/wither_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.wither_wolf.growl"
+  },
+  "entity.wither_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/wither_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.wither_wolf.howl"
+  },
+  "entity.wither_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/wither_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.wither_wolf.hurt"
+  },
+  "entity.wither_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/wither_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.wither_wolf.whine"
+  },
+  "entity.wolf_king.ambient": {
+    "sounds": [
+      "wolfism:entity/wolf_king/ambient1",
+      "wolfism:entity/wolf_king/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.wolf_king.ambient"
+  },
+  "entity.wolf_king.death": {
+    "sounds": [
+      "wolfism:entity/wolf_king/death1"
+    ],
+    "subtitle": "subtitles.wolfism.wolf_king.death"
+  },
+  "entity.wolf_king.growl": {
+    "sounds": [
+      "wolfism:entity/wolf_king/growl1",
+      "wolfism:entity/wolf_king/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.wolf_king.growl"
+  },
   "entity.wolf_king.howl": {
     "sounds": [
-      {
-        "name": "wolfism:entity/wolf_king/howl_1",
-        "weight": 3
-      },
-      {
-        "name": "wolfism:entity/wolf_king/howl_2",
-        "weight": 2
-      },
-      {
-        "name": "wolfism:entity/wolf_king/howl_3",
-        "weight": 2
-      }
+      "wolfism:entity/wolf_king/howl1"
     ],
     "subtitle": "subtitles.wolfism.wolf_king.howl"
+  },
+  "entity.wolf_king.hurt": {
+    "sounds": [
+      "wolfism:entity/wolf_king/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.wolf_king.hurt"
+  },
+  "entity.wolf_king.whine": {
+    "sounds": [
+      "wolfism:entity/wolf_king/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.wolf_king.whine"
+  },
+  "entity.zombie_wolf.ambient": {
+    "sounds": [
+      "wolfism:entity/zombie_wolf/ambient1",
+      "wolfism:entity/zombie_wolf/ambient2"
+    ],
+    "subtitle": "subtitles.wolfism.zombie_wolf.ambient"
+  },
+  "entity.zombie_wolf.death": {
+    "sounds": [
+      "wolfism:entity/zombie_wolf/death1"
+    ],
+    "subtitle": "subtitles.wolfism.zombie_wolf.death"
+  },
+  "entity.zombie_wolf.growl": {
+    "sounds": [
+      "wolfism:entity/zombie_wolf/growl1",
+      "wolfism:entity/zombie_wolf/growl2"
+    ],
+    "subtitle": "subtitles.wolfism.zombie_wolf.growl"
+  },
+  "entity.zombie_wolf.howl": {
+    "sounds": [
+      "wolfism:entity/zombie_wolf/howl1"
+    ],
+    "subtitle": "subtitles.wolfism.zombie_wolf.howl"
+  },
+  "entity.zombie_wolf.hurt": {
+    "sounds": [
+      "wolfism:entity/zombie_wolf/hurt1"
+    ],
+    "subtitle": "subtitles.wolfism.zombie_wolf.hurt"
+  },
+  "entity.zombie_wolf.whine": {
+    "sounds": [
+      "wolfism:entity/zombie_wolf/whine1"
+    ],
+    "subtitle": "subtitles.wolfism.zombie_wolf.whine"
   }
 }

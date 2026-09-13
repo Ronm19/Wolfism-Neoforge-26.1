@@ -345,6 +345,19 @@ public final class ModBiomeTagProvider extends BiomeTagsProvider {
                 Biomes.GROVE
         );
 
+        tag(ModBiomeTags.WOLF_KING_SPAWNS).add(
+                Biomes.TAIGA,
+                Biomes.SNOWY_TAIGA,
+                Biomes.GROVE,
+                Biomes.OLD_GROWTH_PINE_TAIGA,
+                Biomes.OLD_GROWTH_SPRUCE_TAIGA
+        );
+
+        tag(ModBiomeTags.PRIMORDIAL_WOLF_SPAWNS).add(
+                Biomes.OLD_GROWTH_PINE_TAIGA,
+                Biomes.OLD_GROWTH_SPRUCE_TAIGA
+        );
+
         tag(ModBiomeTags.MAGMA_WOLF_SPAWNS).add(
                 Biomes.BASALT_DELTAS,
                 Biomes.NETHER_WASTES
@@ -429,6 +442,51 @@ public final class ModBiomeTagProvider extends BiomeTagsProvider {
                 Biomes.NETHER_WASTES
         );
 
+
+        tag(ModBiomeTags.CHRISTMAS_WOLF_SPAWNS).add(
+                Biomes.SNOWY_PLAINS,
+                Biomes.SNOWY_TAIGA
+        );
+
+        tag(ModBiomeTags.SAINT_PATRICKS_WOLF_SPAWNS).add(
+                Biomes.PLAINS,
+                Biomes.SUNFLOWER_PLAINS,
+                Biomes.MEADOW,
+                Biomes.FLOWER_FOREST
+        );
+
+        tag(ModBiomeTags.NEW_YEARS_WOLF_SPAWNS).add(
+                Biomes.PLAINS,
+                Biomes.SUNFLOWER_PLAINS,
+                Biomes.MEADOW,
+                Biomes.SNOWY_PLAINS,
+                Biomes.TAIGA,
+                Biomes.SNOWY_TAIGA
+        );
+
+        tag(ModBiomeTags.VALENTINES_WOLF_SPAWNS).add(
+                Biomes.PLAINS,
+                Biomes.SUNFLOWER_PLAINS,
+                Biomes.MEADOW,
+                Biomes.FLOWER_FOREST,
+                Biomes.CHERRY_GROVE
+        );
+
+        tag(ModBiomeTags.EASTER_WOLF_SPAWNS).add(
+                Biomes.PLAINS,
+                Biomes.SUNFLOWER_PLAINS,
+                Biomes.MEADOW,
+                Biomes.FLOWER_FOREST,
+                Biomes.BIRCH_FOREST,
+                Biomes.CHERRY_GROVE
+        );
+
+        tag(ModBiomeTags.FIREWORK_WOLF_SPAWNS).add(
+                Biomes.PLAINS,
+                Biomes.SUNFLOWER_PLAINS,
+                Biomes.MEADOW,
+                Biomes.SAVANNA
+        );
 
         tag(ModBiomeTags.HALLOWEEN_WOLF_SPAWNS).add(
                 Biomes.PLAINS,

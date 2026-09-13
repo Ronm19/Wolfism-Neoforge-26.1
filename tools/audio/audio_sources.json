@@ -1,0 +1,628 @@
+{
+  "retrieved_date": "2026-09-11",
+  "downloads": [
+    {
+      "id": "wolf_denali_0",
+      "file": "wolf_denali_0.mp3",
+      "page": "https://www.nps.gov/subjects/sound/sounds-wolf.htm",
+      "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-WolfDENA.mp3",
+      "author": "National Park Service",
+      "license": "Public domain (US federal work)",
+      "license_url": "https://www.nps.gov/subjects/sound/gallery.htm",
+      "sha256": "bfc073e6226f2a21a87567b898c5e5674a53284353128da0d1e0f69b97e8b62f"
+    },
+    {
+      "id": "wolf_yellowstone_1",
+      "file": "wolf_yellowstone_1.mp3",
+      "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-wolves.htm",
+      "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLWolves20160111T20ms2.mp3",
+      "author": "NPS & MSU Acoustic Atlas / Jennifer Jerrett",
+      "license": "Public domain (NPS sound-library declaration)",
+      "license_url": "https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm",
+      "sha256": "6b31a44a0781cc8a4f8a86a7878754d44093383aa880279ac075c4a45a2b9aa3"
+    },
+    {
+      "id": "wolf_yellowstone_2",
+      "file": "wolf_yellowstone_2.mp3",
+      "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-wolves.htm",
+      "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLWolvesDec252013.mp3",
+      "author": "NPS & MSU Acoustic Atlas / Jennifer Jerrett",
+      "license": "Public domain (NPS sound-library declaration)",
+      "license_url": "https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm",
+      "sha256": "5569f12a49ba34d7ba28475cd4ad37fea808c0d883883d6540c5c04695d8b717"
+    },
+    {
+      "id": "fire_0",
+      "file": "fire_0.mp3",
+      "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-fire.htm",
+      "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLMapleFire20160814T04ms3.mp3",
+      "author": "NPS / Jennifer Jerrett",
+      "license": "Public domain (NPS sound-library declaration)",
+      "license_url": "https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm",
+      "sha256": "15d698e6620f17e027b07b96f3dde2632f0e2dbf6d224dc939a6e86010d149d1"
+    },
+    {
+      "id": "fire_1",
+      "file": "fire_1.mp3",
+      "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-fire.htm",
+      "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLMapleFire20160814T08ms.mp3",
+      "author": "NPS / Jennifer Jerrett",
+      "license": "Public domain (NPS sound-library declaration)",
+      "license_url": "https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm",
+      "sha256": "74247853563c3f244debfc7f578380817ef13be1102c2012108402cd633f830d"
+    },
+    {
+      "id": "fire_2",
+      "file": "fire_2.mp3",
+      "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-fire.htm",
+      "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLMapleFire20160814T12ms.mp3",
+      "author": "NPS / Jennifer Jerrett",
+      "license": "Public domain (NPS sound-library declaration)",
+      "license_url": "https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm",
+      "sha256": "ebd66ed8cbea04c9e5f9097de32a5c9ce884cb32eb82df942fa64fd9586d322d"
+    },
+    {
+      "id": "thunder_0",
+      "file": "thunder_0.mp3",
+      "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-thunder.htm",
+      "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-Thunderandbirds140704.mp3",
+      "author": "NPS / Jennifer Jerrett",
+      "license": "Public domain (NPS sound-library declaration)",
+      "license_url": "https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm",
+      "sha256": "e5d88deaa66591b41a7f0b7a0f6c84d0f688375227767db316906eff0b646032"
+    },
+    {
+      "id": "dog_growl_0",
+      "file": "dog_growl_0.ogg",
+      "page": "https://opengameart.org/content/dog-growl",
+      "url": "https://opengameart.org/sites/default/files/dog-growl.ogg",
+      "author": "bonebrah",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "75655fe1bb7415dcd5af93fee82224544bdb03580e710b35e7547388281ab3d5"
+    },
+    {
+      "id": "dog_collection_0",
+      "file": "dog_collection_0.7z",
+      "page": "https://opengameart.org/content/dog-sounds",
+      "url": "https://opengameart.org/sites/default/files/dog.7z",
+      "author": "pauliuw",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "ecee65b849048790e963952dd15c74889c89d7c948a629e041caa631886d7662"
+    },
+    {
+      "id": "dog_snarl_0",
+      "file": "dog_snarl_0.7z",
+      "page": "https://opengameart.org/content/dog-snarl-grunt-grumble",
+      "url": "https://opengameart.org/sites/default/files/dog_0.7z",
+      "author": "qubodup",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "fbd39c35b8743651f48e423d61ca3cee4e67f33ae3a28b5ef4eef0dd46bb043e"
+    },
+    {
+      "id": "zombie_0",
+      "file": "zombie_0.ogg",
+      "page": "https://opengameart.org/content/zombie-moans",
+      "url": "https://opengameart.org/sites/default/files/darsycho__zombie-moans_0.ogg",
+      "author": "Darsycho",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "49b0bd7a7908f2b3ea61ae93ccf584ab650705d62e8ed6d4c8c9f5b98ad37b05"
+    },
+    {
+      "id": "bat_0",
+      "file": "bat_0.zip",
+      "page": "https://opengameart.org/content/bat-screeches",
+      "url": "https://opengameart.org/sites/default/files/bat.zip",
+      "author": "polymorpheva (recording), AntumDeluge (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "8a41cfeca5a3b184f4cf171d45faf0041715b6f9d402dcfe04c53369c05e0ab3"
+    },
+    {
+      "id": "bell_0",
+      "file": "bell_0.wav",
+      "page": "https://opengameart.org/content/bell-dingschimes",
+      "url": "https://opengameart.org/sites/default/files/bell_ding1.wav",
+      "author": "PWL",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "8ce40f49cd211125303df59db0da4fe911e8b2f34d3847011b15137c6b5850de"
+    },
+    {
+      "id": "bell_1",
+      "file": "bell_1.wav",
+      "page": "https://opengameart.org/content/bell-dingschimes",
+      "url": "https://opengameart.org/sites/default/files/bell_ding2.wav",
+      "author": "PWL",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "e4a764a1e0a6284f5a5ec80caf3d44c76d3ff8db17ddab8b42abb6b143e83529"
+    },
+    {
+      "id": "bell_2",
+      "file": "bell_2.wav",
+      "page": "https://opengameart.org/content/bell-dingschimes",
+      "url": "https://opengameart.org/sites/default/files/bell_ding3.wav",
+      "author": "PWL",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "99b9cdb7b9536c97c6738f1e0762cc40a3e7ef81bc774b0b6e0322aa70c96434"
+    },
+    {
+      "id": "bell_3",
+      "file": "bell_3.wav",
+      "page": "https://opengameart.org/content/bell-dingschimes",
+      "url": "https://opengameart.org/sites/default/files/bell_ding4.wav",
+      "author": "PWL",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "b06e837aa5e5b626eba32ad87264b577164e2eab3b9180a955345d06197b6876"
+    },
+    {
+      "id": "bones_0",
+      "file": "bones_0.zip",
+      "page": "https://opengameart.org/content/bones-rattle",
+      "url": "https://opengameart.org/sites/default/files/bones_rattle.zip",
+      "author": "blukotek (recording), congusbongus (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "0d1a045d6ccb45fb7c448ec1cdcb83df93a4b477c196929eaf9a942b3ec64f87"
+    },
+    {
+      "id": "water_0",
+      "file": "water_0.7z",
+      "page": "https://opengameart.org/content/6-short-water-splashes",
+      "url": "https://opengameart.org/sites/default/files/ezwa-water_splash.7z",
+      "author": "ezwa (recording), qubodup (submission)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "6187fa510cb7b5e8c3ac7c79f294ddc0e44d07472758bf6ecf2628a372ae9a26"
+    },
+    {
+      "id": "crow_0",
+      "file": "crow_0.wav",
+      "page": "https://opengameart.org/content/crow-caw",
+      "url": "https://opengameart.org/sites/default/files/crow_caw.wav",
+      "author": "zeroisnotnull",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "bba22883209b435905471d057160f1badae59b89a62e9a8b3199d7e327b17339"
+    },
+    {
+      "id": "fireworks_0",
+      "file": "fireworks_0.zip",
+      "page": "https://opengameart.org/content/25-cc0-bang-firework-sfx",
+      "url": "https://opengameart.org/sites/default/files/25-CC0-bang-sfx.zip",
+      "author": "rubberduck",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "c0c9ecc11e2dc0d190f0cced755569858234b8528286bc83becb6314c663407f"
+    },
+    {
+      "id": "bee_0",
+      "file": "bee_0.zip",
+      "page": "https://opengameart.org/content/single-bee-sound",
+      "url": "https://opengameart.org/sites/default/files/bee.zip",
+      "author": "IMadeIt",
+      "license": "CC-BY-3.0",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "sha256": "cb6035bac925b6e3fe9f8606a83d9fdfedab15a7cc195d646923adaf96a2368a"
+    }
+  ],
+  "extracted_audio": [
+    {
+      "file": "bat/flac/bat_01.flac",
+      "sha256": "71dd6dac86d9cd74480f78b521021a22d5ec4d3f7151caa7536ed2da6acf21ee",
+      "download_id": "bat_0",
+      "source_page": "https://opengameart.org/content/bat-screeches",
+      "credit": "polymorpheva (recording), AntumDeluge (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bat/flac/bat_02.flac",
+      "sha256": "72d1705f4e12b1dfb7d19cc9091bb8c7f11c5aaf80154342c3a31c817cdc2a1b",
+      "download_id": "bat_0",
+      "source_page": "https://opengameart.org/content/bat-screeches",
+      "credit": "polymorpheva (recording), AntumDeluge (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bat/flac/bat_03.flac",
+      "sha256": "bc7f1ac5f52fa87f33eff62e4ecb9b7e0fe42164b5830f24a4ce6471ae4d2a01",
+      "download_id": "bat_0",
+      "source_page": "https://opengameart.org/content/bat-screeches",
+      "credit": "polymorpheva (recording), AntumDeluge (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bee/bee.wav",
+      "sha256": "bb00df4128cf2e1cbe7ef9cf954b73e228dd7dabc922fba79dcf1989a1afa29f",
+      "download_id": "bee_0",
+      "source_page": "https://opengameart.org/content/single-bee-sound",
+      "credit": "IMadeIt",
+      "license": "CC-BY-3.0",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/"
+    },
+    {
+      "file": "bell_0.wav",
+      "sha256": "8ce40f49cd211125303df59db0da4fe911e8b2f34d3847011b15137c6b5850de",
+      "download_id": "bell_0",
+      "source_page": "https://opengameart.org/content/bell-dingschimes",
+      "credit": "PWL",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bell_1.wav",
+      "sha256": "e4a764a1e0a6284f5a5ec80caf3d44c76d3ff8db17ddab8b42abb6b143e83529",
+      "download_id": "bell_1",
+      "source_page": "https://opengameart.org/content/bell-dingschimes",
+      "credit": "PWL",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bell_2.wav",
+      "sha256": "99b9cdb7b9536c97c6738f1e0762cc40a3e7ef81bc774b0b6e0322aa70c96434",
+      "download_id": "bell_2",
+      "source_page": "https://opengameart.org/content/bell-dingschimes",
+      "credit": "PWL",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bell_3.wav",
+      "sha256": "b06e837aa5e5b626eba32ad87264b577164e2eab3b9180a955345d06197b6876",
+      "download_id": "bell_3",
+      "source_page": "https://opengameart.org/content/bell-dingschimes",
+      "credit": "PWL",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bones/0.ogg",
+      "sha256": "979aef9bca51ed0aab0d21585ce979ca0a98da42b694b76b12c6b24a06e999c7",
+      "download_id": "bones_0",
+      "source_page": "https://opengameart.org/content/bones-rattle",
+      "credit": "blukotek (recording), congusbongus (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bones/1.ogg",
+      "sha256": "1fea2a69b0aa7498a2fcf06f6b7445ffcf68a567fb653e2df8d415c2d9e2c40f",
+      "download_id": "bones_0",
+      "source_page": "https://opengameart.org/content/bones-rattle",
+      "credit": "blukotek (recording), congusbongus (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bones/2.ogg",
+      "sha256": "c0addde3a96bb7ab44c71b6bb5bbbf77c1e4596c5b4f96161d49d3ace10ff9ce",
+      "download_id": "bones_0",
+      "source_page": "https://opengameart.org/content/bones-rattle",
+      "credit": "blukotek (recording), congusbongus (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bones/3.ogg",
+      "sha256": "2e06f7663fa3ea8e14f9ee3b3f2106f15716a82e83dee4a408b2d2c35929d560",
+      "download_id": "bones_0",
+      "source_page": "https://opengameart.org/content/bones-rattle",
+      "credit": "blukotek (recording), congusbongus (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bones/4.ogg",
+      "sha256": "7135cd58456cc485aa327b5be033c925ac869a206623fc838f0244c001ee694e",
+      "download_id": "bones_0",
+      "source_page": "https://opengameart.org/content/bones-rattle",
+      "credit": "blukotek (recording), congusbongus (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bones/5.ogg",
+      "sha256": "373349b942bf0afc23e4c10f2fb481173116bc60f6a356c192a617a059b5923d",
+      "download_id": "bones_0",
+      "source_page": "https://opengameart.org/content/bones-rattle",
+      "credit": "blukotek (recording), congusbongus (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bones/6.ogg",
+      "sha256": "c6d1029a19cd9846903c953fbba5436cccf91d564d7b78d7718cf481c9f7b409",
+      "download_id": "bones_0",
+      "source_page": "https://opengameart.org/content/bones-rattle",
+      "credit": "blukotek (recording), congusbongus (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bones/7.ogg",
+      "sha256": "7b9f21fa99d58264b04491414f052ad7a191b7eae0a78169d28e4571f28a79f0",
+      "download_id": "bones_0",
+      "source_page": "https://opengameart.org/content/bones-rattle",
+      "credit": "blukotek (recording), congusbongus (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bones/8.ogg",
+      "sha256": "e247dc515cfbec2beeeb1922a0381ebddba828346b88b2111edd80d5ff338e20",
+      "download_id": "bones_0",
+      "source_page": "https://opengameart.org/content/bones-rattle",
+      "credit": "blukotek (recording), congusbongus (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "bones/9.ogg",
+      "sha256": "04ebbc0bae55b7b8c63f87efa482f262692b48ed765fc0f479c47246b369f453",
+      "download_id": "bones_0",
+      "source_page": "https://opengameart.org/content/bones-rattle",
+      "credit": "blukotek (recording), congusbongus (edit)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "crow_0.wav",
+      "sha256": "bba22883209b435905471d057160f1badae59b89a62e9a8b3199d7e327b17339",
+      "download_id": "crow_0",
+      "source_page": "https://opengameart.org/content/crow-caw",
+      "credit": "zeroisnotnull",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "dog_collection/Dog/Dog Bark 2.wav",
+      "sha256": "7fa8fdcab7c2b7468d9838dd9d4c82b0cd9b7c7575f2a697b269bb083ac6f7e6",
+      "download_id": "dog_collection_0",
+      "source_page": "https://opengameart.org/content/dog-sounds",
+      "credit": "pauliuw",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "dog_collection/Dog/Dog Bark 3.wav",
+      "sha256": "cdcec765185068bed96752bc21a6d26921962887fbff104c2576de59c52ddf13",
+      "download_id": "dog_collection_0",
+      "source_page": "https://opengameart.org/content/dog-sounds",
+      "credit": "pauliuw",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "dog_collection/Dog/Dog Bark.wav",
+      "sha256": "0dff5dc8bf5f269bf2a81a61fe824cb48de05d5f0a3bcd351e3e020745c8d678",
+      "download_id": "dog_collection_0",
+      "source_page": "https://opengameart.org/content/dog-sounds",
+      "credit": "pauliuw",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "dog_collection/Dog/Sad Dog 1.wav",
+      "sha256": "6a7d8d6664b10e265180d68bfe28253e27c118fdfc0d8e2a1d401a932f9ef498",
+      "download_id": "dog_collection_0",
+      "source_page": "https://opengameart.org/content/dog-sounds",
+      "credit": "pauliuw",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "dog_growl_0.ogg",
+      "sha256": "75655fe1bb7415dcd5af93fee82224544bdb03580e710b35e7547388281ab3d5",
+      "download_id": "dog_growl_0",
+      "source_page": "https://opengameart.org/content/dog-growl",
+      "credit": "bonebrah",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "dog_snarl/dog/dog-growl.flac",
+      "sha256": "84a4ecc14152ad1523e62800223def75b92fe7b16c6b78943b8bd236ab82cd29",
+      "download_id": "dog_snarl_0",
+      "source_page": "https://opengameart.org/content/dog-snarl-grunt-grumble",
+      "credit": "qubodup",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "dog_snarl/dog/dog-grumble.flac",
+      "sha256": "932580aca34cae6c9e8e54736a765e2688e15e4a949d1b039ff59f0465dcaed8",
+      "download_id": "dog_snarl_0",
+      "source_page": "https://opengameart.org/content/dog-snarl-grunt-grumble",
+      "credit": "qubodup",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "dog_snarl/dog/dog-snarl.flac",
+      "sha256": "086614716a3d402c906079ea3ff1820a993a3fb7f6913653f50f1665eb444cab",
+      "download_id": "dog_snarl_0",
+      "source_page": "https://opengameart.org/content/dog-snarl-grunt-grumble",
+      "credit": "qubodup",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "fire_0.mp3",
+      "sha256": "15d698e6620f17e027b07b96f3dde2632f0e2dbf6d224dc939a6e86010d149d1",
+      "download_id": "fire_0",
+      "source_page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-fire.htm",
+      "credit": "NPS / Jennifer Jerrett",
+      "license": "Public domain (NPS sound-library declaration)",
+      "license_url": "https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm"
+    },
+    {
+      "file": "fire_1.mp3",
+      "sha256": "74247853563c3f244debfc7f578380817ef13be1102c2012108402cd633f830d",
+      "download_id": "fire_1",
+      "source_page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-fire.htm",
+      "credit": "NPS / Jennifer Jerrett",
+      "license": "Public domain (NPS sound-library declaration)",
+      "license_url": "https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm"
+    },
+    {
+      "file": "fire_2.mp3",
+      "sha256": "ebd66ed8cbea04c9e5f9097de32a5c9ce884cb32eb82df942fa64fd9586d322d",
+      "download_id": "fire_2",
+      "source_page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-fire.htm",
+      "credit": "NPS / Jennifer Jerrett",
+      "license": "Public domain (NPS sound-library declaration)",
+      "license_url": "https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm"
+    },
+    {
+      "file": "fireworks/fw_01.ogg",
+      "sha256": "1c8a6053433cd682a65665780ead9dfadc14c9442337e6d54469100bcb743694",
+      "download_id": "fireworks_0",
+      "source_page": "https://opengameart.org/content/25-cc0-bang-firework-sfx",
+      "credit": "rubberduck",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "fireworks/fw_02.ogg",
+      "sha256": "3f0e772c7608937de3e0d39167e1c7037c047f1891bbcf7f7ab6af21fe87177c",
+      "download_id": "fireworks_0",
+      "source_page": "https://opengameart.org/content/25-cc0-bang-firework-sfx",
+      "credit": "rubberduck",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "fireworks/fw_03.ogg",
+      "sha256": "2f2c7e9d44d61a5ddcdf7982383229e9b3fa6e0d37651c07030ab7d21baca49c",
+      "download_id": "fireworks_0",
+      "source_page": "https://opengameart.org/content/25-cc0-bang-firework-sfx",
+      "credit": "rubberduck",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "fireworks/fw_04.ogg",
+      "sha256": "48c5f564ebba962c3f54cd6bc6d4d958c47e9a795aabe8a91643afaa9fdf4c11",
+      "download_id": "fireworks_0",
+      "source_page": "https://opengameart.org/content/25-cc0-bang-firework-sfx",
+      "credit": "rubberduck",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "fireworks/fw_05.ogg",
+      "sha256": "d513015c404049f5332ea4c3b0d19a764e7c26639949c7d18894635b691f4787",
+      "download_id": "fireworks_0",
+      "source_page": "https://opengameart.org/content/25-cc0-bang-firework-sfx",
+      "credit": "rubberduck",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "fireworks/fw_06.ogg",
+      "sha256": "3957eaa6bb83b63ee73de9a5d3a17df201dfddedf705eb29cd25a9548a8f02c2",
+      "download_id": "fireworks_0",
+      "source_page": "https://opengameart.org/content/25-cc0-bang-firework-sfx",
+      "credit": "rubberduck",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "thunder_0.mp3",
+      "sha256": "e5d88deaa66591b41a7f0b7a0f6c84d0f688375227767db316906eff0b646032",
+      "download_id": "thunder_0",
+      "source_page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-thunder.htm",
+      "credit": "NPS / Jennifer Jerrett",
+      "license": "Public domain (NPS sound-library declaration)",
+      "license_url": "https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm"
+    },
+    {
+      "file": "water/ezwa-water_splash/water_splash-01.flac",
+      "sha256": "9bdc7921e76e22753368a5d239bd3f5e6a204ef8eae33d469c8c8bac426d9fd8",
+      "download_id": "water_0",
+      "source_page": "https://opengameart.org/content/6-short-water-splashes",
+      "credit": "ezwa (recording), qubodup (submission)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "water/ezwa-water_splash/water_splash-02.flac",
+      "sha256": "c0c2c6e6fa113138a71b9966a456bea844dbb955f0ed7b95a01777cb62fd7461",
+      "download_id": "water_0",
+      "source_page": "https://opengameart.org/content/6-short-water-splashes",
+      "credit": "ezwa (recording), qubodup (submission)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "water/ezwa-water_splash/water_splash-04.flac",
+      "sha256": "73c04d73e3068b1ee9369941bad69370d0713df75725e0f6ab23334c4f319f95",
+      "download_id": "water_0",
+      "source_page": "https://opengameart.org/content/6-short-water-splashes",
+      "credit": "ezwa (recording), qubodup (submission)",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "file": "wolf_denali_0.mp3",
+      "sha256": "bfc073e6226f2a21a87567b898c5e5674a53284353128da0d1e0f69b97e8b62f",
+      "download_id": "wolf_denali_0",
+      "source_page": "https://www.nps.gov/subjects/sound/sounds-wolf.htm",
+      "credit": "National Park Service",
+      "license": "Public domain (US federal work)",
+      "license_url": "https://www.nps.gov/subjects/sound/gallery.htm"
+    },
+    {
+      "file": "wolf_yellowstone_1.mp3",
+      "sha256": "6b31a44a0781cc8a4f8a86a7878754d44093383aa880279ac075c4a45a2b9aa3",
+      "download_id": "wolf_yellowstone_1",
+      "source_page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-wolves.htm",
+      "credit": "NPS & MSU Acoustic Atlas / Jennifer Jerrett",
+      "license": "Public domain (NPS sound-library declaration)",
+      "license_url": "https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm"
+    },
+    {
+      "file": "wolf_yellowstone_2.mp3",
+      "sha256": "5569f12a49ba34d7ba28475cd4ad37fea808c0d883883d6540c5c04695d8b717",
+      "download_id": "wolf_yellowstone_2",
+      "source_page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-wolves.htm",
+      "credit": "NPS & MSU Acoustic Atlas / Jennifer Jerrett",
+      "license": "Public domain (NPS sound-library declaration)",
+      "license_url": "https://www.nps.gov/yell/learn/photosmultimedia/soundlibrary.htm"
+    },
+    {
+      "file": "zombie_0.ogg",
+      "sha256": "49b0bd7a7908f2b3ea61ae93ccf584ab650705d62e8ed6d4c8c9f5b98ad37b05",
+      "download_id": "zombie_0",
+      "source_page": "https://opengameart.org/content/zombie-moans",
+      "credit": "Darsycho",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    }
+  ],
+  "not_used": [
+    {
+      "file": "wolf_yellowstone_0.mp3",
+      "reason": "Passing vehicle dominates much of this recording; excluded after spectrogram review."
+    },
+    {
+      "file": "ghost_breath_0.flac",
+      "reason": "Author-slowed breath removed in revision 2 after robotic-quality feedback; replaced by an existing unshifted canine rasp."
+    },
+    {
+      "file": "dog_collection/Dog/Sad Dog.wav",
+      "reason": "Lower-register alternate excluded in revision 2; retain the clearer companion take at unchanged pitch and speed."
+    }
+  ],
+  "audio_revision": 2
+}

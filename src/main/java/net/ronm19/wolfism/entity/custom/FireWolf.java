@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Objects;
@@ -120,7 +122,7 @@ public final class FireWolf extends AbstractWolfismWolf {
         } else if (!this.isBaby()
                 && this.level() instanceof ServerLevel level
                 && this.getRandom().nextInt(90) == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("fire_wolf", level,
                     ParticleTypes.FLAME,
                     this.getX() + (this.getRandom().nextDouble() - 0.5D) * 0.45D,
                     this.getY() + 0.30D + this.getRandom().nextDouble() * 0.45D,
@@ -193,7 +195,7 @@ public final class FireWolf extends AbstractWolfismWolf {
         this.faceFlameRushDirection();
 
         if (this.level() instanceof ServerLevel level) {
-            level.sendParticles(
+            WolfVfx.sendParticles("fire_wolf", level,
                     ParticleTypes.FLAME,
                     this.getX(),
                     this.getY() + 0.35D,
@@ -234,7 +236,7 @@ public final class FireWolf extends AbstractWolfismWolf {
         this.faceFlameRushDirection();
 
         if (this.level() instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(
+            WolfVfx.sendParticles("fire_wolf", serverLevel,
                     ParticleTypes.FLAME,
                     this.getX() - this.flameRushDirection.x * 0.45D,
                     this.getY() + 0.30D,
@@ -250,7 +252,7 @@ public final class FireWolf extends AbstractWolfismWolf {
                     double dx = this.getX() - target.getX();
                     double dz = this.getZ() - target.getZ();
                     target.knockback(1.0D, dx, dz);
-                    serverLevel.sendParticles(
+                    WolfVfx.sendParticles("fire_wolf", serverLevel,
                             ParticleTypes.FLAME,
                             target.getX(),
                             target.getY() + target.getBbHeight() * 0.55D,

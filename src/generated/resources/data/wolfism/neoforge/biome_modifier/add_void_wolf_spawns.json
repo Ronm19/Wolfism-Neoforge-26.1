@@ -5,6 +5,6 @@
     "type": "wolfism:void_wolf",
     "maxCount": 1,
     "minCount": 1,
-    "weight": 2
+    "weight": 4
   }
 }

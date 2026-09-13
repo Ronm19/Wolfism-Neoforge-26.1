@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Objects;
@@ -302,7 +304,7 @@ public final class SculkWolf extends AbstractWolfismWolf implements VibrationSys
             warden.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, WARDEN_STAGGER_TICKS, 2), this);
             warden.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, WARDEN_WEAKNESS_TICKS, 1), this);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("sculk_wolf", level,
                     ParticleTypes.SCULK_SOUL,
                     warden.getX(), warden.getY() + 1.2D, warden.getZ(),
                     10,
@@ -396,7 +398,7 @@ public final class SculkWolf extends AbstractWolfismWolf implements VibrationSys
     }
 
     private void emitShieldBurst(ServerLevel level) {
-        level.sendParticles(
+        WolfVfx.sendParticles("sculk_wolf", level,
                 ParticleTypes.SCULK_SOUL,
                 this.getX(),
                 this.getY() + 0.75D,
@@ -407,7 +409,7 @@ public final class SculkWolf extends AbstractWolfismWolf implements VibrationSys
     }
 
     private void emitShieldParticles(ServerLevel level) {
-        level.sendParticles(
+        WolfVfx.sendParticles("sculk_wolf", level,
                 ParticleTypes.SCULK_SOUL,
                 this.getX(),
                 this.getY() + 0.65D,
@@ -434,7 +436,7 @@ public final class SculkWolf extends AbstractWolfismWolf implements VibrationSys
         this.lastSensedSourceId = source == null ? -1 : source.getId();
 
         if (isHighPriorityVibration(event) && this.tickCount % 3 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("sculk_wolf", level,
                     ParticleTypes.SCULK_SOUL,
                     this.getX(), this.getEyeY(), this.getZ(),
                     4,
@@ -458,7 +460,7 @@ public final class SculkWolf extends AbstractWolfismWolf implements VibrationSys
             }
 
             if (this.tickCount % SENSE_PARTICLE_INTERVAL == 0) {
-                level.sendParticles(
+                WolfVfx.sendParticles("sculk_wolf", level,
                         ParticleTypes.SCULK_SOUL,
                         this.getX(), this.getEyeY() + 0.15D, this.getZ(),
                         1,
@@ -496,7 +498,7 @@ public final class SculkWolf extends AbstractWolfismWolf implements VibrationSys
                     this.setTarget(warden);
                     this.alertPackToThreat(warden);
                 }
-            } else if (this.getTarget() == null && this.tickCount % 10 == 0) {
+            } else if (this.getTarget() == null && this.isWolfismWorkTick(10)) {
                 this.getLookControl().setLookAt(warden, 35.0F, 25.0F);
             }
         }

@@ -1,25 +1,31 @@
 package net.ronm19.wolfism.entity.holiday;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.ronm19.wolfism.entity.AbstractWolfismWolf;
 import net.ronm19.wolfism.registry.ModGameRules;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Shared base for Wolfism's seven real-world Holiday Wolves.
@@ -35,9 +41,12 @@ public abstract class AbstractWolfismHolidayWolf extends AbstractWolfismWolf {
                     EntityDataSerializers.BOOLEAN);
 
     private static final int DEFAULT_RECOVERY_TICKS = 20 * 7;
+    private static final int WILD_OUT_OF_SEASON_CHECK_INTERVAL = 20 * 5;
 
     private int holidayRecoveryTicks;
     private boolean restoreOrderedSitAfterRecovery;
+    private boolean restoreNoAiAfterRecovery;
+    private boolean holidayTestingSpawn;
 
     protected AbstractWolfismHolidayWolf(
             EntityType<? extends AbstractWolfismHolidayWolf> type,
@@ -49,6 +58,30 @@ public abstract class AbstractWolfismHolidayWolf extends AbstractWolfismWolf {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_HOLIDAY_RECOVERING, false);
+    }
+
+    @Override
+    public @Nullable SpawnGroupData finalizeSpawn(
+            ServerLevelAccessor level,
+            DifficultyInstance difficulty,
+            EntitySpawnReason reason,
+            @Nullable SpawnGroupData groupData) {
+        this.recordHolidaySpawnReason(reason);
+        return super.finalizeSpawn(level, difficulty, reason, groupData);
+    }
+
+    /** Also called by the entity factory hook: /summon with NBT skips finalizeSpawn. */
+    public final void recordHolidaySpawnReason(EntitySpawnReason reason) {
+        if (reason == EntitySpawnReason.LOAD || reason == EntitySpawnReason.DIMENSION_TRAVEL) {
+            return;
+        }
+        this.holidayTestingSpawn = reason == EntitySpawnReason.COMMAND
+                || reason == EntitySpawnReason.SPAWN_ITEM_USE
+                || reason == EntitySpawnReason.DISPENSER;
+    }
+
+    public final boolean isHolidayTestingSpawn() {
+        return this.holidayTestingSpawn;
     }
 
     /** True only when this concrete wolf's real-world holiday window is open. */
@@ -110,11 +143,19 @@ public abstract class AbstractWolfismHolidayWolf extends AbstractWolfismWolf {
         if (this.isHolidayRecovering()) {
             return false;
         }
-        return super.hurtServer(level, source, amount);
+        // Vanilla Wolf clears the sit order before applying damage. Capture
+        // the owner's order before a lethal hit starts recovery in die(...).
+        boolean wasOrderedToSit = this.isOrderedToSit();
+        boolean hurt = super.hurtServer(level, source, amount);
+        if (this.isHolidayRecovering()) {
+            this.restoreOrderedSitAfterRecovery = wasOrderedToSit;
+        }
+        return hurt;
     }
 
     protected final void beginHolidayRecovery() {
         this.restoreOrderedSitAfterRecovery = this.isOrderedToSit();
+        this.restoreNoAiAfterRecovery = this.isNoAi();
         this.holidayRecoveryTicks = Math.max(20, this.getHolidayRecoveryDurationTicks());
         this.entityData.set(DATA_HOLIDAY_RECOVERING, true);
 
@@ -132,7 +173,7 @@ public abstract class AbstractWolfismHolidayWolf extends AbstractWolfismWolf {
 
         if (this.level() instanceof ServerLevel level) {
             this.spawnHolidayRecoveryParticles(level, false);
-            level.sendParticles(
+            WolfVfx.sendParticles(level,
                     ParticleTypes.POOF,
                     this.getX(), this.getY(0.45D), this.getZ(),
                     14, 0.55D, 0.25D, 0.55D, 0.02D);
@@ -143,8 +184,21 @@ public abstract class AbstractWolfismHolidayWolf extends AbstractWolfismWolf {
     public void tick() {
         super.tick();
 
-        if (!(this.level() instanceof ServerLevel level)
-                || !this.isHolidayRecovering()) {
+        if (!(this.level() instanceof ServerLevel level)) {
+            return;
+        }
+
+        // Seasonal wild wolves leave when their event ends. Permanent tames and
+        // explicit command/spawn-egg testing are the only individual exceptions.
+        if (!this.isTame()
+                && !this.holidayTestingSpawn
+                && this.tickCount % WILD_OUT_OF_SEASON_CHECK_INTERVAL == 0
+                && !this.isCurrentHolidaySeason(level)) {
+            this.discard();
+            return;
+        }
+
+        if (!this.isHolidayRecovering()) {
             return;
         }
 
@@ -169,7 +223,7 @@ public abstract class AbstractWolfismHolidayWolf extends AbstractWolfismWolf {
     private void finishHolidayRecovery(ServerLevel level) {
         this.entityData.set(DATA_HOLIDAY_RECOVERING, false);
         this.holidayRecoveryTicks = 0;
-        this.setNoAi(false);
+        this.setNoAi(this.restoreNoAiAfterRecovery);
         this.clearFire();
         this.removeAllEffects();
         this.setHealth(Math.max(1.0F, this.getMaxHealth() * 0.55F));
@@ -192,7 +246,7 @@ public abstract class AbstractWolfismHolidayWolf extends AbstractWolfismWolf {
 
         this.setOrderedToSit(this.restoreOrderedSitAfterRecovery);
         this.spawnHolidayRecoveryParticles(level, true);
-        level.sendParticles(
+        WolfVfx.sendParticles(level,
                 ParticleTypes.HAPPY_VILLAGER,
                 this.getX(), this.getY(0.55D), this.getZ(),
                 12, 0.55D, 0.35D, 0.55D, 0.02D);
@@ -219,6 +273,10 @@ public abstract class AbstractWolfismHolidayWolf extends AbstractWolfismWolf {
     }
 
     private boolean isSafeHolidayRecoveryPosition(ServerLevel level, BlockPos feet) {
+        if (!level.getWorldBorder().isWithinBounds(feet)
+                || level.getChunkSource().getChunkNow(feet.getX() >> 4, feet.getZ() >> 4) == null) {
+            return false;
+        }
         BlockPos head = feet.above();
         BlockPos floor = feet.below();
 
@@ -242,6 +300,8 @@ public abstract class AbstractWolfismHolidayWolf extends AbstractWolfismWolf {
         super.addAdditionalSaveData(output);
         output.putInt("HolidayRecoveryTicks", this.holidayRecoveryTicks);
         output.putBoolean("HolidayRestoreSit", this.restoreOrderedSitAfterRecovery);
+        output.putBoolean("HolidayRestoreNoAI", this.restoreNoAiAfterRecovery);
+        output.putBoolean("HolidayTestingSpawn", this.holidayTestingSpawn);
     }
 
     @Override
@@ -249,6 +309,11 @@ public abstract class AbstractWolfismHolidayWolf extends AbstractWolfismWolf {
         super.readAdditionalSaveData(input);
         this.holidayRecoveryTicks = Math.max(0, input.getIntOr("HolidayRecoveryTicks", 0));
         this.restoreOrderedSitAfterRecovery = input.getBooleanOr("HolidayRestoreSit", false);
+        this.restoreNoAiAfterRecovery = input.getBooleanOr("HolidayRestoreNoAI", false);
+        // Legacy saves have no provenance and remain seasonal. A fresh COMMAND
+        // creation takes precedence over copied NBT from a naturally spawned wolf.
+        this.holidayTestingSpawn = this.holidayTestingSpawn
+                || input.getBooleanOr("HolidayTestingSpawn", false);
         boolean recovering = this.holidayRecoveryTicks > 0;
         this.entityData.set(DATA_HOLIDAY_RECOVERING, recovering);
         if (recovering) {

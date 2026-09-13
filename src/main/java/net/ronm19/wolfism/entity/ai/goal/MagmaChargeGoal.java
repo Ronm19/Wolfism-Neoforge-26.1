@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.ai.goal;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.EnumSet;
 
 import net.minecraft.core.particles.ParticleTypes;
@@ -61,7 +63,7 @@ public final class MagmaChargeGoal extends Goal {
         this.wolf.getNavigation().stop();
 
         if (this.wolf.level() instanceof ServerLevel level && this.prepareTicks % 2 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles(level,
                     ParticleTypes.LAVA,
                     this.wolf.getX(),
                     this.wolf.getY() + 0.22D,

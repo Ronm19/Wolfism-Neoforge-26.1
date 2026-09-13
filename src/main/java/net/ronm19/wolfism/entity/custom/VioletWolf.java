@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.List;
@@ -178,11 +180,11 @@ public final class VioletWolf extends AbstractWolfismWolf {
         boolean hurt = super.doHurtTarget(entity);
         if (hurt && !this.isBaby() && entity instanceof LivingEntity target && this.random.nextFloat() < 0.30F) {
             target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20 * 4, 0), this);
-            level.sendParticles(
+            WolfVfx.sendParticles("violet_wolf", level,
                     ParticleTypes.WITCH,
                     target.getX(), target.getY(0.62D), target.getZ(),
                     14, 0.28D, 0.34D, 0.28D, 0.05D);
-            level.sendParticles(
+            WolfVfx.sendParticles("violet_wolf", level,
                     ParticleTypes.ENCHANTED_HIT,
                     target.getX(), target.getY(0.55D), target.getZ(),
                     9, 0.25D, 0.25D, 0.25D, 0.08D);
@@ -292,7 +294,7 @@ public final class VioletWolf extends AbstractWolfismWolf {
         this.setDeltaMovement(horizontal.x, 0.44D + Math.min(0.18D, Math.max(0.0D, toward.y * 0.08D)), horizontal.z);
         this.hurtMarked = true;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("violet_wolf", level,
                 ParticleTypes.WITCH,
                 this.getX(), this.getY(0.45D), this.getZ(),
                 24, 0.32D, 0.22D, 0.32D, 0.08D);
@@ -307,7 +309,7 @@ public final class VioletWolf extends AbstractWolfismWolf {
         }
 
         --this.gracefulLeapTicks;
-        level.sendParticles(
+        WolfVfx.sendParticles("violet_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.getX(), this.getY(0.45D), this.getZ(),
                 4, 0.18D, 0.16D, 0.18D, 0.01D);
@@ -332,7 +334,7 @@ public final class VioletWolf extends AbstractWolfismWolf {
                     Vec3 push = away.normalize().scale(0.35D);
                     target.push(push.x, 0.15D, push.z);
                 }
-                level.sendParticles(
+                WolfVfx.sendParticles("violet_wolf", level,
                         ParticleTypes.WITCH,
                         target.getX(), target.getY(0.55D), target.getZ(),
                         30, 0.35D, 0.42D, 0.35D, 0.04D);
@@ -390,7 +392,7 @@ public final class VioletWolf extends AbstractWolfismWolf {
         if (this.tickCount % AURA_PULSE_INTERVAL == 0) {
             for (LivingEntity family : this.findFamily(VIOLET_AURA_RADIUS)) {
                 family.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 40, 0, true, true), this);
-                level.sendParticles(
+                WolfVfx.sendParticles("violet_wolf", level,
                         ParticleTypes.ENCHANTED_HIT,
                         family.getX(), family.getY(0.55D), family.getZ(),
                         6, 0.22D, 0.28D, 0.22D, 0.04D);
@@ -425,6 +427,7 @@ public final class VioletWolf extends AbstractWolfismWolf {
         }
 
         this.setPackCooldown(ModMemoryModuleTypes.VIOLET_HOWL_COOLDOWN.get(), SHATTERING_HOWL_COOLDOWN_TICKS);
+        this.playSound(this.getWolfismHowlSound(), 1.25F, 1.0F);
         this.applyPackAbilityLockout(24);
 
         this.sendVioletRing(level, this.position(), 3.0D, 32, ParticleTypes.REVERSE_PORTAL);
@@ -508,7 +511,7 @@ public final class VioletWolf extends AbstractWolfismWolf {
                     candidate.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 35, 1, true, true), this);
                     candidate.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 35, 0, true, true), this);
                     candidate.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 45, 0, true, true), this);
-                    level.sendParticles(
+                    WolfVfx.sendParticles("violet_wolf", level,
                             ParticleTypes.ENCHANTED_HIT,
                             candidate.getX(), candidate.getY(0.55D), candidate.getZ(),
                             7, 0.24D, 0.30D, 0.24D, 0.04D);
@@ -675,7 +678,7 @@ public final class VioletWolf extends AbstractWolfismWolf {
             net.minecraft.core.particles.ParticleOptions particle) {
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
-            level.sendParticles(
+            WolfVfx.sendParticles("violet_wolf", level,
                     particle,
                     center.x + Math.cos(angle) * radius,
                     center.y + 0.16D,

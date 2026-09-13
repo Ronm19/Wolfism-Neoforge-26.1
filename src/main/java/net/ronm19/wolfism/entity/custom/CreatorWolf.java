@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -315,7 +317,7 @@ public final class CreatorWolf extends AbstractWolfismWolf {
                         if (!player.getAbilities().instabuild) stack.shrink(1);
 
                         if (this.level() instanceof ServerLevel level) {
-                            level.sendParticles(
+                            WolfVfx.sendParticles("creator_wolf", level,
                                     ParticleTypes.ENCHANT,
                                     this.getX(), this.getY(0.65D), this.getZ(),
                                     20, 0.55D, 0.42D, 0.55D, 0.04D);
@@ -345,7 +347,7 @@ public final class CreatorWolf extends AbstractWolfismWolf {
                         this.setHealth(this.getMaxHealth());
 
                         if (this.level() instanceof ServerLevel level) {
-                            level.sendParticles(
+                            WolfVfx.sendParticles("creator_wolf", level,
                                     ParticleTypes.END_ROD,
                                     this.getX(), this.getY(0.70D), this.getZ(),
                                     34, 0.75D, 0.55D, 0.75D, 0.055D);
@@ -426,11 +428,11 @@ public final class CreatorWolf extends AbstractWolfismWolf {
         if (!this.isTame() || !this.isOwnedBy(owner)) return;
 
         if (this.level() instanceof ServerLevel level) {
-            level.sendParticles(
+            WolfVfx.sendParticles("creator_wolf", level,
                     ParticleTypes.PORTAL,
                     this.getX(), this.getY(0.65D), this.getZ(),
                     38, 0.75D, 0.55D, 0.75D, 0.16D);
-            level.sendParticles(
+            WolfVfx.sendParticles("creator_wolf", level,
                     ParticleTypes.REVERSE_PORTAL,
                     this.getX(), this.getY(0.65D), this.getZ(),
                     18, 0.50D, 0.40D, 0.50D, 0.08D);
@@ -807,7 +809,7 @@ public final class CreatorWolf extends AbstractWolfismWolf {
             Vec3 evasive = lateral.add(reference.scale(0.34D));
             this.push(evasive.x, 0.14D, evasive.z);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("creator_wolf", level,
                     ParticleTypes.CLOUD,
                     this.getX(), this.getY(0.45D), this.getZ(),
                     4, 0.20D, 0.10D, 0.20D, 0.025D);
@@ -827,7 +829,7 @@ public final class CreatorWolf extends AbstractWolfismWolf {
                 && this.distanceToSqr(attacker) <= 4.0D * 4.0D) {
             instinctiveCounterCooldownTicks = 16;
             attacker.hurtServer(level, this.damageSources().mobAttack(this), 5.0F);
-            level.sendParticles(
+            WolfVfx.sendParticles("creator_wolf", level,
                     ParticleTypes.CRIT,
                     attacker.getX(), attacker.getY(0.55D), attacker.getZ(),
                     4, 0.20D, 0.16D, 0.20D, 0.04D);
@@ -893,7 +895,7 @@ public final class CreatorWolf extends AbstractWolfismWolf {
 
         if (best == null) return false;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("creator_wolf", level,
                 ParticleTypes.CLOUD,
                 this.getX(), this.getY(0.45D), this.getZ(),
                 7, 0.30D, 0.18D, 0.30D, 0.035D);
@@ -906,7 +908,7 @@ public final class CreatorWolf extends AbstractWolfismWolf {
         this.setDeltaMovement(Vec3.ZERO);
         this.hurtMarked = true;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("creator_wolf", level,
                 ParticleTypes.CLOUD,
                 this.getX(), this.getY(0.45D), this.getZ(),
                 7, 0.30D, 0.18D, 0.30D, 0.035D);
@@ -1002,11 +1004,11 @@ public final class CreatorWolf extends AbstractWolfismWolf {
 
         Vec3 start = this.getEyePosition().add(this.getLookAngle().scale(0.40D));
         Vec3 impact = target.position().add(0.0D, target.getBbHeight() * 0.55D, 0.0D);
-        level.sendParticles(
+        WolfVfx.sendParticles("creator_wolf", level,
                 ParticleTypes.END_ROD,
                 start.x, start.y, start.z,
                 7, 0.10D, 0.08D, 0.10D, 0.02D);
-        level.sendParticles(
+        WolfVfx.sendParticles("creator_wolf", level,
                 ParticleTypes.ELECTRIC_SPARK,
                 impact.x, impact.y, impact.z,
                 10, 0.28D, 0.25D, 0.28D, 0.055D);
@@ -1069,7 +1071,7 @@ public final class CreatorWolf extends AbstractWolfismWolf {
         touchCooldownTicks = TOUCH_COOLDOWN_TICKS;
         applySpecialistAmplification(candidate, TOUCH_DURATION_TICKS, false);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("creator_wolf", level,
                 ParticleTypes.ENCHANT,
                 candidate.getX(), candidate.getY(0.62D), candidate.getZ(),
                 20, 0.42D, 0.36D, 0.42D, 0.045D);
@@ -1186,7 +1188,7 @@ public final class CreatorWolf extends AbstractWolfismWolf {
             }
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("creator_wolf", level,
                 ParticleTypes.END_ROD,
                 endangered.getX(), endangered.getY(0.65D), endangered.getZ(),
                 22, 0.55D, 0.45D, 0.55D, 0.055D);
@@ -1244,7 +1246,7 @@ public final class CreatorWolf extends AbstractWolfismWolf {
         perfectInstinctCooldownTicks = PERFECT_INSTINCT_COOLDOWN_TICKS;
         refreshStateAttributes();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("creator_wolf", level,
                 ParticleTypes.ENCHANTED_HIT,
                 this.getX(), this.getY(0.60D), this.getZ(),
                 28, 0.70D, 0.35D, 0.70D, 0.06D);
@@ -1289,7 +1291,7 @@ public final class CreatorWolf extends AbstractWolfismWolf {
             if (wolf == this || wolf.isBaby()) continue;
             applySpecialistAmplification(wolf, CREATOR_WILL_DURATION_TICKS, true);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("creator_wolf", level,
                     ParticleTypes.END_ROD,
                     wolf.getX(), wolf.getY(0.62D), wolf.getZ(),
                     4, 0.30D, 0.24D, 0.30D, 0.035D);
@@ -1299,11 +1301,11 @@ public final class CreatorWolf extends AbstractWolfismWolf {
             runCreationsPresence(level, priority);
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("creator_wolf", level,
                 ParticleTypes.POOF,
                 this.getX(), this.getY(0.55D), this.getZ(),
                 18, 1.05D, 0.32D, 1.05D, 0.045D);
-        level.sendParticles(
+        WolfVfx.sendParticles("creator_wolf", level,
                 ParticleTypes.END_ROD,
                 this.getX(), this.getY(0.80D), this.getZ(),
                 12, 0.72D, 0.45D, 0.72D, 0.055D);
@@ -1377,11 +1379,11 @@ public final class CreatorWolf extends AbstractWolfismWolf {
         this.setSprinting(false);
         clearStateAttributes();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("creator_wolf", level,
                 ParticleTypes.POOF,
                 this.getX(), this.getY(0.50D), this.getZ(),
                 32, 0.72D, 0.34D, 0.72D, 0.05D);
-        level.sendParticles(
+        WolfVfx.sendParticles("creator_wolf", level,
                 ParticleTypes.END_ROD,
                 this.getX(), this.getY(0.72D), this.getZ(),
                 24, 0.50D, 0.42D, 0.50D, 0.04D);
@@ -1396,7 +1398,7 @@ public final class CreatorWolf extends AbstractWolfismWolf {
         this.setDeltaMovement(0.0D, motion.y, 0.0D);
 
         if (this.tickCount % 10 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("creator_wolf", level,
                     ParticleTypes.END_ROD,
                     this.getX(), this.getY(0.55D), this.getZ(),
                     8, 0.32D, 0.30D, 0.32D, 0.025D);
@@ -1410,7 +1412,7 @@ public final class CreatorWolf extends AbstractWolfismWolf {
         this.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 20 * 4, 2, true, true), this);
         this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 5, 1, true, true), this);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("creator_wolf", level,
                 ParticleTypes.END_ROD,
                 this.getX(), this.getY(0.70D), this.getZ(),
                 36, 0.70D, 0.52D, 0.70D, 0.065D);

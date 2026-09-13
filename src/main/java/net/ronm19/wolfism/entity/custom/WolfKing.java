@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -420,8 +422,8 @@ public final class WolfKing extends AbstractWolfismWolf {
         this.kingsPresenceRecipients.clear();
         this.kingsPresenceRecipients.putAll(current);
 
-        if (!current.isEmpty() && this.tickCount % 20 == 0) {
-            level.sendParticles(
+        if (!current.isEmpty() && this.isWolfismWorkTick(20)) {
+            WolfVfx.sendParticles("wolf_king", level,
                     ParticleTypes.END_ROD,
                     this.getX(),
                     this.getY() + 0.55D,
@@ -634,8 +636,8 @@ public final class WolfKing extends AbstractWolfismWolf {
                 COMMANDING_HOWL_COOLDOWN_TICKS);
 
         /*
-         * One registered SoundEvent owns all three recordings. Datagen decides
-         * which howl_1/howl_2/howl_3 file plays; gameplay never chooses a file.
+         * The species howl event owns the combined recording. Gameplay retains
+         * this commanding howl's timing and volume without layering other mobs.
          */
         this.playSound(
                 ModSounds.WOLF_KING_HOWL.value(),
@@ -676,7 +678,7 @@ public final class WolfKing extends AbstractWolfismWolf {
         this.coordinatePackTarget(level, priority, false);
         this.sendRoyalRing(level, this.position(), COMMANDING_HOWL_RADIUS, 56, ParticleTypes.ENCHANTED_HIT);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("wolf_king", level,
                 ParticleTypes.END_ROD,
                 this.getX(),
                 this.getY() + 1.0D,
@@ -1084,7 +1086,7 @@ public final class WolfKing extends AbstractWolfismWolf {
              * Formation stabilization is intentionally conservative: never
              * override sitting wolves or wolves already handling a combat target.
              */
-            if (this.tickCount % 10 == 0
+            if (this.isWolfismWorkTick(10)
                     && ally != this
                     && !ally.isOrderedToSit()
                     && !ally.isInSittingPose()
@@ -1106,8 +1108,8 @@ public final class WolfKing extends AbstractWolfismWolf {
         this.ironWillRecipients.clear();
         this.ironWillRecipients.putAll(current);
 
-        if (this.tickCount % 20 == 0) {
-            level.sendParticles(
+        if (this.isWolfismWorkTick(20)) {
+            WolfVfx.sendParticles("wolf_king", level,
                     ParticleTypes.ENCHANTED_HIT,
                     this.getX(),
                     this.getY() + 0.45D,
@@ -1232,7 +1234,7 @@ public final class WolfKing extends AbstractWolfismWolf {
 
         this.faceDirection(this.leadershipDashDirection);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("wolf_king", level,
                 ParticleTypes.END_ROD,
                 this.getX() - this.leadershipDashDirection.x * 0.45D,
                 this.getY() + 0.32D,
@@ -1261,10 +1263,10 @@ public final class WolfKing extends AbstractWolfismWolf {
             return;
         }
 
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
             this.coordinatePackTarget(level, marked, true);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("wolf_king", level,
                     ParticleTypes.ENCHANTED_HIT,
                     marked.getX(),
                     marked.getY() + marked.getBbHeight() * 0.65D,
@@ -1617,7 +1619,7 @@ public final class WolfKing extends AbstractWolfismWolf {
             double x = center.x + Math.cos(angle) * radius;
             double z = center.z + Math.sin(angle) * radius;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("wolf_king", level,
                     particle,
                     x,
                     center.y + 0.10D,

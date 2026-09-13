@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Objects;
@@ -199,11 +201,11 @@ public final class SkeletonWolf extends AbstractWolfismWolf {
                         0),
                         this);
             }
-            level.sendParticles(
+            WolfVfx.sendParticles("skeleton_wolf", level,
                     ParticleTypes.CRIT,
                     target.getX(), target.getY(0.55D), target.getZ(),
                     14, 0.24D, 0.28D, 0.24D, 0.12D);
-            level.sendParticles(
+            WolfVfx.sendParticles("skeleton_wolf", level,
                     ParticleTypes.POOF,
                     target.getX(), target.getY(0.45D), target.getZ(),
                     5, 0.18D, 0.18D, 0.18D, 0.02D);
@@ -251,12 +253,12 @@ public final class SkeletonWolf extends AbstractWolfismWolf {
         }
         this.getNavigation().stop();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("skeleton_wolf", level,
                 ParticleTypes.POOF,
                 this.getX(), this.getY(0.55D), this.getZ(),
                 26, 0.45D, 0.38D, 0.45D, 0.10D);
         this.sendRing(level, this.position(), 1.35D, 22, ParticleTypes.CRIT);
-        this.playSound(SoundEvents.SKELETON_AMBIENT, 1.0F, 0.75F);
+        this.playSound(this.getWolfismGrowlSound(), 1.0F, 0.75F);
         return true;
     }
 
@@ -284,7 +286,7 @@ public final class SkeletonWolf extends AbstractWolfismWolf {
         this.volleyShotDelayTicks = 0;
         this.abilityLockoutTicks = 16;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("skeleton_wolf", level,
                 ParticleTypes.CLOUD,
                 this.getX(), this.getY(0.62D), this.getZ(),
                 9, 0.22D, 0.20D, 0.22D, 0.03D);
@@ -335,12 +337,12 @@ public final class SkeletonWolf extends AbstractWolfismWolf {
                 MARROW_GUARD_COOLDOWN_TICKS);
         this.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, MARROW_GUARD_DURATION, 1, true, true), this);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("skeleton_wolf", level,
                 ParticleTypes.CLOUD,
                 this.getX(), this.getY(0.55D), this.getZ(),
                 22, 0.38D, 0.42D, 0.38D, 0.035D);
         this.sendRing(level, this.position(), 1.65D, 28, ParticleTypes.POOF);
-        this.playSound(SoundEvents.SKELETON_HURT, 0.85F, 0.70F);
+        this.playSound(this.getWolfismGrowlSound(), 0.85F, 0.70F);
         return true;
     }
 
@@ -366,7 +368,7 @@ public final class SkeletonWolf extends AbstractWolfismWolf {
         shard.shoot(dx, dy, dz, velocity, inaccuracy);
         level.addFreshEntity(shard);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("skeleton_wolf", level,
                 ParticleTypes.CRIT,
                 this.getX(), this.getY(0.70D), this.getZ(),
                 4, 0.08D, 0.08D, 0.08D, 0.03D);
@@ -495,7 +497,7 @@ public final class SkeletonWolf extends AbstractWolfismWolf {
             ParticleOptions particle) {
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
-            level.sendParticles(
+            WolfVfx.sendParticles("skeleton_wolf", level,
                     particle,
                     center.x + Math.cos(angle) * radius,
                     center.y + 0.18D,

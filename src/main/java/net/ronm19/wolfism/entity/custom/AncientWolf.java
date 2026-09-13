@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -335,7 +337,7 @@ public final class AncientWolf extends AbstractWolfismWolf {
             return;
         }
 
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
 
             tickAncestralGuidance(level);
             tickAncientEndurance(level);
@@ -664,7 +666,7 @@ public final class AncientWolf extends AbstractWolfismWolf {
                         .mobAttack(this),
                 threatBonus);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("ancient_wolf", level,
                 ParticleTypes.CRIT,
                 living.getX(),
                 living.getY()
@@ -820,7 +822,7 @@ public final class AncientWolf extends AbstractWolfismWolf {
         adaptationTicks =
                 ADAPTATION_DURATION_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("ancient_wolf", level,
                 ParticleTypes.ENCHANTED_HIT,
                 this.getX(),
                 this.getY() + 0.55D,
@@ -1214,8 +1216,9 @@ public final class AncientWolf extends AbstractWolfismWolf {
                 ANCESTRAL_HOWL_COOLDOWN_TICKS;
 
         applyHowlFamilyEffects(level);
+        this.playSound(this.getWolfismHowlSound(), 1.5F, 1.0F);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("ancient_wolf", level,
                 ParticleTypes.POOF,
                 this.getX(),
                 this.getY() + 0.55D,
@@ -1226,7 +1229,7 @@ public final class AncientWolf extends AbstractWolfismWolf {
                 1.10D,
                 0.055D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("ancient_wolf", level,
                 ParticleTypes.ENCHANTED_HIT,
                 this.getX(),
                 this.getY() + 0.70D,
@@ -1396,7 +1399,7 @@ public final class AncientWolf extends AbstractWolfismWolf {
 
         applyEchoesFamilyEffects(level);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("ancient_wolf", level,
                 ParticleTypes.ENCHANTED_HIT,
                 this.getX(),
                 this.getY() + 0.65D,
@@ -1407,7 +1410,7 @@ public final class AncientWolf extends AbstractWolfismWolf {
                 2.0D,
                 0.075D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("ancient_wolf", level,
                 ParticleTypes.POOF,
                 this.getX(),
                 this.getY() + 0.40D,
@@ -1449,7 +1452,7 @@ public final class AncientWolf extends AbstractWolfismWolf {
 
         if (echoesTicks % 20 == 0) {
 
-            level.sendParticles(
+            WolfVfx.sendParticles("ancient_wolf", level,
                     ParticleTypes.ENCHANTED_HIT,
                     this.getX(),
                     this.getY() + 0.55D,

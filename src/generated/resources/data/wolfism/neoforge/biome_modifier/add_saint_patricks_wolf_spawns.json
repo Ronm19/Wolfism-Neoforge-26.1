@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/saint_patricks_wolf",
+  "spawners": {
+    "type": "wolfism:saint_patricks_wolf",
+    "maxCount": 3,
+    "minCount": 1,
+    "weight": 16
+  }
+}

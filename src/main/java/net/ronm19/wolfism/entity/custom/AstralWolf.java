@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -443,11 +445,11 @@ public final class AstralWolf extends AbstractWolfismWolf {
                 55.0F,
                 40.0F);
 
-        if (this.tickCount % 10 != 0) {
+        if (!this.isWolfismWorkTick(10)) {
             return;
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("astral_wolf", level,
                 ParticleTypes.END_ROD,
                 this.getX(),
                 this.getY() + 0.72D,
@@ -582,7 +584,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
                 CELESTIAL_PROJECTILE_COOLDOWN_TICKS;
 
         // Bright launch flash so this ability is obvious during testing.
-        level.sendParticles(
+        WolfVfx.sendParticles("astral_wolf", level,
                 ParticleTypes.END_ROD,
                 this.celestialBolt.position.x,
                 this.celestialBolt.position.y,
@@ -656,7 +658,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
             }
 
             // Distinct star-burst on impact.
-            level.sendParticles(
+            WolfVfx.sendParticles("astral_wolf", level,
                     ParticleTypes.END_ROD,
                     target.getX(),
                     target.getY()
@@ -686,7 +688,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
 
         ++this.celestialBolt.ticks;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("astral_wolf", level,
                 ParticleTypes.END_ROD,
                 this.celestialBolt.position.x,
                 this.celestialBolt.position.y,
@@ -695,7 +697,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
                 0.06D, 0.06D, 0.06D,
                 0.0D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("astral_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.celestialBolt.position.x,
                 this.celestialBolt.position.y,
@@ -741,7 +743,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
                 CELESTIAL_AREA_DURATION_TICKS;
 
         // Strong central burst = Celestial Area has activated.
-        level.sendParticles(
+        WolfVfx.sendParticles("astral_wolf", level,
                 ParticleTypes.END_ROD,
                 this.getX(),
                 this.getY() + 0.65D,
@@ -750,7 +752,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
                 1.35D, 0.55D, 1.35D,
                 0.055D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("astral_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.getX(),
                 this.getY() + 0.55D,
@@ -812,7 +814,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
                             + this.random.nextDouble()
                             * 2.0D;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("astral_wolf", level,
                     ParticleTypes.END_ROD,
                     x,
                     y,
@@ -1015,7 +1017,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
                                 horizontal.scale(
                                         i * 0.72D));
 
-                level.sendParticles(
+                WolfVfx.sendParticles("astral_wolf", level,
                         ParticleTypes.END_ROD,
                         point.x,
                         point.y,
@@ -1070,7 +1072,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
                     (Math.PI * 2.0D * i)
                             / 12.0D;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("astral_wolf", level,
                     ParticleTypes.END_ROD,
                     centerX
                             + Math.cos(angle)
@@ -1086,7 +1088,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
 
         // Small celestial "beacon" at the exact center.
         for (int i = 0; i < 4; ++i) {
-            level.sendParticles(
+            WolfVfx.sendParticles("astral_wolf", level,
                     ParticleTypes.END_ROD,
                     centerX,
                     centerY + 0.45D + i * 0.42D,
@@ -1096,7 +1098,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
                     0.0D);
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("astral_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 centerX,
                 centerY + 0.10D,
@@ -1165,7 +1167,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
                 this.starlightActive != active;
 
         if (!changed
-                && this.tickCount % 20 != 0) {
+                && !this.isWolfismWorkTick(20)) {
             return;
         }
 
@@ -1201,7 +1203,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
 
             if (changed) {
                 // One clear "stars switched on" burst.
-                level.sendParticles(
+                WolfVfx.sendParticles("astral_wolf", level,
                         ParticleTypes.END_ROD,
                         this.getX(),
                         this.getY() + 0.65D,
@@ -1209,9 +1211,9 @@ public final class AstralWolf extends AbstractWolfismWolf {
                         18,
                         0.55D, 0.45D, 0.55D,
                         0.025D);
-            } else if (this.tickCount % 20 == 0) {
+            } else if (this.isWolfismWorkTick(20)) {
                 // Then remain intentionally subtle.
-                level.sendParticles(
+                WolfVfx.sendParticles("astral_wolf", level,
                         ParticleTypes.END_ROD,
                         this.getX(),
                         this.getY() + 0.55D,
@@ -1307,7 +1309,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
          * Large activation burst: Convergence should be visually impossible
          * to confuse with ordinary Awareness or Starlight particles.
          */
-        level.sendParticles(
+        WolfVfx.sendParticles("astral_wolf", level,
                 ParticleTypes.END_ROD,
                 this.getX(),
                 this.getY() + 0.75D,
@@ -1316,7 +1318,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
                 1.80D, 0.80D, 1.80D,
                 0.075D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("astral_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.getX(),
                 this.getY() + 0.60D,
@@ -1344,7 +1346,7 @@ public final class AstralWolf extends AbstractWolfismWolf {
         }
 
         if (this.tickCount % 5 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("astral_wolf", level,
                     ParticleTypes.END_ROD,
                     this.getX(),
                     this.getY() + 0.50D,

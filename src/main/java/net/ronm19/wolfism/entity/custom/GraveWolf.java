@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.Comparator;
 import java.util.List;
@@ -394,7 +396,7 @@ public final class GraveWolf extends AbstractWolfismWolf {
                 fallen.getBbHeight() * 0.55D,
                 0.0D));
 
-        level.sendParticles(
+        WolfVfx.sendParticles("grave_wolf", level,
                 ParticleTypes.SOUL_FIRE_FLAME,
                 this.getX(),
                 this.getY(0.65D),
@@ -416,7 +418,7 @@ public final class GraveWolf extends AbstractWolfismWolf {
 
         for (int i = 1; i <= 9; ++i) {
             double t = i / 10.0D;
-            level.sendParticles(
+            WolfVfx.sendParticles("grave_wolf", level,
                     ParticleTypes.REVERSE_PORTAL,
                     Mth.lerp(t, origin.x, destination.x),
                     Mth.lerp(t, origin.y, destination.y),
@@ -654,7 +656,7 @@ public final class GraveWolf extends AbstractWolfismWolf {
                 0.70F,
                 0.72F + this.random.nextFloat() * 0.08F);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("grave_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 origin.x,
                 origin.y + 0.45D,
@@ -665,7 +667,7 @@ public final class GraveWolf extends AbstractWolfismWolf {
                 0.30D,
                 0.045D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("grave_wolf", level,
                 ParticleTypes.SOUL_FIRE_FLAME,
                 destination.x,
                 destination.y + 0.45D,
@@ -736,7 +738,7 @@ public final class GraveWolf extends AbstractWolfismWolf {
                 ParticleTypes.REVERSE_PORTAL);
 
         this.playSound(
-                SoundEvents.WITHER_AMBIENT,
+                this.getWolfismHowlSound(),
                 0.55F,
                 0.62F);
 
@@ -798,7 +800,7 @@ public final class GraveWolf extends AbstractWolfismWolf {
                                 true),
                         this);
 
-                level.sendParticles(
+                WolfVfx.sendParticles("grave_wolf", level,
                         ParticleTypes.SOUL_FIRE_FLAME,
                         target.getX(),
                         target.getY(0.35D),
@@ -840,7 +842,7 @@ public final class GraveWolf extends AbstractWolfismWolf {
         for (int i = 0; i < points; ++i) {
             double angle = Math.PI * 2.0D * i / points;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("grave_wolf", level,
                     particle,
                     center.x + Math.cos(angle) * radius,
                     center.y + 0.12D,
@@ -896,7 +898,9 @@ public final class GraveWolf extends AbstractWolfismWolf {
                 1.0F,
                 familyMember.getMaxHealth() * 0.20F);
 
-        familyMember.setHealth(rescueHealth);
+        // Incoming damage is inspected before armor/resistance. A rescue is
+        // always a health floor, never a penalty for an already healthy ally.
+        familyMember.setHealth(Math.max(familyMember.getHealth(), rescueHealth));
 
         familyMember.addEffect(
                 new MobEffectInstance(
@@ -936,7 +940,7 @@ public final class GraveWolf extends AbstractWolfismWolf {
 
         for (int i = 0; i < 16; ++i) {
             double t = i / 15.0D;
-            level.sendParticles(
+            WolfVfx.sendParticles("grave_wolf", level,
                     ParticleTypes.REVERSE_PORTAL,
                     Mth.lerp(t, graveCenter.x, familyCenter.x),
                     Mth.lerp(t, graveCenter.y, familyCenter.y),
@@ -948,18 +952,9 @@ public final class GraveWolf extends AbstractWolfismWolf {
                     0.0D);
         }
 
-        level.sendParticles(
-                ParticleTypes.SOUL_FIRE_FLAME,
-                familyMember.getX(),
-                familyMember.getY(0.55D),
-                familyMember.getZ(),
-                34,
-                0.55D,
-                0.60D,
-                0.55D,
-                0.045D);
+        WolfVfx.emergency(this, familyMember);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("grave_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.getX(),
                 this.getY(0.55D),
@@ -1016,8 +1011,9 @@ public final class GraveWolf extends AbstractWolfismWolf {
             return false;
         }
 
-        if (!level.getBlockState(pos).isAir()
-                || !level.getBlockState(pos.above()).isAir()) {
+        // Forest plants can occupy these blocks without obstructing a wolf.
+        if (!level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()
+                || !level.getBlockState(pos.above()).getCollisionShape(level, pos.above()).isEmpty()) {
             return false;
         }
 

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -317,7 +319,7 @@ public final class OmenWolf extends AbstractWolfismWolf {
 
         // The small violet warning around Omen is the owner's visual cue that
         // she has noticed something before ordinary combat begins.
-        level.sendParticles(
+        WolfVfx.sendParticles("omen_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.getX(),
                 this.getY() + 0.72D,
@@ -334,7 +336,7 @@ public final class OmenWolf extends AbstractWolfismWolf {
                 && owner.isAlive()
                 && this.distanceToSqr(owner)
                         <= PREMONITION_FAMILY_RADIUS * PREMONITION_FAMILY_RADIUS) {
-            level.sendParticles(
+            WolfVfx.sendParticles("omen_wolf", level,
                     ParticleTypes.WITCH,
                     owner.getX(),
                     owner.getY() + owner.getBbHeight() * 0.8D,
@@ -466,7 +468,7 @@ public final class OmenWolf extends AbstractWolfismWolf {
                 this.misfortuneSeverity,
                 MISFORTUNE_DURATION_TICKS);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("omen_wolf", level,
                 ParticleTypes.WITCH,
                 target.getX(),
                 target.getY() + target.getBbHeight() * 0.70D,
@@ -475,7 +477,7 @@ public final class OmenWolf extends AbstractWolfismWolf {
                 0.28D, 0.32D, 0.28D,
                 0.03D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("omen_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 target.getX(),
                 target.getY() + target.getBbHeight() * 0.55D,
@@ -500,8 +502,8 @@ public final class OmenWolf extends AbstractWolfismWolf {
 
         --this.misfortuneTicks;
 
-        if (this.tickCount % 10 == 0) {
-            level.sendParticles(
+        if (this.isWolfismWorkTick(10)) {
+            WolfVfx.sendParticles("omen_wolf", level,
                     ParticleTypes.WITCH,
                     target.getX(),
                     target.getY() + target.getBbHeight() * 0.72D,
@@ -594,7 +596,7 @@ public final class OmenWolf extends AbstractWolfismWolf {
         this.premonitionTicks = PREMONITION_DURATION_TICKS;
         this.abilityLockoutTicks = 20;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("omen_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.getX(),
                 this.getY() + 0.65D,
@@ -728,7 +730,7 @@ public final class OmenWolf extends AbstractWolfismWolf {
         }
 
         if (this.tickCount % PRESENCE_PARTICLE_INTERVAL == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("omen_wolf", level,
                     ParticleTypes.WITCH,
                     this.getX(),
                     this.getY() + 0.50D,
@@ -737,7 +739,7 @@ public final class OmenWolf extends AbstractWolfismWolf {
                     0.80D, 0.30D, 0.80D,
                     0.025D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("omen_wolf", level,
                     ParticleTypes.REVERSE_PORTAL,
                     this.getX(),
                     this.getY() + 0.78D,
@@ -791,7 +793,7 @@ public final class OmenWolf extends AbstractWolfismWolf {
         this.badOmenCooldownTicks = BAD_OMEN_COOLDOWN_TICKS;
         this.abilityLockoutTicks = 20;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("omen_wolf", level,
                 ParticleTypes.WITCH,
                 this.getX(),
                 this.getY() + 0.45D,
@@ -802,7 +804,7 @@ public final class OmenWolf extends AbstractWolfismWolf {
                 BAD_OMEN_RADIUS * 0.30D,
                 0.04D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("omen_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.getX(),
                 this.getY() + 0.55D,
@@ -927,7 +929,7 @@ public final class OmenWolf extends AbstractWolfismWolf {
 
         this.abilityLockoutTicks = 30;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("omen_wolf", level,
                 ParticleTypes.REVERSE_PORTAL,
                 this.getX(),
                 this.getY() + 0.70D,
@@ -936,7 +938,7 @@ public final class OmenWolf extends AbstractWolfismWolf {
                 1.10D, 0.55D, 1.10D,
                 0.045D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("omen_wolf", level,
                 ParticleTypes.WITCH,
                 this.getX(),
                 this.getY() + 0.45D,
@@ -1084,7 +1086,7 @@ public final class OmenWolf extends AbstractWolfismWolf {
             double radius,
             boolean harbinger) {
 
-        level.sendParticles(
+        WolfVfx.sendParticles("omen_wolf", level,
                 harbinger
                         ? ParticleTypes.WITCH
                         : ParticleTypes.REVERSE_PORTAL,

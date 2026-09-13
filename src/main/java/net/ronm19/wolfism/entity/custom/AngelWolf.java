@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -41,6 +43,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -958,7 +962,7 @@ public final class AngelWolf extends AbstractWolfismWolf implements FlyingAnimal
             member.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 20 * 8, 0), this);
             member.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 20 * 5, 0), this);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("angel_wolf", level,
                     ParticleTypes.END_ROD,
                     member.getX(),
                     member.getY() + member.getBbHeight() * 0.60D,
@@ -968,7 +972,7 @@ public final class AngelWolf extends AbstractWolfismWolf implements FlyingAnimal
                     0.02D);
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("angel_wolf", level,
                 ParticleTypes.HAPPY_VILLAGER,
                 this.getX(), this.getY(0.70D), this.getZ(),
                 18, 0.70D, 0.45D, 0.70D, 0.04D);
@@ -1026,7 +1030,7 @@ public final class AngelWolf extends AbstractWolfismWolf implements FlyingAnimal
                 target.hurtServer(level, this.damageSources().mobAttack(this), 1000.0F);
             }
 
-            level.sendParticles(
+            WolfVfx.sendParticles("angel_wolf", level,
                     ParticleTypes.END_ROD,
                     target.getX(), target.getY(0.60D), target.getZ(),
                     elite ? 34 : 24,
@@ -1035,7 +1039,7 @@ public final class AngelWolf extends AbstractWolfismWolf implements FlyingAnimal
         }
 
         // One clear central flash makes the crowd-control cast readable.
-        level.sendParticles(
+        WolfVfx.sendParticles("angel_wolf", level,
                 ColorParticleOption.create(ParticleTypes.FLASH, 0xFFE6A3),
                 anchor.getX(), anchor.getY(0.65D), anchor.getZ(),
                 1, 0.0D, 0.0D, 0.0D, 0.0D);
@@ -1102,7 +1106,7 @@ public final class AngelWolf extends AbstractWolfismWolf implements FlyingAnimal
             target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 10, 1), this);
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("angel_wolf", level,
                 ParticleTypes.END_ROD,
                 target.getX(), target.getY(0.55D), target.getZ(),
                 undead ? 10 : 5,
@@ -1160,7 +1164,7 @@ public final class AngelWolf extends AbstractWolfismWolf implements FlyingAnimal
                     bonemealable.performBonemeal(level, this.random, pos, state);
                     ++grown;
 
-                    level.sendParticles(
+                    WolfVfx.sendParticles("angel_wolf", level,
                             ParticleTypes.HAPPY_VILLAGER,
                             pos.getX() + 0.5D,
                             pos.getY() + 0.75D,
@@ -1177,7 +1181,7 @@ public final class AngelWolf extends AbstractWolfismWolf implements FlyingAnimal
         }
 
         if (grown > 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("angel_wolf", level,
                     ParticleTypes.END_ROD,
                     this.getX(), this.getY(0.65D), this.getZ(),
                     16, 0.80D, 0.35D, 0.80D, 0.025D);
@@ -1195,7 +1199,7 @@ public final class AngelWolf extends AbstractWolfismWolf implements FlyingAnimal
             // Tuned down from the first pass so ranged attacks are still a
             // meaningful threat and the behavior is easier to read in testing.
             if (this.isAngelFlying() && this.random.nextFloat() < 0.20F) {
-                level.sendParticles(
+                WolfVfx.sendParticles("angel_wolf", level,
                         ParticleTypes.CLOUD,
                         this.getX(), this.getY(0.60D), this.getZ(),
                         8, 0.28D, 0.20D, 0.28D, 0.03D);
@@ -1214,6 +1218,22 @@ public final class AngelWolf extends AbstractWolfismWolf implements FlyingAnimal
             return false;
         }
         return super.canAttack(target);
+    }
+
+    @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putInt("AngelBlessingCooldown", this.blessingCooldownTicks);
+        output.putInt("AngelBanishmentCooldown", this.banishmentCooldownTicks);
+        output.putInt("AngelCropBlessingCooldown", this.cropBlessingCooldownTicks);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.blessingCooldownTicks = Mth.clamp(input.getIntOr("AngelBlessingCooldown", 0), 0, MAX_BLESSING_COOLDOWN_TICKS);
+        this.banishmentCooldownTicks = Mth.clamp(input.getIntOr("AngelBanishmentCooldown", 0), 0, BANISHMENT_COOLDOWN_TICKS);
+        this.cropBlessingCooldownTicks = Mth.clamp(input.getIntOr("AngelCropBlessingCooldown", 0), 0, CROP_BLESSING_COOLDOWN_TICKS);
     }
 
     // ---------------------------------------------------------------------
@@ -1239,7 +1259,7 @@ public final class AngelWolf extends AbstractWolfismWolf implements FlyingAnimal
         }
 
         if (!level.getLevel().isBrightOutside()
-                || !level.getLevel().canSeeSky(pos.above())
+                || !level.canSeeSky(pos.above())
                 || !isBrightEnoughToSpawn(level, pos)) {
             return false;
         }

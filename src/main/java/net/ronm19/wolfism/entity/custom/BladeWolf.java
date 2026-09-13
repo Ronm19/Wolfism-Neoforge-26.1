@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -659,7 +661,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                         .mobAttack(this),
                 bonus);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.CRIT,
                 living.getX(),
                 living.getY()
@@ -723,7 +725,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                     ENHANCED_SWEEP_DAMAGE);
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.SWEEP_ATTACK,
                 primary.getX(),
                 primary.getY()
@@ -761,7 +763,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
 
         applySwordEnhancementEffects();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.SWEEP_ATTACK,
                 this.getX(),
                 this.getY() + 0.55D,
@@ -772,7 +774,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                 0.70D,
                 0.02D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.CRIT,
                 this.getX(),
                 this.getY() + 0.55D,
@@ -802,7 +804,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
 
         if (swordEnhancementTicks % 20 == 0) {
 
-            level.sendParticles(
+            WolfVfx.sendParticles("blade_wolf", level,
                     ParticleTypes.CRIT,
                     this.getX(),
                     this.getY() + 0.48D,
@@ -877,7 +879,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
 
         applyBladeCharmEffects(level);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.ENCHANTED_HIT,
                 this.getX(),
                 this.getY() + 0.60D,
@@ -976,7 +978,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
         this.getNavigation().stop();
         this.setSprinting(true);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.SWEEP_ATTACK,
                 this.getX(),
                 this.getY() + 0.45D,
@@ -1108,7 +1110,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
             return;
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.CRIT,
                 this.getX(),
                 this.getY() + 0.35D,
@@ -1152,7 +1154,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                 dx,
                 dz);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.SWEEP_ATTACK,
                 target.getX(),
                 target.getY()
@@ -1165,7 +1167,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                 0.50D,
                 0.02D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.CRIT,
                 target.getX(),
                 target.getY()
@@ -1273,7 +1275,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                     i);
         }
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.ENCHANTED_HIT,
                 this.getX(),
                 this.getY() + 0.72D,
@@ -1510,7 +1512,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
 
         rainNextBarrageTicks = 0;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.SWEEP_ATTACK,
                 this.getX(),
                 this.getY() + 0.65D,
@@ -1521,7 +1523,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                 1.25D,
                 0.035D);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.ENCHANTED_HIT,
                 this.getX(),
                 this.getY() + 0.75D,
@@ -1562,7 +1564,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
 
         if (rainOfSwordsTicks % 20 == 0) {
 
-            level.sendParticles(
+            WolfVfx.sendParticles("blade_wolf", level,
                     ParticleTypes.CRIT,
                     this.getX(),
                     this.getY() + 0.55D,
@@ -1682,7 +1684,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                         SwordMode.RAIN_FALL,
                         target.getId()));
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blade_wolf", level,
                 ParticleTypes.CRIT,
                 start.x,
                 start.y,
@@ -1919,7 +1921,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                 + state.orbitIndex * 3)
                 % 12 == 0) {
 
-            level.sendParticles(
+            WolfVfx.sendParticles("blade_wolf", level,
                     ParticleTypes.ENCHANTED_HIT,
                     desired.x,
                     desired.y,
@@ -2000,7 +2002,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                     dx,
                     dz);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("blade_wolf", level,
                     ParticleTypes.SWEEP_ATTACK,
                     target.getX(),
                     target.getY()
@@ -2013,7 +2015,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                     0.20D,
                     0.01D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("blade_wolf", level,
                     ParticleTypes.CRIT,
                     target.getX(),
                     target.getY()
@@ -2218,7 +2220,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                             .mobAttack(this),
                     RAIN_SWORD_DAMAGE);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("blade_wolf", level,
                     ParticleTypes.SWEEP_ATTACK,
                     target.getX(),
                     target.getY()
@@ -2231,7 +2233,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
                     0.32D,
                     0.01D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("blade_wolf", level,
                     ParticleTypes.CRIT,
                     target.getX(),
                     target.getY()
@@ -2325,7 +2327,7 @@ public final class BladeWolf extends AbstractWolfismWolf {
          */
         if (state.age % 2 == 0) {
 
-            level.sendParticles(
+            WolfVfx.sendParticles("blade_wolf", level,
                     ParticleTypes.CRIT,
                     carrier.getX(),
                     carrier.getY()

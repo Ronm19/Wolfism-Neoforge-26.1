@@ -1,5 +1,8 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+import net.neoforged.neoforge.event.EventHooks;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -305,7 +308,7 @@ public final class WitherWolf extends AbstractWolfismWolf {
 
         tickWitherDecisionBrain(level);
 
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
             pulseWitheringArea(level);
         }
 
@@ -421,12 +424,12 @@ public final class WitherWolf extends AbstractWolfismWolf {
                     && this.getSensing().hasLineOfSight(quarry)) {
                 tryFireWitheringVolley(level, List.of(quarry), true);
 
-                if (this.tickCount % 20 == 0) {
+                if (this.isWolfismWorkTick(20)) {
                     quarry.hurtServer(
                             level,
                             this.damageSources().mobAttack(this),
                             ANTI_WITHER_PRESSURE_DAMAGE);
-                    level.sendParticles(
+                    WolfVfx.sendParticles("wither_wolf", level,
                             ParticleTypes.SOUL,
                             quarry.getX(), quarry.getY(0.62D), quarry.getZ(),
                             5, 0.32D, 0.32D, 0.32D, 0.015D);
@@ -647,13 +650,13 @@ public final class WitherWolf extends AbstractWolfismWolf {
         skull.setPos(muzzle.x, muzzle.y, muzzle.z);
         level.addFreshEntity(skull);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("wither_wolf", level,
                 ParticleTypes.SMOKE,
                 muzzle.x, muzzle.y, muzzle.z,
                 witherRageTicks > 0 ? 9 : 5,
                 0.12D, 0.10D, 0.12D,
                 0.018D);
-        level.sendParticles(
+        WolfVfx.sendParticles("wither_wolf", level,
                 ParticleTypes.SOUL,
                 muzzle.x, muzzle.y, muzzle.z,
                 witherHeartTicks > 0 || witherRageTicks > 0 ? 6 : 2,
@@ -756,7 +759,8 @@ public final class WitherWolf extends AbstractWolfismWolf {
     // ---------------------------------------------------------------------
 
     private void tryPlaceWitherRose(ServerLevel level, LivingEntity hostile) {
-        if (roseInternalCooldownTicks > 0
+        if (!EventHooks.canEntityGrief(level, this)
+                || roseInternalCooldownTicks > 0
                 || this.random.nextFloat() >= WITHER_ROSE_CHANCE) {
             return;
         }
@@ -783,7 +787,7 @@ public final class WitherWolf extends AbstractWolfismWolf {
 
             level.setBlock(pos, Blocks.WITHER_ROSE.defaultBlockState(), 3);
             roseInternalCooldownTicks = WITHER_ROSE_INTERNAL_COOLDOWN_TICKS;
-            level.sendParticles(
+            WolfVfx.sendParticles("wither_wolf", level,
                     ParticleTypes.SOUL,
                     pos.getX() + 0.5D,
                     pos.getY() + 0.55D,
@@ -833,7 +837,7 @@ public final class WitherWolf extends AbstractWolfismWolf {
         }
 
         if (touched) {
-            level.sendParticles(
+            WolfVfx.sendParticles("wither_wolf", level,
                     ParticleTypes.SMOKE,
                     this.getX(), this.getY() + 0.40D, this.getZ(),
                     12,
@@ -858,7 +862,7 @@ public final class WitherWolf extends AbstractWolfismWolf {
 
         tryPlaceWitherRose(level, living);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("wither_wolf", level,
                 ParticleTypes.SOUL,
                 living.getX(), living.getY(0.55D), living.getZ(),
                 7, 0.24D, 0.24D, 0.24D, 0.015D);
@@ -932,7 +936,7 @@ public final class WitherWolf extends AbstractWolfismWolf {
             }
 
             if (threatensFamily) {
-                level.sendParticles(
+                WolfVfx.sendParticles("wither_wolf", level,
                         ParticleTypes.SOUL_FIRE_FLAME,
                         skull.getX(), skull.getY(), skull.getZ(),
                         12, 0.22D, 0.22D, 0.22D, 0.025D);
@@ -940,8 +944,8 @@ public final class WitherWolf extends AbstractWolfismWolf {
             }
         }
 
-        if (activation || this.tickCount % 10 == 0) {
-            level.sendParticles(
+        if (activation || this.isWolfismWorkTick(10)) {
+            WolfVfx.sendParticles("wither_wolf", level,
                     ParticleTypes.SOUL,
                     this.getX(), this.getY() + 0.55D, this.getZ(),
                     activation ? 34 : 12,
@@ -973,11 +977,11 @@ public final class WitherWolf extends AbstractWolfismWolf {
         witherHeartTicks = WITHER_HEART_DURATION_TICKS;
         witherHeartCooldownTicks = WITHER_HEART_COOLDOWN_TICKS;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("wither_wolf", level,
                 ParticleTypes.SOUL_FIRE_FLAME,
                 this.getX(), this.getY() + 0.60D, this.getZ(),
                 28, 0.75D, 0.55D, 0.75D, 0.025D);
-        this.playSound(SoundEvents.WITHER_AMBIENT, 0.72F, 1.18F);
+        this.playSound(this.getWolfismGrowlSound(), 0.72F, 1.18F);
     }
 
     private void tickWitherHeart(ServerLevel level) {
@@ -1003,15 +1007,15 @@ public final class WitherWolf extends AbstractWolfismWolf {
         witherHeartTicks = 0;
         projectileCooldownTicks = Math.min(projectileCooldownTicks, 4);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("wither_wolf", level,
                 ParticleTypes.SMOKE,
                 this.getX(), this.getY() + 0.58D, this.getZ(),
                 54, 1.35D, 0.85D, 1.35D, 0.045D);
-        level.sendParticles(
+        WolfVfx.sendParticles("wither_wolf", level,
                 ParticleTypes.SOUL_FIRE_FLAME,
                 this.getX(), this.getY() + 0.62D, this.getZ(),
                 32, 1.00D, 0.65D, 1.00D, 0.035D);
-        this.playSound(SoundEvents.WITHER_AMBIENT, 1.0F, 0.72F);
+        this.playSound(this.getWolfismGrowlSound(), 1.0F, 0.72F);
     }
 
     private void tickWitherRage(ServerLevel level) {
@@ -1035,7 +1039,7 @@ public final class WitherWolf extends AbstractWolfismWolf {
             double z = this.getZ() + Math.sin(angle) * radius;
             double y = this.getY() + 0.45D + 0.22D * Math.sin(angle * 2.0D);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("wither_wolf", level,
                     (i & 1) == 0 ? ParticleTypes.SOUL : ParticleTypes.SMOKE,
                     x, y, z,
                     1, 0.015D, 0.015D, 0.015D, 0.005D);
@@ -1138,7 +1142,8 @@ public final class WitherWolf extends AbstractWolfismWolf {
             return false;
         }
 
-        boolean anotherWildWitherWolf = !serverLevel.getEntitiesOfClass(
+        // Respect WorldGenRegion's entity view when spawning during chunk generation.
+        boolean anotherWildWitherWolf = !level.getEntitiesOfClass(
                         WitherWolf.class,
                         new AABB(pos).inflate(64.0D, 32.0D, 64.0D),
                         wolf -> wolf.isAlive() && !wolf.isTame())

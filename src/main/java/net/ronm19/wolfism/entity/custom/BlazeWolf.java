@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -308,12 +310,12 @@ public final class BlazeWolf extends AbstractWolfismWolf {
             tickNormalBarrage(level);
         }
 
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
             pulseBlazesPresence(level);
         }
 
         if (this.tickCount % 18 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("blaze_wolf", level,
                     infernoTicks > 0 ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME,
                     this.getX(), this.getY() + 0.50D, this.getZ(),
                     infernoTicks > 0 ? 4 : 2,
@@ -359,7 +361,7 @@ public final class BlazeWolf extends AbstractWolfismWolf {
             --fireShieldTicks;
             if (this.tickCount % 5 == 0) {
                 interceptHostileFireballs(level);
-                level.sendParticles(
+                WolfVfx.sendParticles("blaze_wolf", level,
                         ParticleTypes.FLAME,
                         this.getX(), this.getY() + 0.55D, this.getZ(),
                         10, 0.70D, 0.55D, 0.70D, 0.015D);
@@ -456,7 +458,7 @@ public final class BlazeWolf extends AbstractWolfismWolf {
         double distanceSqr = this.distanceToSqr(target);
         if (distanceSqr > BLAZE_PREFERRED_MAX_RANGE * BLAZE_PREFERRED_MAX_RANGE) {
             this.getNavigation().moveTo(target, furyTicks > 0 || infernoTicks > 0 ? 1.20D : 1.10D);
-        } else if (!this.getSensing().hasLineOfSight(target) && this.tickCount % 10 == 0) {
+        } else if (!this.getSensing().hasLineOfSight(target) && this.isWolfismWorkTick(10)) {
             // Move toward the target enough to hunt for a new firing lane rather
             // than standing behind a wall firing nothing forever.
             this.getNavigation().moveTo(target, 1.08D);
@@ -578,7 +580,7 @@ public final class BlazeWolf extends AbstractWolfismWolf {
 
         this.getLookControl().setLookAt(target, 35.0F, 35.0F);
         this.playSound(SoundEvents.BLAZE_SHOOT, 0.90F, 1.02F + this.random.nextFloat() * 0.13F);
-        level.sendParticles(
+        WolfVfx.sendParticles("blaze_wolf", level,
                 ParticleTypes.FLAME,
                 muzzle.x, muzzle.y, muzzle.z,
                 infernoTicks > 0 ? 9 : 5,
@@ -649,11 +651,11 @@ public final class BlazeWolf extends AbstractWolfismWolf {
         angerCooldownTicks = ANGER_COOLDOWN;
         barrageCooldownTicks = Math.min(barrageCooldownTicks, 8);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blaze_wolf", level,
                 ParticleTypes.FLAME,
                 this.getX(), this.getY() + 0.55D, this.getZ(),
                 24, 0.65D, 0.50D, 0.65D, 0.035D);
-        this.playSound(SoundEvents.BLAZE_AMBIENT, 0.85F, 1.10F);
+        this.playSound(this.getWolfismGrowlSound(), 0.85F, 1.10F);
     }
 
     private void startBlazingFury(ServerLevel level) {
@@ -662,11 +664,11 @@ public final class BlazeWolf extends AbstractWolfismWolf {
         angerTicks = 0;
         barrageCooldownTicks = Math.min(barrageCooldownTicks, 5);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blaze_wolf", level,
                 ParticleTypes.FLAME,
                 this.getX(), this.getY() + 0.58D, this.getZ(),
                 38, 0.90D, 0.62D, 0.90D, 0.045D);
-        level.sendParticles(
+        WolfVfx.sendParticles("blaze_wolf", level,
                 ParticleTypes.LARGE_SMOKE,
                 this.getX(), this.getY() + 0.58D, this.getZ(),
                 12, 0.60D, 0.45D, 0.60D, 0.025D);
@@ -682,11 +684,11 @@ public final class BlazeWolf extends AbstractWolfismWolf {
         barrageCooldownTicks = 0;
         barrageShotDelayTicks = 0;
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blaze_wolf", level,
                 ParticleTypes.FLAME,
                 this.getX(), this.getY() + 0.62D, this.getZ(),
                 60, 1.35D, 0.85D, 1.35D, 0.055D);
-        level.sendParticles(
+        WolfVfx.sendParticles("blaze_wolf", level,
                 ParticleTypes.SOUL_FIRE_FLAME,
                 this.getX(), this.getY() + 0.62D, this.getZ(),
                 24, 0.90D, 0.65D, 0.90D, 0.030D);
@@ -697,7 +699,7 @@ public final class BlazeWolf extends AbstractWolfismWolf {
         double rotation = this.tickCount * 0.30D;
         for (int i = 0; i < count; ++i) {
             double angle = rotation + (Math.PI * 2.0D * i) / count;
-            level.sendParticles(
+            WolfVfx.sendParticles("blaze_wolf", level,
                     (i & 1) == 0 ? ParticleTypes.FLAME : ParticleTypes.SOUL_FIRE_FLAME,
                     this.getX() + Math.cos(angle) * radius,
                     this.getY() + 0.50D + Math.sin(angle * 2.0D) * 0.18D,
@@ -718,7 +720,7 @@ public final class BlazeWolf extends AbstractWolfismWolf {
 
         interceptHostileFireballs(level);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blaze_wolf", level,
                 ParticleTypes.FLAME,
                 this.getX(), this.getY() + 0.55D, this.getZ(),
                 30, 0.95D, 0.65D, 0.95D, 0.035D);
@@ -733,7 +735,7 @@ public final class BlazeWolf extends AbstractWolfismWolf {
                 this.getBoundingBox().inflate(4.5D),
                 projectile -> projectile.isAlive() && projectile.getOwner() != this)) {
             if (projectile.getOwner() == null || !isBlazeFamilyMember(projectile.getOwner())) {
-                level.sendParticles(
+                WolfVfx.sendParticles("blaze_wolf", level,
                         ParticleTypes.FLAME,
                         projectile.getX(), projectile.getY(), projectile.getZ(),
                         8, 0.18D, 0.18D, 0.18D, 0.02D);
@@ -764,7 +766,7 @@ public final class BlazeWolf extends AbstractWolfismWolf {
         blazeChargeCooldownTicks = BLAZE_CHARGE_COOLDOWN;
         this.getNavigation().stop();
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blaze_wolf", level,
                 ParticleTypes.FLAME,
                 this.getX(), this.getY() + 0.40D, this.getZ(),
                 18, 0.45D, 0.35D, 0.45D, 0.035D);
@@ -782,7 +784,7 @@ public final class BlazeWolf extends AbstractWolfismWolf {
         this.hurtMarked = true;
         this.setSprinting(true);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("blaze_wolf", level,
                 ParticleTypes.FLAME,
                 this.getX() - blazeChargeDirection.x * 0.40D,
                 this.getY() + 0.35D,
@@ -822,8 +824,8 @@ public final class BlazeWolf extends AbstractWolfismWolf {
                     false), this);
         }
 
-        if (this.tickCount % 20 == 0) {
-            level.sendParticles(
+        if (this.isWolfismWorkTick(20)) {
+            WolfVfx.sendParticles("blaze_wolf", level,
                     ParticleTypes.FLAME,
                     this.getX(), this.getY() + 0.25D, this.getZ(),
                     8, BLAZE_PRESENCE_RADIUS * 0.35D, 0.25D, BLAZE_PRESENCE_RADIUS * 0.35D, 0.005D);
@@ -953,7 +955,8 @@ public final class BlazeWolf extends AbstractWolfismWolf {
         }
 
         // Rare, solitary natural sightings. Tamed Blaze Wolves do not suppress spawns.
-        return serverLevel.getEntitiesOfClass(
+        // The generation accessor supplies an empty entity view instead of live server storage.
+        return level.getEntitiesOfClass(
                         BlazeWolf.class,
                         new AABB(pos).inflate(56.0D, 28.0D, 56.0D),
                         wolf -> wolf.isAlive() && !wolf.isTame())

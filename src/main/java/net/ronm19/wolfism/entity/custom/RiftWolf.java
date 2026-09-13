@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.Comparator;
@@ -1570,7 +1572,7 @@ public final class RiftWolf extends AbstractWolfismWolf {
             double angle =
                     Math.PI * 2.0D * i / points;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("rift_wolf", level,
                     opening
                             ? ParticleTypes.PORTAL
                             : ParticleTypes.REVERSE_PORTAL,

@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -39,13 +41,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LightBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
 import net.ronm19.wolfism.entity.AbstractWolfismWolf;
+import net.ronm19.wolfism.entity.ai.support.HalloweenLightState;
 import net.ronm19.wolfism.entity.holiday.AbstractWolfismHolidayWolf;
 import net.ronm19.wolfism.registry.ModEntities;
 import net.ronm19.wolfism.registry.ModGameRules;
@@ -77,18 +79,8 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
     public static final double FRIGHT_SENSE_DARK_RADIUS = 30.0D;
     public static final double FRIGHT_SENSE_DAY_RADIUS = 20.0D;
 
-    private static final int PERSONAL_LIGHT_LEVEL = 10;
     private static final int LIGHT_UPDATE_INTERVAL = 4;
 
-    /*
-     * Daytime natural spawning still uses vanilla's random creature spawn candidates.
-     * A 10-block pumpkin check made the effective spawn area tiny enough that a wolf
-     * could practically never pass the daytime rule. Treat pumpkins as a wider
-     * attraction/haunting anchor instead: the wolf still needs a pumpkin patch in
-     * the local area, but vanilla has enough valid candidate positions to find one.
-     */
-    private static final int DAYTIME_PUMPKIN_RADIUS = 32;
-    private static final int DAYTIME_PUMPKIN_VERTICAL_RADIUS = 6;
 
     private static final int HOWL_COOLDOWN = 20 * 18;
     private static final int TRICK_OR_TREAT_COOLDOWN = 20 * 24;
@@ -106,7 +98,9 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
     private int pumpkinGuardPulseTicks;
     private int lightUpdateTicks;
 
-    private BlockPos placedPersonalLight;
+    private long darknessSampleTick = Long.MIN_VALUE;
+    private BlockPos darknessSamplePosition;
+    private boolean sampledDarkEnvironment;
 
     private static final class BrainHolder {
         private static final Brain.Provider<HalloweenWolf> PROVIDER =
@@ -185,6 +179,17 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
         return date.getMonthValue() == 10;
     }
 
+    /**
+     * Shared Halloween-season gate used by both ordinary nighttime natural
+     * spawning and the daytime pumpkin-anchor event.
+     *
+     * <p>The development gamerule keeps this testable outside October.</p>
+     */
+    public static boolean isHalloweenSeasonOpen(ServerLevel level) {
+        return level.getGameRules().get(ModGameRules.FORCE_HOLIDAY_SPAWNS.get())
+                || LocalDate.now().getMonthValue() == 10;
+    }
+
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
@@ -203,11 +208,11 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
                     this.level().broadcastEntityEvent(this, (byte) 7);
 
                     if (this.level() instanceof ServerLevel level) {
-                        level.sendParticles(
+                        WolfVfx.sendParticles("halloween_wolf", level,
                                 ParticleTypes.FLAME,
                                 this.getX(), this.getY(0.65D), this.getZ(),
                                 24, 0.6D, 0.45D, 0.6D, 0.02D);
-                        level.sendParticles(
+                        WolfVfx.sendParticles("halloween_wolf", level,
                                 ParticleTypes.WITCH,
                                 this.getX(), this.getY(0.65D), this.getZ(),
                                 18, 0.65D, 0.50D, 0.65D, 0.02D);
@@ -233,6 +238,7 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
             return;
         }
 
+        if (this.isRemoved()) return;
         tickCooldowns();
         tickHalloweenLighting(level);
 
@@ -317,8 +323,19 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
     // ---------------------------------------------------------------------
 
     public boolean isHalloweenDarkEnvironment(ServerLevel level) {
-        return !level.isBrightOutside()
-                || level.getMaxLocalRawBrightness(this.blockPosition()) <= 8;
+        if (!level.isBrightOutside()) return true;
+        BlockPos pos = this.blockPosition();
+        // Daylight is independent of personal block light and must immediately
+        // end dark-room presentation when the wolf walks back into sunlight.
+        if (level.getBrightness(LightLayer.SKY, pos) - level.getSkyDarken() > 8) return false;
+        if (level.getBrightness(LightLayer.BLOCK, pos) <= 8) return true;
+        long now = level.getGameTime();
+        if (!pos.equals(darknessSamplePosition) || now - darknessSampleTick >= LIGHT_UPDATE_INTERVAL + 1) {
+            sampledDarkEnvironment = !HalloweenLightState.get(level).hasBrightExternalBlockLight(level, pos);
+            darknessSamplePosition = pos.immutable();
+            darknessSampleTick = now;
+        }
+        return sampledDarkEnvironment;
     }
 
     public boolean isHalloweenIlluminated() {
@@ -337,11 +354,11 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
                 .filter(LivingEntity::isAlive)
                 .isPresent();
 
-        boolean active = this.isHalloweenDarkEnvironment(level)
+        boolean active = this.isAlive() && (this.isHalloweenDarkEnvironment(level)
                 || sensedThreat
                 || this.getTarget() != null
                 || hauntedGroundTicks > 0
-                || nightOfFrightTicks > 0;
+                || nightOfFrightTicks > 0);
 
         this.entityData.set(DATA_HALLOWEEN_ILLUMINATED, active);
 
@@ -352,74 +369,16 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
         lightUpdateTicks = LIGHT_UPDATE_INTERVAL;
 
         if (!active) {
-            clearPersonalLight(level);
+            HalloweenLightState.releaseOwner(level, this.getUUID());
             return;
         }
-
-        BlockPos desired = findPersonalLightPosition(level);
-        if (desired == null) {
-            clearPersonalLight(level);
-            return;
-        }
-
-        if (placedPersonalLight != null && !placedPersonalLight.equals(desired)) {
-            clearPersonalLight(level);
-        }
-
-        if (placedPersonalLight != null && placedPersonalLight.equals(desired)) {
-            return;
-        }
-
-        BlockState current = level.getBlockState(desired);
-        if (current.isAir()) {
-            BlockState lightState = Blocks.LIGHT.defaultBlockState()
-                    .setValue(LightBlock.LEVEL, PERSONAL_LIGHT_LEVEL);
-            level.setBlock(desired, lightState, 3);
-            placedPersonalLight = desired.immutable();
-        }
-    }
-
-    private BlockPos findPersonalLightPosition(ServerLevel level) {
-        BlockPos feet = this.blockPosition();
-        if (placedPersonalLight != null && placedPersonalLight.equals(feet)) {
-            return feet;
-        }
-        if (level.getBlockState(feet).isAir()) {
-            return feet;
-        }
-
-        BlockPos head = feet.above();
-        if (placedPersonalLight != null && placedPersonalLight.equals(head)) {
-            return head;
-        }
-        if (level.getBlockState(head).isAir()) {
-            return head;
-        }
-        return null;
-    }
-
-    private void clearPersonalLight(ServerLevel level) {
-        if (placedPersonalLight == null) {
-            return;
-        }
-
-        BlockPos old = placedPersonalLight;
-        placedPersonalLight = null;
-
-        if (!level.getBlockState(old).is(Blocks.LIGHT)) {
-            return;
-        }
-
-        // This wolf removes only the light position it personally placed.
-        // Another illuminated Halloween Wolf will replace its own light on its
-        // next lighting update, which avoids permanent ghost Light blocks.
-        level.removeBlock(old, false);
+        HalloweenLightState.get(level).follow(level, this.getUUID(), this.blockPosition());
     }
 
     @Override
     public void onRemoval(Entity.RemovalReason reason) {
         if (this.level() instanceof ServerLevel level) {
-            clearPersonalLight(level);
+            HalloweenLightState.releaseOwner(level, this.getUUID());
         }
         super.onRemoval(reason);
     }
@@ -480,13 +439,13 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
 
     private void useHauntingHowl(ServerLevel level) {
         howlCooldownTicks = HOWL_COOLDOWN;
-        this.playSound(SoundEvents.SCULK_SHRIEKER_SHRIEK, 0.75F, 1.35F);
+        this.playSound(this.getWolfismHowlSound(), 0.90F, 1.0F);
 
-        level.sendParticles(
+        WolfVfx.sendParticles("halloween_wolf", level,
                 ParticleTypes.WITCH,
                 this.getX(), this.getY(0.7D), this.getZ(),
                 34, 1.2D, 0.65D, 1.2D, 0.03D);
-        level.sendParticles(
+        WolfVfx.sendParticles("halloween_wolf", level,
                 ParticleTypes.SMOKE,
                 this.getX(), this.getY(0.55D), this.getZ(),
                 28, 1.0D, 0.45D, 1.0D, 0.025D);
@@ -507,8 +466,8 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
         int actualDuration = boss
                 ? Math.max(20, duration / 4)
                 : elite
-                ? Math.max(30, duration / 2)
-                : duration;
+                    ? Math.max(30, duration / 2)
+                    : duration;
 
         enemy.addEffect(new MobEffectInstance(
                 MobEffects.DARKNESS,
@@ -588,7 +547,7 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
         family.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 5, 0, false, true));
         family.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 8, 0, false, true));
 
-        level.sendParticles(
+        WolfVfx.sendParticles("halloween_wolf", level,
                 ParticleTypes.HAPPY_VILLAGER,
                 family.getX(), family.getY(0.7D), family.getZ(),
                 18, 0.5D, 0.45D, 0.5D, 0.03D);
@@ -599,7 +558,7 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
         applyFright(threat, 20 * 7, false);
         threat.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 20 * 4, 0, false, true));
 
-        level.sendParticles(
+        WolfVfx.sendParticles("halloween_wolf", level,
                 ParticleTypes.WITCH,
                 threat.getX(), threat.getY(0.7D), threat.getZ(),
                 22, 0.6D, 0.55D, 0.6D, 0.035D);
@@ -664,7 +623,7 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
         this.entityData.set(DATA_HAUNTED_GROUND, true);
 
         this.playSound(SoundEvents.SOUL_ESCAPE.value(), 0.9F, 0.75F);
-        level.sendParticles(
+        WolfVfx.sendParticles("halloween_wolf", level,
                 ParticleTypes.SOUL,
                 this.getX(), this.getY(0.3D), this.getZ(),
                 38, 2.2D, 0.25D, 2.2D, 0.035D);
@@ -677,17 +636,17 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
         }
 
         if (this.tickCount % 8 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("halloween_wolf", level,
                     ParticleTypes.WITCH,
                     this.getX(), this.getY(0.25D), this.getZ(),
                     9, 4.5D, 0.20D, 4.5D, 0.01D);
-            level.sendParticles(
+            WolfVfx.sendParticles("halloween_wolf", level,
                     ParticleTypes.SMOKE,
                     this.getX(), this.getY(0.18D), this.getZ(),
                     11, 4.0D, 0.18D, 4.0D, 0.015D);
         }
 
-        if (this.tickCount % 20 == 0) {
+        if (this.isWolfismWorkTick(20)) {
             for (LivingEntity enemy : getNearbyHalloweenThreats(level, 11.0D)) {
                 enemy.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 35, 0, false, true));
                 enemy.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 45, 0, false, true));
@@ -713,11 +672,11 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
         this.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, NIGHT_OF_FRIGHT_DURATION, 0, false, false));
 
         this.playSound(SoundEvents.SCULK_SHRIEKER_SHRIEK, 1.1F, 0.78F);
-        level.sendParticles(
+        WolfVfx.sendParticles("halloween_wolf", level,
                 ParticleTypes.WITCH,
                 this.getX(), this.getY(0.65D), this.getZ(),
                 70, 2.0D, 1.0D, 2.0D, 0.05D);
-        level.sendParticles(
+        WolfVfx.sendParticles("halloween_wolf", level,
                 ParticleTypes.FLAME,
                 this.getX(), this.getY(0.45D), this.getZ(),
                 44, 1.5D, 0.65D, 1.5D, 0.025D);
@@ -730,17 +689,17 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
         }
 
         if (this.tickCount % 5 == 0) {
-            level.sendParticles(
+            WolfVfx.sendParticles("halloween_wolf", level,
                     ParticleTypes.WITCH,
                     this.getX(), this.getY(0.5D), this.getZ(),
                     12, 5.5D, 0.7D, 5.5D, 0.015D);
-            level.sendParticles(
+            WolfVfx.sendParticles("halloween_wolf", level,
                     ParticleTypes.SOUL,
                     this.getX(), this.getY(0.35D), this.getZ(),
                     8, 5.0D, 0.4D, 5.0D, 0.01D);
         }
 
-        if (this.tickCount % 10 == 0) {
+        if (this.isWolfismWorkTick(10)) {
             for (LivingEntity enemy : getNearbyHalloweenThreats(level, 17.0D)) {
                 applyFright(enemy, 45, true);
 
@@ -761,21 +720,21 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
     @Override
     protected void spawnHolidayRecoveryParticles(ServerLevel level, boolean finishing) {
         if (finishing) {
-            level.sendParticles(
+            WolfVfx.sendParticles("halloween_wolf", level,
                     ParticleTypes.FLAME,
                     this.getX(), this.getY(0.55D), this.getZ(),
                     30, 0.8D, 0.55D, 0.8D, 0.04D);
-            level.sendParticles(
+            WolfVfx.sendParticles("halloween_wolf", level,
                     ParticleTypes.WITCH,
                     this.getX(), this.getY(0.65D), this.getZ(),
                     22, 0.8D, 0.55D, 0.8D, 0.035D);
             this.playSound(SoundEvents.PUMPKIN_CARVE, 0.8F, 1.25F);
         } else {
-            level.sendParticles(
+            WolfVfx.sendParticles("halloween_wolf", level,
                     ParticleTypes.SMOKE,
                     this.getX(), this.getY(0.45D), this.getZ(),
                     7, 0.45D, 0.30D, 0.45D, 0.015D);
-            level.sendParticles(
+            WolfVfx.sendParticles("halloween_wolf", level,
                     ParticleTypes.FLAME,
                     this.getX(), this.getY(0.38D), this.getZ(),
                     3, 0.35D, 0.20D, 0.35D, 0.01D);
@@ -803,8 +762,7 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
             return false;
         }
 
-        boolean forced = serverLevel.getGameRules().get(ModGameRules.FORCE_HOLIDAY_SPAWNS.get());
-        if (!forced && LocalDate.now().getMonthValue() != 10) {
+        if (!isHalloweenSeasonOpen(serverLevel)) {
             return false;
         }
 
@@ -823,70 +781,16 @@ public final class HalloweenWolf extends AbstractWolfismHolidayWolf {
             return false;
         }
 
-        // At night Halloween Wolves are free common forest/plains spawns.
-        if (!serverLevel.isBrightOutside()) {
-            return true;
-        }
-
-        // Daytime sightings are anchored to a local pumpkin patch / placed pumpkin area.
-        // The wider attraction radius keeps the holiday encounter common instead of
-        // requiring vanilla's random spawn candidate to land almost on top of a pumpkin.
-        return hasPumpkinNearby(
-                level,
-                pos,
-                DAYTIME_PUMPKIN_RADIUS,
-                DAYTIME_PUMPKIN_VERTICAL_RADIUS);
-    }
-
-    private static boolean hasPumpkinNearby(
-            ServerLevelAccessor level,
-            BlockPos origin,
-            int horizontalRadius,
-            int verticalRadius) {
-        int minX = origin.getX() - horizontalRadius;
-        int maxX = origin.getX() + horizontalRadius;
-        int minY = origin.getY() - verticalRadius;
-        int maxY = origin.getY() + verticalRadius;
-        int minZ = origin.getZ() - horizontalRadius;
-        int maxZ = origin.getZ() + horizontalRadius;
-
         /*
-         * Spawn-placement predicates may run from WorldGenRegion while a chunk is
-         * still being generated. WorldGenRegion is intentionally backed by only a
-         * limited chunk cache; asking getBlockState() for a position outside that
-         * cache throws "Requested chunk unavailable during world generation".
+         * Nighttime uses the ordinary biome spawn list and remains intentionally
+         * common. Bright daytime is handled separately by
+         * HalloweenWolfSeasonalEvents, where pumpkins act as real encounter
+         * anchors instead of a low-probability vanilla spawn predicate.
          *
-         * Never force/request neighboring chunks from a spawn predicate. If a
-         * candidate position lies in a chunk that this accessor does not currently
-         * have, simply skip it. Runtime ServerLevel checks can still see the full
-         * loaded 32-block attraction area, while worldgen stays completely safe.
+         * Keeping block searches out of this predicate also guarantees that chunk
+         * generation never tries to inspect terrain outside WorldGenRegion's cache.
          */
-        BlockPos.MutableBlockPos scan = new BlockPos.MutableBlockPos();
-
-        for (int x = minX; x <= maxX; x++) {
-            int chunkX = x >> 4;
-
-            for (int z = minZ; z <= maxZ; z++) {
-                int chunkZ = z >> 4;
-
-                if (!level.hasChunk(chunkX, chunkZ)) {
-                    continue;
-                }
-
-                for (int y = minY; y <= maxY; y++) {
-                    scan.set(x, y, z);
-                    BlockState state = level.getBlockState(scan);
-
-                    if (state.is(Blocks.PUMPKIN)
-                            || state.is(Blocks.CARVED_PUMPKIN)
-                            || state.is(Blocks.JACK_O_LANTERN)) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
+        return !serverLevel.isBrightOutside();
     }
 
     // ---------------------------------------------------------------------

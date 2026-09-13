@@ -24,10 +24,23 @@ sourceSets.main.resources {
     // Exclude common development only resources from finalized outputs
     exclude("**/*.bbmodel") // BlockBench project files
 
-    exclude("src/generated/**/.cache") // datagen cache files
+    exclude(".cache/**", "**/.cache/**") // Paths are relative to each resource root.
+    exclude("**/.idea/**", "**/.gradle/**", "**/__pycache__/**", "**/*.iml", "**/*.log")
 }
 
 repositories {
+
+    maven {
+        name = 'ModrinthOfficial'
+        url = 'https://api.modrinth.com/maven'
+        content { includeGroup 'maven.modrinth' }
+    }
+
+    maven {
+        name = 'LowDragOfficial'
+        url = 'https://maven.firstdark.dev/snapshots'
+        content { includeGroupByRegex 'com\\.lowdragmc\\..*' }
+    }
 
     maven {
         url = "https://www.cursemaven.com"
@@ -54,23 +67,12 @@ neoForge {
     runs {
         client {
             client()
-            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
         server {
             server()
             programArgument '--nogui'
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
-        // This run config launches GameTestServer and runs all registered gametests, then exits.
-        // By default, the server will crash when no gametests are provided.
-        // The gametest system is also enabled by default for other run configs under the /test command.
-        gameTestServer {
-            type = "gameTestServer"
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        }
-
         data {
             clientData()
             // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
@@ -112,10 +114,56 @@ neoForge {
 // "optional", meaning it will not be pulled by dependents of this mod.
 configurations {
     runtimeClasspath.extendsFrom localRuntime
+    shogiApiArchive {
+        canBeConsumed = false
+        canBeResolved = true
+        transitive = false
+    }
 }
 
 dependencies {
-    implementation "curse.maven:terrablender-neoforge-940057:7834071"
+    // Optional travel integration: compile against exact official releases;
+    // enable them in local development runs with -PwithWaystones.
+    compileOnly('maven.modrinth:waystones:VaeMtOuU') { transitive = false }
+    compileOnly('maven.modrinth:balm:XfUUh0yW') { transitive = false }
+    compileOnly('maven.modrinth:shogi:LVd3JsbR') { transitive = false }
+    shogiApiArchive('maven.modrinth:shogi:LVd3JsbR') { transitive = false }
+    if (project.hasProperty('withWaystones')) {
+        localRuntime('maven.modrinth:waystones:VaeMtOuU') { transitive = false }
+        localRuntime('maven.modrinth:balm:XfUUh0yW') { transitive = false }
+        localRuntime('maven.modrinth:shogi:LVd3JsbR') { transitive = false }
+    }
+
+    // CurseMaven's file ID is not the library's Maven identity. Preserve that
+    // exact binary, but let Jar-in-Jar negotiate the author's verified coordinate.
+    components.withModule('curse.maven:terrablender-neoforge-940057') {
+        allVariants {
+            withCapabilities {
+                removeCapability('curse.maven', 'terrablender-neoforge-940057')
+                addCapability('com.github.glitchfiend', 'TerraBlender-neoforge', '26.1-26.1.0.2')
+            }
+        }
+    }
+    jarJar(implementation('curse.maven:terrablender-neoforge-940057')) {
+        transitive = false
+        version { strictly '7834071' }
+        capabilities { requireCapability('com.github.glitchfiend:TerraBlender-neoforge') }
+    }
+
+    // Official 26.1 builds; the published mod metadata supports Minecraft 26.1–26.1.2.
+    // Disable transitive resolution: LDLib2 bundles its Kotlin/Taffy runtime, and its
+    // development POM must not silently replace this project's NeoForge version.
+    jarJar(implementation('com.lowdragmc.photon:photon-neoforge-26.1')) {
+        transitive = false
+        version { strictly photon_version }
+    }
+    jarJar(implementation('com.lowdragmc.ldlib2:ldlib2-neoforge-26.1')) {
+        transitive = false
+        version { strictly ldlib2_version }
+    }
+    // Photon already includes the unchanged KilaGraph jar. Keep a direct dev
+    // dependency, but avoid a redundant second embedded copy in Wolfism.
+    implementation("com.lowdragmc.kilagraph:kilagraph-neoforge-26.1:${kilagraph_version}") { transitive = false }
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -140,6 +188,19 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 }
 
+// Shogi ships its API as a nested jar. Expose those unchanged classes only to
+// javac; NeoForge discovers the same API from Shogi itself in optional runs.
+def extractShogiApi = tasks.register('extractShogiApi', Sync) {
+    from(zipTree(configurations.shogiApiArchive.singleFile)) {
+        include 'META-INF/jarjar/net.blay09.mods.shogi-api-26.1.2.8.jar'
+        eachFile { path = name }
+        includeEmptyDirs = false
+    }
+    into layout.buildDirectory.dir('optional-api/shogi')
+}
+dependencies.add('compileOnly', files(layout.buildDirectory.file(
+        'optional-api/shogi/net.blay09.mods.shogi-api-26.1.2.8.jar')).builtBy(extractShogiApi))
+
 // This block of code expands all declared replace properties in the specified resource targets.
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
@@ -151,6 +212,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_name               : mod_name,
             mod_license            : mod_license,
             mod_version            : mod_version,
+            mod_authors            : mod_authors,
     ]
     inputs.properties replaceProperties
     expand replaceProperties
@@ -160,6 +222,14 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
 // Include the output of "generateModMetadata" as an input directory for the build
 // this works with both building through Gradle and the IDE.
 sourceSets.main.resources.srcDir generateModMetadata
+// Package the same own-project license used in the source release.
+tasks.named('processResources', ProcessResources).configure {
+    from('LICENSE') {
+        into 'META-INF/licenses/wolfism'
+        rename { 'LICENSE.txt' }
+    }
+}
+
 // To avoid having to run "generateModMetadata" manually, make it run on every project reload
 neoForge.ideSyncTask generateModMetadata
 
@@ -172,7 +242,7 @@ publishing {
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/repo"
+            url = "file://${project.projectDir}/repo"
         }
     }
 }

@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wolfism:spawns/primordial_wolf",
+  "spawners": {
+    "type": "wolfism:primordial_wolf",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 3
+  }
+}

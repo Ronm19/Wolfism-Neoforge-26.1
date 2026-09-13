@@ -3,10 +3,12 @@ package net.ronm19.wolfism.event;
 import java.util.Comparator;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.ronm19.wolfism.Wolfism;
 import net.ronm19.wolfism.entity.custom.SalvaWolf;
 
@@ -15,8 +17,8 @@ import net.ronm19.wolfism.entity.custom.SalvaWolf;
  *
  * <p>Tick-based health checks cannot reliably protect a wolf from a large hit
  * that crosses the critical threshold and kills it in the same tick. The
- * incoming-damage event lets Salva spend the wolf's one emergency save before
- * normal health resolution.</p>
+ * resolved-damage event lets Salva spend the wolf's one emergency save after
+ * mitigation and before normal health resolution.</p>
  */
 @EventBusSubscriber(modid = Wolfism.MOD_ID)
 public final class SalvaWolfGameplayEvents {
@@ -24,22 +26,22 @@ public final class SalvaWolfGameplayEvents {
     private SalvaWolfGameplayEvents() {
     }
 
-    @SubscribeEvent
-    public static void onIncomingDamage(
-            LivingIncomingDamageEvent event) {
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onDamagePre(
+            LivingDamageEvent.Pre event) {
 
         LivingEntity victim = event.getEntity();
 
         if (!(victim.level() instanceof ServerLevel level)
                 || victim.isDeadOrDying()
-                || event.getAmount() <= 0.0F) {
+                || event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)
+                || event.getNewDamage() <= 0.0F) {
             return;
         }
 
-        float projectedHealth =
-                victim.getHealth()
-                        + victim.getAbsorptionAmount()
-                        - event.getAmount();
+        float healthDamage = Math.max(0.0F, event.getNewDamage() - victim.getAbsorptionAmount());
+        if (healthDamage <= 0.0F) return;
+        float projectedHealth = victim.getHealth() - healthDamage;
 
         float trigger =
                 victim.getMaxHealth()
@@ -64,14 +66,7 @@ public final class SalvaWolfGameplayEvents {
             return;
         }
 
-        /*
-         * Cancel the dangerous hit, then spend exactly one Last Stand token for
-         * this wolf. If state unexpectedly changed, restore the original hit.
-         */
-        event.setCanceled(true);
-
-        if (!salva.performLastStandSave(level, victim)) {
-            event.setCanceled(false);
-        }
+        // A fully mitigated hit must never consume the companion's emergency token.
+        if (salva.performLastStandSave(level, victim)) event.setNewDamage(0.0F);
     }
 }

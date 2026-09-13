@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.entity.custom;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.Comparator;
@@ -274,7 +276,7 @@ public final class CommandWolf extends AbstractWolfismWolf {
 
             if (focus == null || !isValidCommandThreat(focus)) {
                 clearFocus();
-            } else if (this.tickCount % 10 == 0) {
+            } else if (this.isWolfismWorkTick(10)) {
                 coordinateFocus(level, focus, false);
             }
         }
@@ -289,14 +291,14 @@ public final class CommandWolf extends AbstractWolfismWolf {
         if (executeModeTicks > 0) {
             --executeModeTicks;
 
-            if (this.tickCount % 10 == 0) {
+            if (this.isWolfismWorkTick(10)) {
                 this.addEffect(new MobEffectInstance(
                         MobEffects.SPEED, 18, 0, true, false), this);
                 this.addEffect(new MobEffectInstance(
                         MobEffects.RESISTANCE, 18, 0, true, false), this);
             }
 
-            if (this.tickCount % 10 == 0) {
+            if (this.isWolfismWorkTick(10)) {
                 sendExecutePulse(level, false);
             }
 
@@ -1110,17 +1112,7 @@ public final class CommandWolf extends AbstractWolfismWolf {
         if (entity == this) return true;
 
         if (this.isTame()) {
-            LivingEntity owner = this.getOwner();
-
-            if (entity == owner) return true;
-
-            if (entity instanceof Wolf wolf
-                    && wolf.isTame()
-                    && owner != null) {
-                return wolf.isOwnedBy(owner);
-            }
-
-            return false;
+            return this.isWolfismFamily(entity);
         }
 
         return entity instanceof CommandWolf command
@@ -1423,7 +1415,7 @@ public final class CommandWolf extends AbstractWolfismWolf {
                             + Math.sin(angle)
                             * radius;
 
-            level.sendParticles(
+            WolfVfx.sendParticles("command_wolf", level,
                     ParticleTypes.END_ROD,
                     x,
                     y,
@@ -1450,7 +1442,7 @@ public final class CommandWolf extends AbstractWolfismWolf {
                     28,
                     ParticleTypes.POOF);
 
-            level.sendParticles(
+            WolfVfx.sendParticles("command_wolf", level,
                     ParticleTypes.END_ROD,
                     this.getX(),
                     this.getY() + 0.75D,
@@ -1469,7 +1461,7 @@ public final class CommandWolf extends AbstractWolfismWolf {
             int count,
             ParticleOptions particle) {
 
-        level.sendParticles(
+        WolfVfx.sendParticles("command_wolf", level,
                 particle,
                 center.getX(),
                 center.getY()

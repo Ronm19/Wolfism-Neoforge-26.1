@@ -1,5 +1,7 @@
 package net.ronm19.wolfism.registry.custom.item;
 
+import net.ronm19.wolfism.vfx.WolfVfx;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -17,6 +19,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -130,11 +133,11 @@ public final class WolfStaffItem extends Item {
         setRecallFlashTicks(stack, RECALL_FLASH_TICKS);
         stack.set(DataComponents.ITEM_MODEL, modelId("recall"));
 
-        level.sendParticles(
+        WolfVfx.sendParticles(level,
                 ParticleTypes.END_ROD,
                 player.getX(), player.getY(0.6D), player.getZ(),
                 28, 1.4D, 0.55D, 1.4D, 0.035D);
-        level.sendParticles(
+        WolfVfx.sendParticles(level,
                 ParticleTypes.POOF,
                 player.getX(), player.getY(0.2D), player.getZ(),
                 22, 1.7D, 0.15D, 1.7D, 0.02D);
@@ -154,7 +157,8 @@ public final class WolfStaffItem extends Item {
 
     private static int dispatchFocusedAttack(ServerLevel level, Player player, LivingEntity target) {
         List<AbstractWolfismWolf> available = ownedWolves(level, player, FOCUS_DISPATCH_RADIUS);
-        available.removeIf(wolf -> !wolf.canParticipateInWolfismCombat());
+        available.removeIf(wolf -> !wolf.canParticipateInWolfismCombat()
+                || !wolf.canAttack(target));
 
         double targetDistance = player.distanceTo(target);
         available.sort(Comparator.comparingDouble(
@@ -261,6 +265,11 @@ public final class WolfStaffItem extends Item {
         }
 
         if (entity instanceof Player) {
+            return false;
+        }
+
+        // All tamed wolves are family, including another player's vanilla pet.
+        if (entity instanceof Wolf wolf && wolf.isTame()) {
             return false;
         }
 

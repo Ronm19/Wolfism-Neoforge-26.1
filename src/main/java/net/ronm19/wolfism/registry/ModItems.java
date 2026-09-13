@@ -229,6 +229,31 @@ public final class ModItems {
 
 
 
+
+    public static final DeferredItem<SpawnEggItem> CHRISTMAS_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("christmas_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.CHRISTMAS_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> SAINT_PATRICKS_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("saint_patricks_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.SAINT_PATRICKS_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> NEW_YEARS_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("new_years_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.NEW_YEARS_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> VALENTINES_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("valentines_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.VALENTINES_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> EASTER_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("easter_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.EASTER_WOLF.get())));
+
+    public static final DeferredItem<SpawnEggItem> FIREWORK_WOLF_SPAWN_EGG =
+            ITEMS.registerItem("firework_wolf_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(ModEntities.FIREWORK_WOLF.get())));
+
     private ModItems() {
     }
 }
